@@ -25,7 +25,7 @@ public class StateSwitcher : MonoBehaviour
     UI_Controller controllerSettings;
     UI_Controller controllerInGameMenu;
 
-    public bool animating {
+    public bool Animating {
         get => lastAnimation.IsAnimating;
     }
 
@@ -98,14 +98,13 @@ public class StateSwitcher : MonoBehaviour
     IEnumerator SwitchMenu(State to) {
         lastAnimation = StateToController(state);
         lastAnimation.FadeOut();
-        yield return new WaitUntil(() => !animating);
+        yield return new WaitUntil(() => !Animating);
         lastAnimation.enabled = false;
 
         state = to;
         lastAnimation = StateToController(to);
         lastAnimation.enabled = true;
         lastAnimation.FadeIn();
-        // yield return new WaitUntil(() => !animating);
     }
 
     private void TargetFadeIn(State to) {
@@ -151,8 +150,6 @@ public class StateSwitcher : MonoBehaviour
             case State.MainMenu: {
                 switch (to) {
                     case State.Game: {
-                        // StateToController(State.MainMenu).FadeOut();
-                        // state = State.Game;
                         TargetFadeOut(State.MainMenu);
                         state = to;
                         mainLogic.StartCoroutine(mainLogic.StartGame());
@@ -180,9 +177,6 @@ public class StateSwitcher : MonoBehaviour
                 UnityEngine.Cursor.visible = false;
                 switch (to) {
                     case State.Game: {
-                        // lastAnimation = StateToController(State.InGameMenu);
-                        // StateToController(State.InGameMenu).FadeOut();
-                        // state = State.Game;
                         TargetFadeOut(State.InGameMenu);
                         state = to;
                         mainLogic.StartCoroutine(mainLogic.ResumeGame());
@@ -204,9 +198,6 @@ public class StateSwitcher : MonoBehaviour
             case State.Game: {
                 switch (to) {
                     case State.InGameMenu: {
-                        // lastAnimation = StateToController(State.InGameMenu);
-                        // lastAnimation.enabled = true;
-                        // lastAnimation.FadeIn();
                         TargetFadeIn(State.InGameMenu);
                         StartCoroutine(mainLogic.PauseGame());
                         // state = State.InGameMenu;
@@ -224,10 +215,6 @@ public class StateSwitcher : MonoBehaviour
             case State.Upgrades: {
                 switch (to) {
                     case State.Game: {
-                        // lastAnimation = StateToController(State.Upgrades);
-                        // lastAnimation.FadeOut();
-                        // yield return new WaitUntil(() => !animating);
-                        // lastAnimation.enabled = true;
                         TargetFadeOut(State.Upgrades);
                         state = to;
                         StartCoroutine(mainLogic.ResumeGame());
@@ -240,10 +227,6 @@ public class StateSwitcher : MonoBehaviour
             case State.Start: {
                 switch (to) {
                     case State.MainMenu: {
-                        // lastAnimation = StateToController(State.MainMenu);
-                        // lastAnimation.enabled = true;
-                        // lastAnimation.FadeIn();
-                        // state = State.MainMenu;
                         TargetFadeIn(State.MainMenu);
                         yield break;
                     }

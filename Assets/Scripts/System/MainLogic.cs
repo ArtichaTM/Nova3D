@@ -44,7 +44,8 @@ public class MainLogic : MonoBehaviour
 
     void Update()
     {
-        switch (stateSwitcher.state) {
+        switch (stateSwitcher.state)
+        {
             case State.MainMenu: {
                 return;
             }
