@@ -1,0 +1,15 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/InGameMenu/StyleSheet.uss?fileID=7433441132597879392&amp;guid=888123723f45ab04b831afe89a9062c9&amp;type=3#StyleSheet" />
+    <Style src="project://database/Assets/UI/defaults.uss?fileID=7433441132597879392&amp;guid=0036fbc2f7bee4442bbc3e0591eed396&amp;type=3#defaults" />
+    <ui:VisualElement name="root" style="margin-top: auto; margin-right: auto; margin-bottom: auto; margin-left: auto; min-width: 100%; min-height: 100%; justify-content: center;">
+        <ui:VisualElement name="AlignContainer" class="align-container">
+            <ui:Button text="Continue" name="Continue" class="button text button-hover" />
+        </ui:VisualElement>
+        <ui:VisualElement name="AlignContainer" class="align-container">
+            <ui:Button text="Upgrades" name="Upgrades" class="button text button-hover" />
+        </ui:VisualElement>
+        <ui:VisualElement name="AlignContainer" class="align-container">
+            <ui:Button text="Main Menu" name="MainMenu" class="button text button-hover" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

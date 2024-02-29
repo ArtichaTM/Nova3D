@@ -1,0 +1,42 @@
+.text {
+    color: rgb(255, 255, 255);
+    -unity-text-outline-color: rgba(0, 255, 223, 0);
+    -unity-text-outline-width: 1px;
+    text-shadow: 5px 0 500px rgb(0, 250, 255);
+    letter-spacing: 1px;
+    white-space: nowrap;
+}
+
+.slider {
+    min-width: 200px;
+}
+
+.button {
+    margin-top: 1px;
+    margin-right: auto;
+    margin-bottom: 1px;
+    margin-left: 0;
+    background-color: rgba(0, 0, 0, 0);
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    padding-top: 1px;
+    padding-right: 1px;
+    padding-bottom: 1px;
+    padding-left: 1px;
+}
+
+.button-hover:hover {
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgba(0, 222, 255, 0);
+    color: rgb(150, 255, 255);
+    -unity-text-align: upper-left;
+    letter-spacing: 12px;
+    text-shadow: 4px 4px 500px rgb(0, 255, 255);
+    -unity-font-style: bold;
+    white-space: nowrap;
+    transition-property: color;
+    transition-duration: 0.5s;
+    transition-timing-function: ease;
+}

@@ -1,0 +1,15 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/MainMenu/StyleSheet.uss?fileID=7433441132597879392&amp;guid=afb3a6467ac3edb4a8231bb0d57826e4&amp;type=3#StyleSheet" />
+    <Style src="project://database/Assets/UI/defaults.uss?fileID=7433441132597879392&amp;guid=0036fbc2f7bee4442bbc3e0591eed396&amp;type=3#defaults" />
+    <ui:VisualElement name="Elements" style="flex-grow: 1; max-width: initial; max-height: none; height: auto; margin-top: 5%; margin-right: 5%; margin-bottom: 5%; margin-left: 5%; min-height: 400px;">
+        <ui:Button text="Start" name="Start" class="button text button-hover" />
+        <ui:Button text="Unlocks" name="Unlocks" class="button text button-hover" />
+        <ui:Button text="Learn" name="Learn" class="button text button-hover" />
+        <ui:Button text="Glossary" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Glossary" class="button text button-hover" />
+        <ui:Button text="Changelog" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Changelog" class="button text button-hover" />
+        <ui:Button text="Settings" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Settings" class="button text button-hover" />
+        <ui:Button text="Scores" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Scores" class="button text button-hover" />
+        <ui:Button text="Credits" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Credits" class="button text button-hover" />
+        <ui:Button text="Exit" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Exit" class="button text button-hover" />
+    </ui:VisualElement>
+</ui:UXML>
