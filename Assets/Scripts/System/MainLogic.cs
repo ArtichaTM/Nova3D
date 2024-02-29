@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
 public class MainLogic : MonoBehaviour
@@ -21,19 +22,22 @@ public class MainLogic : MonoBehaviour
     }
 
     public IEnumerator StartGame() {
-        Debug.Log("Starting!");
+        // Debug.Log("StartGame()");
         yield break;
     }
 
     public IEnumerator PauseGame() {
+        // Debug.Log("PauseGame()");
         yield break;
     }
 
     public IEnumerator ResumeGame() {
+        // Debug.Log("ResumeGame()");
         yield break;
     }
 
     public IEnumerator FinishGame() {
+        // Debug.Log("FinishGame()");
         yield break;
     }
 
@@ -48,18 +52,18 @@ public class MainLogic : MonoBehaviour
                     stateSwitcher.StartCoroutine(stateSwitcher.SwitchState(State.InGameMenu));
                     return;
                 }
-                if (Input.GetKeyDown(KeyCode.Space)) {
+                else if (Input.GetKeyDown(KeyCode.Space)) {
                     stateSwitcher.StartCoroutine(stateSwitcher.SwitchState(State.Upgrades));
                     return;
                 }
-                break;
+                return;
             }
             case State.InGameMenu: {
                 if (Input.GetKeyDown(KeyCode.Escape)) {
                     stateSwitcher.StartCoroutine(stateSwitcher.SwitchState(State.Game));
                     return;
                 }
-                break;
+                return;
             }
             case State.Unlocks:
             case State.Learn:

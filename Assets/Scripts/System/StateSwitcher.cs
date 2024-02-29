@@ -48,6 +48,12 @@ public class StateSwitcher : MonoBehaviour
         _ => throw new ArgumentException("There's no UI_Controller for " + state),
     };
 
+    void FixedUpdate() {
+        // Debug.Log("Enabled: " + StateToController(State.InGameMenu).enabled + ", visible: " + StateToController(State.InGameMenu).ui.visible);
+        // Debug.Log("State: " + state);
+        Debug.Log("Last animation: " + lastAnimation);
+    }
+
     public void PostInit()
     {
         // Main Menu
@@ -111,17 +117,20 @@ public class StateSwitcher : MonoBehaviour
 
     public IEnumerator SwitchState(State to) {
         switch (state) {
-            case State.Unlocks:{
-                throw new NotImplementedException(); // TODO
-            }
-            case State.Learn: {
-                throw new NotImplementedException(); // TODO
-            } 
-            case State.Glossary: {
-                throw new NotImplementedException(); // TODO
-            }
-            case State.Changelog: {
-                throw new NotImplementedException(); // TODO
+            case State.Unlocks:
+            case State.Learn:
+            case State.Glossary:
+            case State.Changelog:
+            case State.Scores:
+            case State.Credits: {
+                switch (to) {
+                    case State.MainMenu: {
+                        StartCoroutine(SwitchMenu(State.MainMenu));
+                        yield break;
+                    }
+                    default:
+                        throw new NotSupportedException("Can't switch from from " + state + " submenu to any state besides MainMenu");
+                }
             }
             case State.Settings: {
                 switch (to) {
@@ -131,14 +140,8 @@ public class StateSwitcher : MonoBehaviour
                         yield break;
                     }
                     default:
-                        throw new NotSupportedException("Can't switch from from MainMenu submenu to any state besides MainMenu");
+                        throw new NotSupportedException();
                 }
-            }
-            case State.Scores: {
-                yield break;
-            }
-            case State.Credits: {
-                yield break;
             }
             case State.MainMenu: {
                 switch (to) {
@@ -148,31 +151,35 @@ public class StateSwitcher : MonoBehaviour
                         mainLogic.StartCoroutine(mainLogic.StartGame());
                         yield break;
                     }
-                    case State.Unlocks:
-                        throw new NotImplementedException(); // TODO
-                    case State.Learn: 
-                        throw new NotImplementedException(); // TODO
-                    case State.Glossary: 
-                        throw new NotImplementedException(); // TODO
-                    case State.Changelog: 
-                        throw new NotImplementedException(); // TODO
                     case State.Settings: {
-                        StartCoroutine(SwitchMenu(State.Settings));
+                        // TODO: Update settings
+                        StartCoroutine(SwitchMenu(to));
                         yield break;
                     }
+                    case State.Unlocks:
+                    case State.Learn: 
+                    case State.Glossary: 
+                    case State.Changelog: 
                     case State.Scores: 
-                        throw new NotImplementedException(); // TODO
-                    case State.Credits: 
-                        throw new NotImplementedException(); // TODO
+                    case State.Credits: {
+                        StartCoroutine(SwitchMenu(to));
+                        yield break;
+                    }
+                    default:
+                        throw new NotSupportedException();
                 }
-                break;
             }
             case State.InGameMenu: {
                 switch (to) {
                     case State.Game: {
+                        lastAnimation = StateToController(State.InGameMenu);
                         StateToController(State.InGameMenu).FadeOut();
                         state = State.Game;
                         mainLogic.StartCoroutine(mainLogic.ResumeGame());
+                        yield break;
+                    }
+                    case State.Upgrades: {
+                        StartCoroutine(SwitchMenu(State.Upgrades));
                         yield break;
                     }
                     case State.MainMenu: {
@@ -180,31 +187,40 @@ public class StateSwitcher : MonoBehaviour
                         mainLogic.StartCoroutine(mainLogic.FinishGame());
                         yield break;
                     }
-                    case State.Upgrades: {
-                        StartCoroutine(SwitchMenu(State.Upgrades));
-                        yield break;
-                    }
+                    default:
+                        throw new NotSupportedException();
                 }
-                break;
             }
             case State.Game: {
                 switch (to) {
                     case State.InGameMenu: {
+                        lastAnimation = StateToController(State.InGameMenu);
                         StateToController(State.InGameMenu).FadeIn();
+                        StartCoroutine(mainLogic.PauseGame());
                         state = State.InGameMenu;
                         yield break;
                     }
-                    case State.Upgrades:
-                        throw new NotImplementedException(); // TODO
+                    case State.Upgrades: {
+                        StartCoroutine(SwitchMenu(State.Upgrades));
+                        StartCoroutine(mainLogic.PauseGame());
+                        yield break;
+                    }
+                    default:
+                        throw new NotSupportedException();
                 }
-                break;
             }
             case State.Upgrades: {
                 switch (to) {
-                    case State.Game:
-                        throw new NotImplementedException(); // TODO
+                    case State.Game: {
+                        lastAnimation = StateToController(State.Upgrades);
+                        StateToController(State.Upgrades).FadeOut();
+                        yield return new WaitUntil(() => !animating);
+                        StartCoroutine(mainLogic.ResumeGame());
+                        yield break;
+                    }
+                    default:
+                        throw new NotSupportedException();
                 }
-                break;
             }
             case State.Start: {
                 Assert.AreEqual(State.MainMenu, to);
@@ -212,8 +228,10 @@ public class StateSwitcher : MonoBehaviour
                 lastAnimation = controllerMainMenu;
                 state = State.MainMenu;
                 // yield return new WaitUntil(() => !animating);
-                break;
+                yield break;
             }
+            default:
+                throw new NotSupportedException();
         }
     }
 }

@@ -45,14 +45,6 @@ public class UI_Controller : MonoBehaviour
         ui.SetEnabled(true);
     }
 
-    void show() {
-        this.gameObject.SetActive(true);
-    }
-
-    void hide() {
-        this.gameObject.SetActive(false);
-    }
-
     IEnumerator _fadeOut(float time) {
         while (true) {
             StyleFloat opacity = ui.style.opacity;
