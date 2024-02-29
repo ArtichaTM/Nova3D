@@ -2,44 +2,26 @@ using UnityEngine;
 using System.Collections;
 using System;
 using Unity.VisualScripting;
+using UnityEngine.Assertions;
 
 public class Ship : MonoBehaviour
 {
-    private Rigidbody2D rb;
-    private float cooldown = 0f;
-    public float maxCooldown = 3f;
-    public float speed;
-    public float _Angle = 90;
+    bool GameOn = false;
+    ShipInGame shipInGame;
 
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        rb = GetComponent<Rigidbody2D>();
+    void Start() {
+        shipInGame = GetComponent<ShipInGame>();
+        Debug.Log(shipInGame);
     }
 
-    void MoveForward() {
-        rb.AddRelativeForce(new Vector2(0, 1f));
+    public void StartGame() {
+        Assert.IsFalse(GameOn);
+        shipInGame.enabled = true;
+        shipInGame.rb.velocity = new Vector3(0, 0, 5f);
     }
 
-    void Update()
-    {
-        if (cooldown > 0) {
-            cooldown -= Time.deltaTime;
-        }
-        if (Input.GetMouseButton(0) && !IsReloading()) {
-            Shot();
-        }
-    }
- 
-    void FixedUpdate() {
-        MoveForward();
-    }
-
-    bool IsReloading() { return cooldown > 0; }
-
-    void Shot() {
-        cooldown = maxCooldown;
-
+    public void FinishGame() {
+        Assert.IsTrue(GameOn);
+        shipInGame.enabled = false;
     }
 }

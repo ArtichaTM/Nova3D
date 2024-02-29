@@ -177,6 +177,7 @@ public class StateSwitcher : MonoBehaviour
                 }
             }
             case State.InGameMenu: {
+                UnityEngine.Cursor.visible = false;
                 switch (to) {
                     case State.Game: {
                         // lastAnimation = StateToController(State.InGameMenu);

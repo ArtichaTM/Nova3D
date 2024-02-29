@@ -5,10 +5,12 @@ using UnityEngine;
 public class MainLogic : MonoBehaviour
 {
     StateSwitcher stateSwitcher;
+    Ship ShipScript;
 
     void Start()
     {
         stateSwitcher = GetComponent<StateSwitcher>();
+        ShipScript = GameObject.Find("Ship").GetComponent<Ship>();
         foreach (Transform child in GameObject.Find("UI").transform) {
             child.gameObject.SetActive(true);
         }
@@ -21,7 +23,7 @@ public class MainLogic : MonoBehaviour
     }
 
     public IEnumerator StartGame() {
-        Debug.Log("StartGame()");
+        ShipScript.StartGame();
         yield break;
     }
 
