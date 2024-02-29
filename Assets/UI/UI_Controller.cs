@@ -36,11 +36,13 @@ public class UI_Controller : MonoBehaviour
     }
 
     void OnDisable() {
+        Debug.Log("OnDisable() for " + gameObject.name);
         ui.visible = false;
         ui.SetEnabled(false);
     }
 
     void OnEnable() {
+        Debug.Log("OnEnable() for " + gameObject.name);
         ui.visible = true;
         ui.SetEnabled(true);
     }
@@ -55,6 +57,7 @@ public class UI_Controller : MonoBehaviour
                 ui.style.opacity = new StyleFloat(0f);
                 ui.visible = false;
                 animating = false;
+                enabled = false;
                 break;
             }
             yield return null;
@@ -71,6 +74,7 @@ public class UI_Controller : MonoBehaviour
             if (ui.style.opacity.value >= 1f) {
                 ui.style.opacity = new StyleFloat(1f);
                 animating = false;
+                enabled = true;
                 break;
             }
             yield return null;

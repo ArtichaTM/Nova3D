@@ -8,12 +8,11 @@ public class MainLogic : MonoBehaviour
 
     void Start()
     {
-        this.stateSwitcher = this.GetComponent<StateSwitcher>();
+        stateSwitcher = GetComponent<StateSwitcher>();
         foreach (Transform child in GameObject.Find("UI").transform) {
             child.gameObject.SetActive(true);
         }
         Invoke(nameof(OnRuntimeLoad), 0);
-        
     }
 
     void OnRuntimeLoad() {

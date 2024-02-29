@@ -48,12 +48,6 @@ public class StateSwitcher : MonoBehaviour
         _ => throw new ArgumentException("There's no UI_Controller for " + state),
     };
 
-    void FixedUpdate() {
-        // Debug.Log("Enabled: " + StateToController(State.InGameMenu).enabled + ", visible: " + StateToController(State.InGameMenu).ui.visible);
-        // Debug.Log("State: " + state);
-        Debug.Log("Last animation: " + lastAnimation);
-    }
-
     public void PostInit()
     {
         // Main Menu
@@ -61,19 +55,25 @@ public class StateSwitcher : MonoBehaviour
             StartCoroutine(SwitchState(State.Game));
         };
         controllerMainMenu.ui.Q<Button>("Unlocks").clicked += () => {
+            StartCoroutine(SwitchState(State.Unlocks));
         };
         controllerMainMenu.ui.Q<Button>("Learn").clicked += () => {
+            StartCoroutine(SwitchState(State.Learn));
         };
         controllerMainMenu.ui.Q<Button>("Glossary").clicked += () => {
+            StartCoroutine(SwitchState(State.Glossary));
         };
         controllerMainMenu.ui.Q<Button>("Changelog").clicked += () => {
+            StartCoroutine(SwitchState(State.Changelog));
         };
         controllerMainMenu.ui.Q<Button>("Settings").clicked += () => {
             StartCoroutine(SwitchState(State.Settings));
         };
         controllerMainMenu.ui.Q<Button>("Scores").clicked += () => {
+            StartCoroutine(SwitchState(State.Scores));
         };
         controllerMainMenu.ui.Q<Button>("Credits").clicked += () => {
+            StartCoroutine(SwitchState(State.Credits));
         };
         controllerMainMenu.ui.Q<Button>("Exit").clicked += () => {
             Application.Quit();
