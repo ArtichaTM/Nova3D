@@ -44,7 +44,7 @@ public class UI_Controller : MonoBehaviour
     IEnumerator _fadeOut(float time) {
         while (true) {
             StyleFloat opacity = ui.style.opacity;
-            opacity.value -= Time.deltaTime / time;
+            opacity.value -= Time.unscaledDeltaTime / time;
             ui.style.opacity = opacity;
 
             if (ui.style.opacity.value <= 0f) {
@@ -62,7 +62,7 @@ public class UI_Controller : MonoBehaviour
         ui.visible = true;
         while (true) {
             StyleFloat opacity = ui.style.opacity;
-            opacity.value += Time.deltaTime / time;
+            opacity.value += Time.unscaledDeltaTime / time;
             ui.style.opacity = opacity;
 
             if (ui.style.opacity.value >= 1f) {
