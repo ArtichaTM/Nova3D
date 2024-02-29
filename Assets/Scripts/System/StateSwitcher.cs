@@ -115,6 +115,18 @@ public class StateSwitcher : MonoBehaviour
         // yield return new WaitUntil(() => !animating);
     }
 
+    private void TargetFadeIn(State to) {
+        lastAnimation = StateToController(to);
+        StateToController(to).FadeIn();
+        state = to;
+    }
+
+    private void TargetFadeOut(State to) {
+        lastAnimation = StateToController(to);
+        StateToController(to).FadeOut();
+        state = to;
+    }
+
     public IEnumerator SwitchState(State to) {
         switch (state) {
             case State.Unlocks:
@@ -195,7 +207,8 @@ public class StateSwitcher : MonoBehaviour
                 switch (to) {
                     case State.InGameMenu: {
                         lastAnimation = StateToController(State.InGameMenu);
-                        StateToController(State.InGameMenu).FadeIn();
+                        lastAnimation.enabled = true;
+                        lastAnimation.FadeIn();
                         StartCoroutine(mainLogic.PauseGame());
                         state = State.InGameMenu;
                         yield break;
@@ -213,8 +226,9 @@ public class StateSwitcher : MonoBehaviour
                 switch (to) {
                     case State.Game: {
                         lastAnimation = StateToController(State.Upgrades);
-                        StateToController(State.Upgrades).FadeOut();
+                        lastAnimation.FadeOut();
                         yield return new WaitUntil(() => !animating);
+                        lastAnimation.enabled = true;
                         StartCoroutine(mainLogic.ResumeGame());
                         yield break;
                     }
@@ -223,12 +237,17 @@ public class StateSwitcher : MonoBehaviour
                 }
             }
             case State.Start: {
-                Assert.AreEqual(State.MainMenu, to);
-                controllerMainMenu.FadeIn();
-                lastAnimation = controllerMainMenu;
-                state = State.MainMenu;
-                // yield return new WaitUntil(() => !animating);
-                yield break;
+                switch (to) {
+                    case State.MainMenu: {
+                        lastAnimation = StateToController(State.MainMenu);
+                        lastAnimation.enabled = true;
+                        lastAnimation.FadeIn();
+                        state = State.MainMenu;
+                        yield break;
+                    }
+                    default:
+                        throw new NotSupportedException();
+                }
             }
             default:
                 throw new NotSupportedException();
