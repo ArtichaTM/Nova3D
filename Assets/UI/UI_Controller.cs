@@ -74,7 +74,6 @@ public class UI_Controller : MonoBehaviour
             if (ui.style.opacity.value >= 1f) {
                 ui.style.opacity = new StyleFloat(1f);
                 animating = false;
-                enabled = true;
                 break;
             }
             yield return null;
