@@ -21,22 +21,22 @@ public class MainLogic : MonoBehaviour
     }
 
     public IEnumerator StartGame() {
-        // Debug.Log("StartGame()");
+        Debug.Log("StartGame()");
         yield break;
     }
 
     public IEnumerator PauseGame() {
-        // Debug.Log("PauseGame()");
+        Debug.Log("PauseGame()");
         yield break;
     }
 
     public IEnumerator ResumeGame() {
-        // Debug.Log("ResumeGame()");
+        Debug.Log("ResumeGame()");
         yield break;
     }
 
     public IEnumerator FinishGame() {
-        // Debug.Log("FinishGame()");
+        Debug.Log("FinishGame()");
         yield break;
     }
 

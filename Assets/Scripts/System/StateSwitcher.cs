@@ -26,7 +26,7 @@ public class StateSwitcher : MonoBehaviour
     UI_Controller controllerInGameMenu;
 
     public bool animating {
-        get => lastAnimation.animating;
+        get => lastAnimation.IsAnimating;
     }
 
     void Start()
@@ -95,13 +95,6 @@ public class StateSwitcher : MonoBehaviour
         Settings.transitionsSpeed = controllerSettings.ui.Q<Slider>("transitionSpeed").value;
     }
 
-    public bool AllUIInitialized() {
-        if (controllerMainMenu.initialized == false) {
-            return false;
-        }
-        return true;
-    }
-
     IEnumerator SwitchMenu(State to) {
         lastAnimation = StateToController(state);
         lastAnimation.FadeOut();
@@ -128,7 +121,6 @@ public class StateSwitcher : MonoBehaviour
     }
 
     public IEnumerator SwitchState(State to) {
-        Debug.Log(state + "->" + to);
         switch (state) {
             case State.Unlocks:
             case State.Learn:

@@ -9,10 +9,7 @@ public class UI_Controller : MonoBehaviour
 {
     public VisualElement ui;
     IEnumerator currentAnimation;
-    public bool animating {
-        get; private set;
-    } = false;
-    public bool initialized {
+    public bool IsAnimating {
         get; private set;
     } = false;
 
@@ -22,7 +19,6 @@ public class UI_Controller : MonoBehaviour
         opacity.value = 0f;
         ui.style.opacity = opacity;
         ui.visible = false;
-        initialized = true;
     }
 
     void Awake() {
@@ -30,19 +26,17 @@ public class UI_Controller : MonoBehaviour
     }
 
     void Update() {
-        if (animating) {
+        if (IsAnimating) {
             currentAnimation.MoveNext();
         }
     }
 
     void OnDisable() {
-        Debug.Log("OnDisable() for " + gameObject.name);
         ui.visible = false;
         ui.SetEnabled(false);
     }
 
     void OnEnable() {
-        Debug.Log("OnEnable() for " + gameObject.name);
         ui.visible = true;
         ui.SetEnabled(true);
     }
@@ -56,7 +50,7 @@ public class UI_Controller : MonoBehaviour
             if (ui.style.opacity.value <= 0f) {
                 ui.style.opacity = new StyleFloat(0f);
                 ui.visible = false;
-                animating = false;
+                IsAnimating = false;
                 enabled = false;
                 break;
             }
@@ -73,7 +67,7 @@ public class UI_Controller : MonoBehaviour
 
             if (ui.style.opacity.value >= 1f) {
                 ui.style.opacity = new StyleFloat(1f);
-                animating = false;
+                IsAnimating = false;
                 break;
             }
             yield return null;
@@ -83,12 +77,12 @@ public class UI_Controller : MonoBehaviour
     public void FadeOut(float time = -1) {
         if (time == -1) time = Settings.transitionsSpeed;
         currentAnimation = _fadeOut(time);
-        animating = true;
+        IsAnimating = true;
     }
 
     public void FadeIn(float time = -1) {
         if (time == -1) time = Settings.transitionsSpeed;
         currentAnimation = _fadeIn(time);
-        animating = true;
+        IsAnimating = true;
     }
 }
