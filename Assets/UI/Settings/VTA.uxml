@@ -1,9 +1,11 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/Settings/StyleSheet.uss?fileID=7433441132597879392&amp;guid=ce1e52782c1bc54429cda9c0a9bd4b0a&amp;type=3#StyleSheet" />
     <Style src="project://database/Assets/UI/defaults.uss?fileID=7433441132597879392&amp;guid=0036fbc2f7bee4442bbc3e0591eed396&amp;type=3#defaults" />
-    <ui:VisualElement name="root" class="root" style="min-width: 640px; min-height: 360px; max-width: 1920px; max-height: 1080px; margin-top: 5%; margin-right: 5%; margin-bottom: 5%; margin-left: 5%; flex-direction: row;">
+    <ui:VisualElement name="root" class="root" style="min-width: 640px; min-height: 360px; max-width: 1920px; max-height: 1080px; margin-top: 5%; margin-right: 5%; margin-bottom: 5%; margin-left: 5%; flex-direction: row; flex-basis: 100%;">
         <ui:VisualElement name="Elements1" class="elements">
             <ui:Slider label="Transition speed" high-value="1.5" focusable="false" name="transitionSpeed" page-size="0" low-value="0.1" class="text slider" />
+            <ui:Toggle label="Mouse invert vertical" name="mouseInvertVertical" />
+            <ui:Toggle label="Mouse invert horizontal" name="mouseInvertHorizontal" />
         </ui:VisualElement>
         <ui:VisualElement name="Elements2" class="elements" />
     </ui:VisualElement>

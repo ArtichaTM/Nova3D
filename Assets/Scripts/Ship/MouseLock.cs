@@ -1,28 +1,25 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.PackageManager.UI;
 using UnityEngine;
+
 
 public class MouseLock : MonoBehaviour
 {
+    public delegate void Coordinates(float x, float y);
     Rigidbody rb;
 
-    void Start()
-    {
-        enabled = false;
-    }
+    public Coordinates OnAxisChange;
 
     void OnEnable() {
         rb = GetComponent<Rigidbody>();
-        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        Debug.Log("InVisible");
     }
 
     void OnDisable() {
-        Cursor.visible = true;  
+        Cursor.lockState = CursorLockMode.None;
+        Debug.Log("Visible");
     }
 
-    void Update()
-    {
-        // rb.AddTorque(0, 1f, 0);
-    }
+    void Update() => OnAxisChange(
+        Input.GetAxis("Mouse X")*Settings.InvertMouseHorizontal(),
+        Input.GetAxis("Mouse Y")*Settings.InvertMouseVertical());
 }

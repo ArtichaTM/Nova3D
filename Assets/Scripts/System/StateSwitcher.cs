@@ -81,6 +81,8 @@ public class StateSwitcher : MonoBehaviour
 
         // Settings
         controllerSettings.ui.Q<Slider>("transitionSpeed").value = Settings.transitionsSpeed;
+        controllerSettings.ui.Q<Toggle>("mouseInvertVertical").value = Settings.invertedMouseVertical;
+        controllerSettings.ui.Q<Toggle>("mouseInvertHorizontal").value = Settings.invertedMouseHorizontal;
 
         // InGameMenu
         controllerInGameMenu.ui.Q<Button>("Continue").clicked += () => {
@@ -93,6 +95,8 @@ public class StateSwitcher : MonoBehaviour
 
     public void SettingsSave() {
         Settings.transitionsSpeed = controllerSettings.ui.Q<Slider>("transitionSpeed").value;
+        Settings.invertedMouseVertical = controllerSettings.ui.Q<Toggle>("mouseInvertVertical").value;
+        Settings.invertedMouseHorizontal = controllerSettings.ui.Q<Toggle>("mouseInvertHorizontal").value;
     }
 
     IEnumerator SwitchMenu(State to) {
@@ -174,7 +178,6 @@ public class StateSwitcher : MonoBehaviour
                 }
             }
             case State.InGameMenu: {
-                UnityEngine.Cursor.visible = false;
                 switch (to) {
                     case State.Game: {
                         TargetFadeOut(State.InGameMenu);

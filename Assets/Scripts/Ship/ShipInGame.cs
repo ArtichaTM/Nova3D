@@ -21,6 +21,7 @@ public class ShipInGame : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         mouseLock = GetComponent<MouseLock>();
+        mouseLock.OnAxisChange += RotateShip;
         enabled = false;
     }
 
@@ -36,10 +37,10 @@ public class ShipInGame : MonoBehaviour
 
     void FixedUpdate() {
         if (Input.GetKey(KeyCode.W)) {
-            rb.AddRelativeForce(new Vector3(0, speed * Time.fixedDeltaTime, 0));
+            rb.AddRelativeForce(new Vector3(0f, 0f,  speed * Time.fixedDeltaTime));
         }
         else if (Input.GetKey(KeyCode.S)) {
-            rb.AddRelativeForce(new Vector3(0, -speed * Time.fixedDeltaTime, 0));
+            rb.AddRelativeForce(new Vector3(0f, 0f, -speed * Time.fixedDeltaTime));
         }
     }
 
@@ -51,6 +52,10 @@ public class ShipInGame : MonoBehaviour
 
     void OnDisable() {
         mouseLock.enabled = false;
+    }
+
+    void RotateShip(float x, float y) {
+        rb.AddTorque(y, x, 0f);
     }
 
     bool IsReloading() { return cooldown > 0; }
