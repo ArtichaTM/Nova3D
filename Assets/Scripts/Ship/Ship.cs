@@ -1,7 +1,6 @@
 using UnityEngine;
 using System.Collections;
 using System;
-using Unity.Mathematics;
 using Unity.VisualScripting;
 
 public class Ship : MonoBehaviour
