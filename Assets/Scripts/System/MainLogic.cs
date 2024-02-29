@@ -1,9 +1,11 @@
 using System.Collections;
-using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 public class MainLogic : MonoBehaviour
 {
+    bool Paused = true;
+    bool Finished = true;
     StateSwitcher stateSwitcher;
     Ship ShipScript;
 
@@ -23,22 +25,40 @@ public class MainLogic : MonoBehaviour
     }
 
     public IEnumerator StartGame() {
+        Assert.IsTrue(Paused);
+        Assert.IsTrue(Finished);
         ShipScript.StartGame();
+        Finished = false;
+        ShipScript.ResumeGame();
+        StartCoroutine(ResumeGame());
         yield break;
     }
 
     public IEnumerator PauseGame() {
-        Debug.Log("PauseGame()");
+        Assert.IsFalse(Paused);
+        Assert.IsFalse(Finished);
+        ShipScript.PauseGame();
+        Time.timeScale = 0f;
+        Paused = true;
         yield break;
     }
 
     public IEnumerator ResumeGame() {
-        Debug.Log("ResumeGame()");
+        Assert.IsTrue(Paused);
+        Assert.IsFalse(Finished);
+        ShipScript.ResumeGame();
+        Time.timeScale = 1f;
+        Paused = false;
         yield break;
     }
 
     public IEnumerator FinishGame() {
-        Debug.Log("FinishGame()");
+        Assert.IsTrue(Paused);
+        Assert.IsFalse(Finished);
+        if (!Paused)
+            StartCoroutine(PauseGame());
+        ShipScript.FinishGame();
+        Finished = true;
         yield break;
     }
 

@@ -7,6 +7,11 @@ public class ShipInGame : MonoBehaviour
     public Rigidbody rb {
         get; private set;
     }
+
+    public MouseLock mouseLock {
+        get; private set;
+    }
+
     private float cooldown = 0f;
     public float maxCooldown = 3f;
     public float speed = 10f;
@@ -15,6 +20,8 @@ public class ShipInGame : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        mouseLock = GetComponent<MouseLock>();
+        enabled = false;
     }
 
     void Update()
@@ -29,18 +36,21 @@ public class ShipInGame : MonoBehaviour
 
     void FixedUpdate() {
         if (Input.GetKey(KeyCode.W)) {
-            rb.AddRelativeForce(new Vector3(0, speed, 0));
+            rb.AddRelativeForce(new Vector3(0, speed * Time.fixedDeltaTime, 0));
         }
         else if (Input.GetKey(KeyCode.S)) {
-            rb.AddRelativeForce(new Vector3(0, -speed, 0));
+            rb.AddRelativeForce(new Vector3(0, -speed * Time.fixedDeltaTime, 0));
         }
     }
 
-    // void OnDisable() {
-    // }
-
     void OnEnable() {
         rb = GetComponent<Rigidbody>();
+        mouseLock = GetComponent<MouseLock>();
+        mouseLock.enabled = true;
+    }
+
+    void OnDisable() {
+        mouseLock.enabled = false;
     }
 
     bool IsReloading() { return cooldown > 0; }

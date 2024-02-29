@@ -6,7 +6,6 @@ using UnityEngine.Assertions;
 
 public class Ship : MonoBehaviour
 {
-    bool GameOn = false;
     ShipInGame shipInGame;
 
     void Start() {
@@ -15,13 +14,21 @@ public class Ship : MonoBehaviour
     }
 
     public void StartGame() {
-        Assert.IsFalse(GameOn);
-        shipInGame.enabled = true;
+        shipInGame = GetComponent<ShipInGame>();
         shipInGame.rb.velocity = new Vector3(0, 0, 5f);
+        shipInGame.enabled = true;
+    }
+
+    public void PauseGame() {
+        shipInGame.enabled = false;
+    }
+
+    public void ResumeGame() {
+        shipInGame.enabled = true;
     }
 
     public void FinishGame() {
-        Assert.IsTrue(GameOn);
-        shipInGame.enabled = false;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
 }
