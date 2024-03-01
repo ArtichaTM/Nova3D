@@ -1,8 +1,6 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using R3;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.UIElements;
@@ -51,47 +49,30 @@ public class StateSwitcher : MonoBehaviour
 
     public void PostInit()
     {
-        // Main Menu
-        controllerMainMenu.ui.Q<Button>("Start").clicked += () => {
-            StartCoroutine(SwitchState(State.Game));
-        };
-        controllerMainMenu.ui.Q<Button>("Unlocks").clicked += () => {
-            StartCoroutine(SwitchState(State.Unlocks));
-        };
-        controllerMainMenu.ui.Q<Button>("Learn").clicked += () => {
-            StartCoroutine(SwitchState(State.Learn));
-        };
-        controllerMainMenu.ui.Q<Button>("Glossary").clicked += () => {
-            StartCoroutine(SwitchState(State.Glossary));
-        };
-        controllerMainMenu.ui.Q<Button>("Changelog").clicked += () => {
-            StartCoroutine(SwitchState(State.Changelog));
-        };
-        controllerMainMenu.ui.Q<Button>("Settings").clicked += () => {
-            StartCoroutine(SwitchState(State.Settings));
-        };
-        controllerMainMenu.ui.Q<Button>("Scores").clicked += () => {
-            StartCoroutine(SwitchState(State.Scores));
-        };
-        controllerMainMenu.ui.Q<Button>("Credits").clicked += () => {
-            StartCoroutine(SwitchState(State.Credits));
-        };
-        controllerMainMenu.ui.Q<Button>("Exit").clicked += () => {
-            Application.Quit();
-        };
+        #region MenuUI
+        controllerMainMenu.ui.Q<Button>("Start"    ).clicked += () => StartCoroutine(SwitchState(State.Game     ));
+        controllerMainMenu.ui.Q<Button>("Unlocks"  ).clicked += () => StartCoroutine(SwitchState(State.Unlocks  ));
+        controllerMainMenu.ui.Q<Button>("Learn"    ).clicked += () => StartCoroutine(SwitchState(State.Learn    ));
+        controllerMainMenu.ui.Q<Button>("Glossary" ).clicked += () => StartCoroutine(SwitchState(State.Glossary ));
+        controllerMainMenu.ui.Q<Button>("Changelog").clicked += () => StartCoroutine(SwitchState(State.Changelog));
+        controllerMainMenu.ui.Q<Button>("Settings" ).clicked += () => StartCoroutine(SwitchState(State.Settings ));
+        controllerMainMenu.ui.Q<Button>("Scores"   ).clicked += () => StartCoroutine(SwitchState(State.Scores   ));
+        controllerMainMenu.ui.Q<Button>("Credits"  ).clicked += () => StartCoroutine(SwitchState(State.Credits  ));
+        controllerMainMenu.ui.Q<Button>("Exit"     ).clicked += () => mainLogic.Quit();
+        #endregion
 
         // Settings
+        #region SettingsUI
         controllerSettings.ui.Q<Slider>("transitionSpeed").value = Settings.transitionsSpeed.Value;
         controllerSettings.ui.Q<Toggle>("mouseInvertVertical").value = Settings.invertedMouseVertical.Value;
         controllerSettings.ui.Q<Toggle>("mouseInvertHorizontal").value = Settings.invertedMouseHorizontal.Value;
+        #endregion
 
         // InGameMenu
-        controllerInGameMenu.ui.Q<Button>("Continue").clicked += () => {
-            StartCoroutine(SwitchState(State.Game));
-        };
-        controllerInGameMenu.ui.Q<Button>("MainMenu").clicked += () => {
-            StartCoroutine(SwitchState(State.MainMenu));
-        };
+        #region InGameMenuUI
+        controllerInGameMenu.ui.Q<Button>("Continue").clicked += () => StartCoroutine(SwitchState(State.Game));
+        controllerInGameMenu.ui.Q<Button>("MainMenu").clicked += () => StartCoroutine(SwitchState(State.MainMenu));
+        #endregion
     }
 
     public void SettingsSave() {
