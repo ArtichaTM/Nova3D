@@ -69,7 +69,7 @@ public class MainLogic : MonoBehaviour
 
     void Update()
     {
-        switch (stateSwitcher.state)
+        switch (stateSwitcher.state.Value)
         {
             case State.MainMenu: {
                 return;

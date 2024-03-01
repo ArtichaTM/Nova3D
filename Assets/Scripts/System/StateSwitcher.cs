@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using R3;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -13,9 +14,9 @@ public enum State {
 
 public class StateSwitcher : MonoBehaviour
 {
-    public State state {
+    public ReactiveProperty<State> state {
         get; private set;
-    } = State.Start;
+    } = new(State.Start);
     public UI_Controller lastAnimation {
         get; private set;
     }
@@ -100,12 +101,12 @@ public class StateSwitcher : MonoBehaviour
     }
 
     IEnumerator SwitchMenu(State to) {
-        lastAnimation = StateToController(state);
+        lastAnimation = StateToController(state.Value);
         lastAnimation.FadeOut();
         yield return new WaitUntil(() => !Animating);
         lastAnimation.enabled = false;
 
-        state = to;
+        state.Value = to;
         lastAnimation = StateToController(to);
         lastAnimation.enabled = true;
         lastAnimation.FadeIn();
@@ -115,7 +116,7 @@ public class StateSwitcher : MonoBehaviour
         lastAnimation = StateToController(to);
         lastAnimation.enabled = true;
         StateToController(to).FadeIn();
-        state = to;
+        state.Value = to;
     }
 
     private void TargetFadeOut(State to) {
@@ -124,7 +125,7 @@ public class StateSwitcher : MonoBehaviour
     }
 
     public IEnumerator SwitchState(State to) {
-        switch (state) {
+        switch (state.Value) {
             case State.Unlocks:
             case State.Learn:
             case State.Glossary:
@@ -155,7 +156,7 @@ public class StateSwitcher : MonoBehaviour
                 switch (to) {
                     case State.Game: {
                         TargetFadeOut(State.MainMenu);
-                        state = to;
+                        state.Value = to;
                         mainLogic.StartCoroutine(mainLogic.StartGame());
                         yield break;
                     }
@@ -181,7 +182,7 @@ public class StateSwitcher : MonoBehaviour
                 switch (to) {
                     case State.Game: {
                         TargetFadeOut(State.InGameMenu);
-                        state = to;
+                        state.Value = to;
                         mainLogic.StartCoroutine(mainLogic.ResumeGame());
                         yield break;
                     }
@@ -219,7 +220,7 @@ public class StateSwitcher : MonoBehaviour
                 switch (to) {
                     case State.Game: {
                         TargetFadeOut(State.Upgrades);
-                        state = to;
+                        state.Value = to;
                         StartCoroutine(mainLogic.ResumeGame());
                         yield break;
                     }
