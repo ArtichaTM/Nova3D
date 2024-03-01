@@ -12,6 +12,8 @@ public class ShipInGame : MonoBehaviour
         get; private set;
     }
 
+    ReactiveProperty<bool> GameOn = new(false);
+
     public ReactiveProperty<float> maxCooldown = new(0f);
     public ReactiveProperty<float> cooldown = new(0f);
     public ReactiveProperty<float> speedPosition = new(1f);
@@ -36,14 +38,12 @@ public class ShipInGame : MonoBehaviour
         }
     }
 
-    void FixedUpdate() {
+    void CheckInputs() {
         if (Input.GetKey(KeyCode.W)) {
             rb.AddRelativeForce(new Vector3(0f, 0f,  speedPosition.Value * Time.fixedDeltaTime));
-            // rb.AddRelativeForce(new Vector3(0f, 0f,  speed * Time.fixedDeltaTime));
         }
         else if (Input.GetKey(KeyCode.S)) {
             rb.AddRelativeForce(new Vector3(0f, 0f, -speedPosition.Value * Time.fixedDeltaTime));
-            // rb.AddRelativeForce(new Vector3(0f, 0f, -speed * Time.fixedDeltaTime));
         }
     }
 

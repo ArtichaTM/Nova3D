@@ -1,9 +1,12 @@
 using UnityEngine;
 using R3;
+using System;
 
 public class Ship : MonoBehaviour
 {
-    ShipInGame shipInGame;
+    public ShipInGame shipInGame {
+        get; private set;
+    }
 
     void Start() {
         shipInGame = GetComponent<ShipInGame>();

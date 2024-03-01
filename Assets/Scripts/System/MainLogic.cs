@@ -5,11 +5,13 @@ using UnityEngine.Assertions;
 
 public class MainLogic : MonoBehaviour
 {
-    bool Paused = true;
-    bool Finished = true;
+    public ReactiveProperty<bool> Paused = new(true);
+    public ReactiveProperty<bool> Finished = new(true);
     StateSwitcher stateSwitcher;
     Ship ShipScript;
     Camera mainCamera;
+
+    CompositeDisposable GameDisposable = new();
 
     void Start()
     {
@@ -22,6 +24,26 @@ public class MainLogic : MonoBehaviour
         ObservableSystem.DefaultTimeProvider = UnityTimeProvider.Update;
         ObservableSystem.DefaultFrameProvider = UnityFrameProvider.Update;
         Invoke(nameof(OnRuntimeLoad), 0);
+
+        Paused
+            .Skip(1)
+            .Where((bool value) => value==false)
+            .Subscribe(_ => { Debug.Log("Resume"); ResumeGame();})
+            .AddTo(GameDisposable);
+        Paused
+            .Skip(1)
+            .Where((bool value) => value==true)
+            .Subscribe(_ => { Debug.Log("Pause");PauseGame();})
+            .AddTo(GameDisposable);
+        Finished
+            .Where((bool value) => value==false)
+            .Subscribe(_ => { Debug.Log("Start");StartGame();})
+            .AddTo(GameDisposable);
+        Finished
+            .Skip(1)
+            .Where((bool value) => value==true)
+            .Subscribe(_ => { Debug.Log("Finish");FinishGame();})
+            .AddTo(GameDisposable);
     }
 
     void OnRuntimeLoad() {
@@ -29,43 +51,33 @@ public class MainLogic : MonoBehaviour
         stateSwitcher.StartCoroutine(stateSwitcher.SwitchState(State.MainMenu));
     }
 
-    public IEnumerator StartGame() {
-        Assert.IsTrue(Paused);
-        Assert.IsTrue(Finished);
+    public void StartGame() {
+        // Assert.IsTrue(Paused.Value);
         ShipScript.StartGame();
-        Finished = false;
-        ShipScript.ResumeGame();
-        StartCoroutine(ResumeGame());
-        yield break;
+        Paused.Value = false;
+        ResumeGame();
     }
 
-    public IEnumerator PauseGame() {
-        Assert.IsFalse(Paused);
-        Assert.IsFalse(Finished);
+    public void PauseGame() {
+        // Assert.IsFalse(Finished.Value);
         ShipScript.PauseGame();
         Time.timeScale = 0f;
-        Paused = true;
-        yield break;
     }
 
-    public IEnumerator ResumeGame() {
-        Assert.IsTrue(Paused);
-        Assert.IsFalse(Finished);
+    public void ResumeGame() {
+        // Assert.IsFalse(Finished.Value);
         ShipScript.ResumeGame();
         Time.timeScale = 1f;
-        Paused = false;
-        yield break;
     }
 
-    public IEnumerator FinishGame() {
-        Assert.IsTrue(Paused);
-        Assert.IsFalse(Finished);
-        if (!Paused)
-            StartCoroutine(PauseGame());
+    public void FinishGame() {
+        // Assert.IsTrue(Paused.Value);
+        if (!Paused.Value)
+            Paused.Value = true;
         ShipScript.FinishGame();
-        Finished = true;
-        yield break;
     }
+
+    void OnDestroy() => Quit();
 
     void Update()
     {
@@ -106,5 +118,9 @@ public class MainLogic : MonoBehaviour
                 return;
             }
         }
+    }
+
+    void Quit() {
+        GameDisposable.Dispose();
     }
 }

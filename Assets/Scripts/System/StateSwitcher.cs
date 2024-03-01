@@ -157,7 +157,7 @@ public class StateSwitcher : MonoBehaviour
                     case State.Game: {
                         TargetFadeOut(State.MainMenu);
                         state.Value = to;
-                        mainLogic.StartCoroutine(mainLogic.StartGame());
+                        mainLogic.Finished.Value = false;
                         yield break;
                     }
                     case State.Settings: {
@@ -183,7 +183,7 @@ public class StateSwitcher : MonoBehaviour
                     case State.Game: {
                         TargetFadeOut(State.InGameMenu);
                         state.Value = to;
-                        mainLogic.StartCoroutine(mainLogic.ResumeGame());
+                        mainLogic.Paused.Value = false;
                         yield break;
                     }
                     case State.Upgrades: {
@@ -192,7 +192,7 @@ public class StateSwitcher : MonoBehaviour
                     }
                     case State.MainMenu: {
                         StartCoroutine(SwitchMenu(State.MainMenu));
-                        mainLogic.StartCoroutine(mainLogic.FinishGame());
+                        mainLogic.Finished.Value = true;
                         yield break;
                     }
                     default:
@@ -203,13 +203,12 @@ public class StateSwitcher : MonoBehaviour
                 switch (to) {
                     case State.InGameMenu: {
                         TargetFadeIn(State.InGameMenu);
-                        StartCoroutine(mainLogic.PauseGame());
-                        // state = State.InGameMenu;
+                        mainLogic.Paused.Value = true;
                         yield break;
                     }
                     case State.Upgrades: {
                         StartCoroutine(SwitchMenu(State.Upgrades));
-                        StartCoroutine(mainLogic.PauseGame());
+                        mainLogic.Paused.Value = true;
                         yield break;
                     }
                     default:
@@ -221,7 +220,7 @@ public class StateSwitcher : MonoBehaviour
                     case State.Game: {
                         TargetFadeOut(State.Upgrades);
                         state.Value = to;
-                        StartCoroutine(mainLogic.ResumeGame());
+                        mainLogic.Paused.Value = false;
                         yield break;
                     }
                     default:
