@@ -1,24 +1,27 @@
+using R3;
 using UnityEngine;
-
 
 public class MouseLock : MonoBehaviour
 {
-    public delegate void Coordinates(float x, float y);
-    Rigidbody rb;
+    public ReactiveProperty<Vector2> MouseDelta {
+        get; private set;
+    } = new(Vector2.zero);
 
-    public Coordinates OnAxisChange;
+    SerialDisposable disposable = new();
 
     void OnEnable() {
-        rb = GetComponent<Rigidbody>();
         Cursor.lockState = CursorLockMode.Locked;
+        disposable.Disposable = Observable
+            .EveryUpdate()
+            .Subscribe(_ => MouseDelta.Value=new Vector2(
+                Input.GetAxis("Mouse X")*Settings.InvertMouseHorizontal(),
+                Input.GetAxis("Mouse Y")*Settings.InvertMouseVertical()
+            ))
+            ;
     }
 
     void OnDisable() {
         Cursor.lockState = CursorLockMode.None;
+        disposable.Dispose();
     }
-
-    void Update() => OnAxisChange(
-        Input.GetAxis("Mouse X")*Settings.InvertMouseHorizontal(),
-        Input.GetAxis("Mouse Y")*Settings.InvertMouseVertical()
-    );
 }
