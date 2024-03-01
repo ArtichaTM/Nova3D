@@ -16,14 +16,14 @@ public class ShipInGame : MonoBehaviour
     public ReactiveProperty<float> cooldown = new(0f);
     public ReactiveProperty<float> speedPosition = new(1f);
     public ReactiveProperty<float> speedRotation = new(1f);
-    public CompositeDisposable disposable;
+    public CompositeDisposable disposable = new();
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         mouseLock = GetComponent<MouseLock>();
         mouseLock.OnAxisChange += RotateShip;
-        enabled = false;
+        Pause();
     }
 
     void Update()
@@ -47,14 +47,14 @@ public class ShipInGame : MonoBehaviour
         }
     }
 
-    void OnEnable() {
+    public void Pause() {
+        mouseLock.enabled = false;
+    }
+
+    public void Resume() {
         rb = GetComponent<Rigidbody>();
         mouseLock = GetComponent<MouseLock>();
         mouseLock.enabled = true;
-    }
-
-    void OnDisable() {
-        mouseLock.enabled = false;
     }
 
     void RotateShip(float x, float y) {

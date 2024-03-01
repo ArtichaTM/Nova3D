@@ -19,6 +19,8 @@ public class MainLogic : MonoBehaviour
         foreach (Transform child in GameObject.Find("UI").transform) {
             child.gameObject.SetActive(true);
         }
+        ObservableSystem.DefaultTimeProvider = UnityTimeProvider.Update;
+        ObservableSystem.DefaultFrameProvider = UnityFrameProvider.Update;
         Invoke(nameof(OnRuntimeLoad), 0);
     }
 

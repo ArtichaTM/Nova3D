@@ -1,5 +1,14 @@
 {
   "dependencies": {
+    "com.cysharp.r3": {
+      "version": "https://github.com/Cysharp/R3.git?path=src/R3.Unity/Assets/R3.Unity",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.unity.modules.imgui": "1.0.0"
+      },
+      "hash": "b72a8d8a8761908b903353fbe5a9cce5168f30c5"
+    },
     "com.unity.collab-proxy": {
       "version": "2.2.0",
       "depth": 0,
