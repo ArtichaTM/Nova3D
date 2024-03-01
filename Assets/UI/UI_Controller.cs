@@ -75,13 +75,13 @@ public class UI_Controller : MonoBehaviour
     }
 
     public void FadeOut(float time = -1) {
-        if (time == -1) time = Settings.transitionsSpeed;
+        if (time == -1) time = Settings.transitionsSpeed.Value;
         currentAnimation = _fadeOut(time);
         IsAnimating = true;
     }
 
     public void FadeIn(float time = -1) {
-        if (time == -1) time = Settings.transitionsSpeed;
+        if (time == -1) time = Settings.transitionsSpeed.Value;
         currentAnimation = _fadeIn(time);
         IsAnimating = true;
     }

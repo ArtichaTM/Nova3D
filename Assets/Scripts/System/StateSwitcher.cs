@@ -81,9 +81,9 @@ public class StateSwitcher : MonoBehaviour
         };
 
         // Settings
-        controllerSettings.ui.Q<Slider>("transitionSpeed").value = Settings.transitionsSpeed;
-        controllerSettings.ui.Q<Toggle>("mouseInvertVertical").value = Settings.invertedMouseVertical;
-        controllerSettings.ui.Q<Toggle>("mouseInvertHorizontal").value = Settings.invertedMouseHorizontal;
+        controllerSettings.ui.Q<Slider>("transitionSpeed").value = Settings.transitionsSpeed.Value;
+        controllerSettings.ui.Q<Toggle>("mouseInvertVertical").value = Settings.invertedMouseVertical.Value;
+        controllerSettings.ui.Q<Toggle>("mouseInvertHorizontal").value = Settings.invertedMouseHorizontal.Value;
 
         // InGameMenu
         controllerInGameMenu.ui.Q<Button>("Continue").clicked += () => {
@@ -95,9 +95,9 @@ public class StateSwitcher : MonoBehaviour
     }
 
     public void SettingsSave() {
-        Settings.transitionsSpeed = controllerSettings.ui.Q<Slider>("transitionSpeed").value;
-        Settings.invertedMouseVertical = controllerSettings.ui.Q<Toggle>("mouseInvertVertical").value;
-        Settings.invertedMouseHorizontal = controllerSettings.ui.Q<Toggle>("mouseInvertHorizontal").value;
+        Settings.transitionsSpeed.Value = controllerSettings.ui.Q<Slider>("transitionSpeed").value;
+        Settings.invertedMouseVertical.Value = controllerSettings.ui.Q<Toggle>("mouseInvertVertical").value;
+        Settings.invertedMouseHorizontal.Value = controllerSettings.ui.Q<Toggle>("mouseInvertHorizontal").value;
     }
 
     IEnumerator SwitchMenu(State to) {
