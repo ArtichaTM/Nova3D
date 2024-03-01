@@ -61,14 +61,12 @@ public class StateSwitcher : MonoBehaviour
         controllerMainMenu.ui.Q<Button>("Exit"     ).clicked += () => mainLogic.Quit();
         #endregion
 
-        // Settings
         #region SettingsUI
         controllerSettings.ui.Q<Slider>("transitionSpeed").value = Settings.transitionsSpeed.Value;
         controllerSettings.ui.Q<Toggle>("mouseInvertVertical").value = Settings.invertedMouseVertical.Value;
         controllerSettings.ui.Q<Toggle>("mouseInvertHorizontal").value = Settings.invertedMouseHorizontal.Value;
         #endregion
 
-        // InGameMenu
         #region InGameMenuUI
         controllerInGameMenu.ui.Q<Button>("Continue").clicked += () => StartCoroutine(SwitchState(State.Game));
         controllerInGameMenu.ui.Q<Button>("MainMenu").clicked += () => StartCoroutine(SwitchState(State.MainMenu));
