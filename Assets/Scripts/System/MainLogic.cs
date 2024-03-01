@@ -28,21 +28,21 @@ public class MainLogic : MonoBehaviour
         Paused
             .Skip(1)
             .Where((bool value) => value==false)
-            .Subscribe(_ => { Debug.Log("Resume"); ResumeGame();})
+            .Subscribe(_ => ResumeGame())
             .AddTo(GameDisposable);
         Paused
             .Skip(1)
             .Where((bool value) => value==true)
-            .Subscribe(_ => { Debug.Log("Pause");PauseGame();})
+            .Subscribe(_ => PauseGame())
             .AddTo(GameDisposable);
         Finished
             .Where((bool value) => value==false)
-            .Subscribe(_ => { Debug.Log("Start");StartGame();})
+            .Subscribe(_ => StartGame())
             .AddTo(GameDisposable);
         Finished
             .Skip(1)
             .Where((bool value) => value==true)
-            .Subscribe(_ => { Debug.Log("Finish");FinishGame();})
+            .Subscribe(_ => FinishGame())
             .AddTo(GameDisposable);
     }
 
@@ -52,26 +52,26 @@ public class MainLogic : MonoBehaviour
     }
 
     public void StartGame() {
-        // Assert.IsTrue(Paused.Value);
+        Assert.IsTrue(Paused.Value);
         ShipScript.StartGame();
         Paused.Value = false;
         ResumeGame();
     }
 
     public void PauseGame() {
-        // Assert.IsFalse(Finished.Value);
+        Assert.IsFalse(Finished.Value);
         ShipScript.PauseGame();
         Time.timeScale = 0f;
     }
 
     public void ResumeGame() {
-        // Assert.IsFalse(Finished.Value);
+        Assert.IsFalse(Finished.Value);
         ShipScript.ResumeGame();
         Time.timeScale = 1f;
     }
 
     public void FinishGame() {
-        // Assert.IsTrue(Paused.Value);
+        Assert.IsTrue(Paused.Value);
         if (!Paused.Value)
             Paused.Value = true;
         ShipScript.FinishGame();
@@ -120,7 +120,9 @@ public class MainLogic : MonoBehaviour
         }
     }
 
-    void Quit() {
+    public void Quit() {
+        Debug.Log("Quit!");
         GameDisposable.Dispose();
+        Application.Quit();
     }
 }

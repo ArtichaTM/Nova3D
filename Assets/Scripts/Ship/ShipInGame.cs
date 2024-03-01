@@ -4,15 +4,13 @@ using System;
 
 public class ShipInGame : MonoBehaviour
 {
-    public Rigidbody rb {
+    public Rigidbody RiBo {
         get; private set;
     }
 
-    public MouseLock mouseLock {
+    public MouseLock MouseLock {
         get; private set;
     }
-
-    ReactiveProperty<bool> GameOn = new(false);
 
     public ReactiveProperty<float> maxCooldown = new(0f);
     public ReactiveProperty<float> cooldown = new(0f);
@@ -22,9 +20,9 @@ public class ShipInGame : MonoBehaviour
 
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
-        mouseLock = GetComponent<MouseLock>();
-        mouseLock.OnAxisChange += RotateShip;
+        RiBo = GetComponent<Rigidbody>();
+        MouseLock = GetComponent<MouseLock>();
+        MouseLock.OnAxisChange += RotateShip;
         Pause();
     }
 
@@ -40,25 +38,25 @@ public class ShipInGame : MonoBehaviour
 
     void CheckInputs() {
         if (Input.GetKey(KeyCode.W)) {
-            rb.AddRelativeForce(new Vector3(0f, 0f,  speedPosition.Value * Time.fixedDeltaTime));
+            RiBo.AddRelativeForce(new Vector3(0f, 0f,  speedPosition.Value * Time.fixedDeltaTime));
         }
         else if (Input.GetKey(KeyCode.S)) {
-            rb.AddRelativeForce(new Vector3(0f, 0f, -speedPosition.Value * Time.fixedDeltaTime));
+            RiBo.AddRelativeForce(new Vector3(0f, 0f, -speedPosition.Value * Time.fixedDeltaTime));
         }
     }
 
     public void Pause() {
-        mouseLock.enabled = false;
+        MouseLock.enabled = false;
     }
 
     public void Resume() {
-        rb = GetComponent<Rigidbody>();
-        mouseLock = GetComponent<MouseLock>();
-        mouseLock.enabled = true;
+        RiBo = GetComponent<Rigidbody>();
+        MouseLock = GetComponent<MouseLock>();
+        MouseLock.enabled = true;
     }
 
     void RotateShip(float x, float y) {
-        rb.AddTorque(y, x, 0f);
+        RiBo.AddTorque(y, x, 0f);
     }
 
     bool IsReloading() { return cooldown.Value > 0; }
