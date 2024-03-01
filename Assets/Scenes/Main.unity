@@ -408,7 +408,7 @@ Transform:
   m_GameObject: {fileID: 72843562}
   serializedVersion: 2
   m_LocalRotation: {x: 0.08715578, y: 0, z: 0, w: 0.9961947}
-  m_LocalPosition: {x: 0, y: 6.23, z: -16.57}
+  m_LocalPosition: {x: 0, y: 6.229994, z: -16.57006}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1498,7 +1498,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 028fbca6d7288ec4abfa50a7492f4d1f, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 028fbca6d7288ec4abfa50a7492f4d1f, type: 3}
       propertyPath: m_LocalRotation.z
@@ -1523,6 +1523,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 028fbca6d7288ec4abfa50a7492f4d1f, type: 3}
       propertyPath: m_Name
       value: Ship
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 028fbca6d7288ec4abfa50a7492f4d1f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1696,8 +1700,8 @@ MeshFilter:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 1124740943}
   - {fileID: 72843565}
   - {fileID: 146332882}
-  - {fileID: 1124740943}
   - {fileID: 2041275283}
   - {fileID: 2034582460}
