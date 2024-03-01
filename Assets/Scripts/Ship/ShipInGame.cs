@@ -16,6 +16,8 @@ public class ShipInGame : MonoBehaviour
     public ReactiveProperty<float> cooldown = new(0f);
     public ReactiveProperty<float> speedPosition = new(10f);
     public ReactiveProperty<float> speedRotation = new(1f);
+    public ReactiveProperty<Vector2> shipMultipliers = new();
+
     public CompositeDisposable disposable = new();
 
     CompositeDisposable PauseDisposable = new();
@@ -55,6 +57,8 @@ public class ShipInGame : MonoBehaviour
     public void Resume() {
         RiBo = GetComponent<Rigidbody>();
         MouseLock = GetComponent<MouseLock>();
+        Vector3 coefficients = GetComponent<Collider>().bounds.extents.normalized;
+        shipMultipliers.Value = new Vector2(coefficients.y, coefficients.x) * 20;
         MouseLock.enabled = true;
         Observable
             .EveryUpdate(UnityFrameProvider.FixedUpdate)
@@ -63,7 +67,11 @@ public class ShipInGame : MonoBehaviour
     }
 
     void RotateShip(Vector2 delta) {
-        RiBo.AddTorque(delta.y, delta.y, 0f);
+        RiBo.AddRelativeTorque(
+            delta.y*shipMultipliers.Value.y,
+            delta.x*shipMultipliers.Value.x,
+            0f
+        );
     }
 
     bool IsReloading() { return cooldown.Value > 0; }

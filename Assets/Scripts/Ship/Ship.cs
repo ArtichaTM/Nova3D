@@ -21,7 +21,7 @@ public class Ship : MonoBehaviour
 
     public void StartGame() {
         shipInGame = GetComponent<ShipInGame>();
-        shipInGame.RiBo.velocity = new Vector3(0, 0, 8f);
+        shipInGame.RiBo.velocity = new Vector3(0, 0, 6f);
 
         SerialDisposable instant_disposable = new();
         float speed = 0f;
@@ -47,7 +47,6 @@ public class Ship : MonoBehaviour
                     });
                 instant_disposable.Dispose();
             });
-            
     }
 
     public void PauseGame() {
