@@ -121,7 +121,6 @@ public class MainLogic : MonoBehaviour
     }
 
     public void Quit() {
-        Debug.Log("Quit!");
         GameDisposable.Dispose();
         Application.Quit();
     }

@@ -10,7 +10,6 @@ public class Ship : MonoBehaviour
 
     void Start() {
         shipInGame = GetComponent<ShipInGame>();
-        Debug.Log(shipInGame);
     }
 
     public void StartGame() {
