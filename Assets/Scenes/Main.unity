@@ -1008,7 +1008,6 @@ GameObject:
   - component: {fileID: 1375457580}
   - component: {fileID: 1375457583}
   - component: {fileID: 1375457582}
-  - component: {fileID: 1375457581}
   - component: {fileID: 1375457584}
   m_Layer: 0
   m_Name: SystemScripts
@@ -1032,18 +1031,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1124740943}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1375457581
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1375457579}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd79b39cc010622489f8fea6e0433ac5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1375457582
 MonoBehaviour:
   m_ObjectHideFlags: 0

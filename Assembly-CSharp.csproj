@@ -71,7 +71,6 @@
     <Compile Include="Assets\Scripts\System\MainLogic.cs" />
     <Compile Include="Assets\Scripts\Ship\Ship.cs" />
     <Compile Include="Assets\Scripts\System\Settings.cs" />
-    <Compile Include="Assets\Scripts\System\Gravity.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\UI\defaults.uss" />
