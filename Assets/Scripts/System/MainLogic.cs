@@ -8,11 +8,13 @@ public class MainLogic : MonoBehaviour
     bool Finished = true;
     StateSwitcher stateSwitcher;
     Ship ShipScript;
+    Camera mainCamera;
 
     void Start()
     {
         stateSwitcher = GetComponent<StateSwitcher>();
         ShipScript = GameObject.Find("Ship").GetComponent<Ship>();
+        mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
         foreach (Transform child in GameObject.Find("UI").transform) {
             child.gameObject.SetActive(true);
         }

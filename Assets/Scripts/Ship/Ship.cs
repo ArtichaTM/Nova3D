@@ -15,7 +15,7 @@ public class Ship : MonoBehaviour
 
     public void StartGame() {
         shipInGame = GetComponent<ShipInGame>();
-        // shipInGame.rb.velocity = new Vector3(0, 0, 1f);
+        shipInGame.rb.velocity = new Vector3(0, 0, 5f);
         // shipInGame.enabled = true;
     }
 

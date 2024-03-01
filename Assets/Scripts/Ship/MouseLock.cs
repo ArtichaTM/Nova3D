@@ -11,15 +11,14 @@ public class MouseLock : MonoBehaviour
     void OnEnable() {
         rb = GetComponent<Rigidbody>();
         Cursor.lockState = CursorLockMode.Locked;
-        Debug.Log("InVisible");
     }
 
     void OnDisable() {
         Cursor.lockState = CursorLockMode.None;
-        Debug.Log("Visible");
     }
 
     void Update() => OnAxisChange(
         Input.GetAxis("Mouse X")*Settings.InvertMouseHorizontal(),
-        Input.GetAxis("Mouse Y")*Settings.InvertMouseVertical());
+        Input.GetAxis("Mouse Y")*Settings.InvertMouseVertical()
+    );
 }

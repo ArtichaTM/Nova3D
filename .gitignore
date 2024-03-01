@@ -73,3 +73,5 @@ crashlytics-build.properties
 
 # Unity Version Control folder
 .plastic
+NuGet
+Packages

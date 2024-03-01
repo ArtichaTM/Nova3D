@@ -51,5 +51,6 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Nova3D.sln"
+    "dotnet.defaultSolution": "Nova3D.sln",
+    "markdown-preview-enhanced.previewTheme": "github-dark.css"
 }

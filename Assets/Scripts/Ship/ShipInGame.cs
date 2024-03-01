@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ShipInGame : MonoBehaviour
@@ -13,8 +11,12 @@ public class ShipInGame : MonoBehaviour
     }
 
     private float cooldown = 0f;
+    [HideInInspector]
     public float maxCooldown = 3f;
+
+    [HideInInspector]
     public float speed = 10f;
+    [HideInInspector]
     public float _Angle = 90;
 
     void Start()
