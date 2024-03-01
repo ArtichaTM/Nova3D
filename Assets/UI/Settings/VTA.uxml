@@ -4,8 +4,8 @@
     <ui:VisualElement name="root" class="root" style="min-width: 640px; min-height: 360px; max-width: 1920px; max-height: 1080px; margin-top: 5%; margin-right: 5%; margin-bottom: 5%; margin-left: 5%; flex-direction: row; flex-basis: 100%;">
         <ui:VisualElement name="Elements1" class="elements">
             <ui:Slider label="Transition speed" high-value="1.5" focusable="false" name="transitionSpeed" page-size="0" low-value="0.1" class="text slider" />
-            <ui:Toggle label="Mouse invert vertical" name="mouseInvertVertical" />
-            <ui:Toggle label="Mouse invert horizontal" name="mouseInvertHorizontal" />
+            <ui:Toggle label="Mouse invert vertical" name="mouseInvertVertical" class="text" />
+            <ui:Toggle label="Mouse invert horizontal" name="mouseInvertHorizontal" class="text" />
         </ui:VisualElement>
         <ui:VisualElement name="Elements2" class="elements" />
     </ui:VisualElement>

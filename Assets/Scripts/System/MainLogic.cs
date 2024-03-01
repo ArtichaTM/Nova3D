@@ -9,7 +9,6 @@ public class MainLogic : MonoBehaviour
     public ReactiveProperty<bool> Finished = new(true);
     StateSwitcher stateSwitcher;
     Ship ShipScript;
-    Camera mainCamera;
 
     CompositeDisposable GameDisposable = new();
 
@@ -17,7 +16,6 @@ public class MainLogic : MonoBehaviour
     {
         stateSwitcher = GetComponent<StateSwitcher>();
         ShipScript = GameObject.Find("Ship").GetComponent<Ship>();
-        mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
         foreach (Transform child in GameObject.Find("UI").transform) {
             child.gameObject.SetActive(true);
         }
@@ -26,7 +24,7 @@ public class MainLogic : MonoBehaviour
         Invoke(nameof(OnRuntimeLoad), 0);
 
         Paused
-            .Skip(1)
+            // .Skip(1)
             .Where((bool value) => value==false)
             .Subscribe(_ => ResumeGame())
             .AddTo(GameDisposable);
@@ -40,7 +38,7 @@ public class MainLogic : MonoBehaviour
             .Subscribe(_ => StartGame())
             .AddTo(GameDisposable);
         Finished
-            .Skip(1)
+            .Skip(1) // Finished default value is true => Subscribe instantly calls
             .Where((bool value) => value==true)
             .Subscribe(_ => FinishGame())
             .AddTo(GameDisposable);
