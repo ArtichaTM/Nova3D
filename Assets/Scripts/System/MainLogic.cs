@@ -1,5 +1,6 @@
 using System.Collections;
 using R3;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -8,14 +9,16 @@ public class MainLogic : MonoBehaviour
     public ReactiveProperty<bool> Paused = new(true);
     public ReactiveProperty<bool> Finished = new(true);
     StateSwitcher stateSwitcher;
-    Ship ShipScript;
+    public Ship ShipScript {get; private set;}
+
+    [SerializeField]
+    GameObject ShipExample;
 
     CompositeDisposable GameDisposable = new();
 
     void Start()
     {
         stateSwitcher = GetComponent<StateSwitcher>();
-        ShipScript = GameObject.Find("Ship").GetComponent<Ship>();
         foreach (Transform child in GameObject.Find("UI").transform) {
             child.gameObject.SetActive(true);
         }
@@ -24,7 +27,6 @@ public class MainLogic : MonoBehaviour
         Invoke(nameof(OnRuntimeLoad), 0);
 
         Paused
-            // .Skip(1)
             .Where((bool value) => value==false)
             .Subscribe(_ => ResumeGame())
             .AddTo(GameDisposable);
@@ -42,6 +44,15 @@ public class MainLogic : MonoBehaviour
             .Where((bool value) => value==true)
             .Subscribe(_ => FinishGame())
             .AddTo(GameDisposable);
+        Finished
+            .Subscribe(x => Debug.Log($"Finished: {x}"))
+            .AddTo(GameDisposable);
+        Paused
+            .Subscribe(x => Debug.Log($"Paused: {x}"))
+            .AddTo(GameDisposable);
+        stateSwitcher.state
+            .Subscribe(x => Debug.Log($"State: {x}"))
+            .AddTo(GameDisposable);
     }
 
     void OnRuntimeLoad() {
@@ -51,9 +62,12 @@ public class MainLogic : MonoBehaviour
 
     public void StartGame() {
         Assert.IsTrue(Paused.Value);
+        GameObject generatedShip = Instantiate(ShipExample);
+        generatedShip.SetActive(true);
+        generatedShip.name = "Ship";
+        ShipScript = generatedShip.GetComponent<Ship>();
+        ShipScript.enabled = true;
         ShipScript.StartGame();
-        Paused.Value = false;
-        ResumeGame();
     }
 
     public void PauseGame() {
@@ -73,6 +87,7 @@ public class MainLogic : MonoBehaviour
         if (!Paused.Value)
             Paused.Value = true;
         ShipScript.FinishGame();
+        Destroy(ShipScript.gameObject);
     }
 
     void OnDestroy() => Quit();
@@ -120,6 +135,8 @@ public class MainLogic : MonoBehaviour
 
     public void Quit() {
         GameDisposable.Dispose();
+        Paused.Value = true;
+        Finished.Value = true;
         Application.Quit();
     }
 }

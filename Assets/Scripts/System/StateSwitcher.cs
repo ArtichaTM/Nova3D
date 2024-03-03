@@ -6,7 +6,8 @@ using UnityEngine.Assertions;
 using UnityEngine.UIElements;
 
 public enum State {
-    Game = 0, Upgrades, InGameMenu, MainMenu,
+    Game = 0, Upgrades, CameraAnimation,
+    InGameMenu, MainMenu,
     Unlocks, Learn, Glossary, Changelog, Settings, Scores, Credits, Start
 }
 
@@ -162,7 +163,8 @@ public class StateSwitcher : MonoBehaviour
                     case State.Game: {
                         TargetFadeOut(State.InGameMenu);
                         state.Value = to;
-                        mainLogic.Paused.Value = false;
+                        if (mainLogic.ShipScript.CameraTarget == null)
+                            mainLogic.Paused.Value = false;
                         yield break;
                     }
                     case State.Upgrades: {
