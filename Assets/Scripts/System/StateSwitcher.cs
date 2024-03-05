@@ -82,7 +82,11 @@ public class StateSwitcher : MonoBehaviour
         Settings.invertedMouseHorizontal.Value = controllerSettings.ui.Q<Toggle>("mouseInvertHorizontal").value;
     }
 
-    IEnumerator SwitchMenu(State to) {
+    public void SwitchMenu(State to) {
+        StartCoroutine(SwitchMenuAsync(to));
+    }
+
+    public IEnumerator SwitchMenuAsync(State to) {
         lastAnimation = StateToController(state.Value);
         lastAnimation.FadeOut();
         yield return new WaitUntil(() => !Animating);
@@ -106,9 +110,9 @@ public class StateSwitcher : MonoBehaviour
         StateToController(to).FadeOut();
     }
 
-    public void SwitchState(State to) => StartCoroutine(_SwitchState(to));
+    public void SwitchState(State to) => StartCoroutine(SwitchStateAsync(to));
 
-    IEnumerator _SwitchState(State to) {
+    public IEnumerator SwitchStateAsync(State to) {
         switch (state.Value) {
             case State.Unlocks:
             case State.Learn:
@@ -118,7 +122,7 @@ public class StateSwitcher : MonoBehaviour
             case State.Credits: {
                 switch (to) {
                     case State.MainMenu: {
-                        StartCoroutine(SwitchMenu(State.MainMenu));
+                        SwitchMenu(State.MainMenu);
                         yield break;
                     }
                     default:
@@ -129,7 +133,7 @@ public class StateSwitcher : MonoBehaviour
                 switch (to) {
                     case State.MainMenu: {
                         SettingsSave();
-                        StartCoroutine(SwitchMenu(State.MainMenu));
+                        SwitchMenu(State.MainMenu);
                         yield break;
                     }
                     default:
@@ -146,7 +150,7 @@ public class StateSwitcher : MonoBehaviour
                     }
                     case State.Settings: {
                         // TODO: Update settings
-                        StartCoroutine(SwitchMenu(to));
+                        SwitchMenu(to);
                         yield break;
                     }
                     case State.Unlocks:
@@ -155,7 +159,7 @@ public class StateSwitcher : MonoBehaviour
                     case State.Changelog: 
                     case State.Scores: 
                     case State.Credits: {
-                        StartCoroutine(SwitchMenu(to));
+                        SwitchMenu(to);
                         yield break;
                     }
                     default:
@@ -170,11 +174,11 @@ public class StateSwitcher : MonoBehaviour
                         yield break;
                     }
                     case State.Upgrades: {
-                        StartCoroutine(SwitchMenu(State.Upgrades));
+                        SwitchMenu(State.Upgrades);
                         yield break;
                     }
                     case State.MainMenu: {
-                        StartCoroutine(SwitchMenu(State.MainMenu));
+                        SwitchMenu(State.MainMenu);
                         mainLogic.Finished.Value = true;
                         yield break;
                     }
@@ -190,7 +194,7 @@ public class StateSwitcher : MonoBehaviour
                         yield break;
                     }
                     case State.Upgrades: {
-                        StartCoroutine(SwitchMenu(State.Upgrades));
+                        SwitchMenu(State.Upgrades);
                         mainLogic.Paused.Value = true;
                         yield break;
                     }
