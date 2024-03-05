@@ -51,14 +51,14 @@ public class StateSwitcher : MonoBehaviour
     public void PostInit()
     {
         #region MenuUI
-        controllerMainMenu.ui.Q<Button>("Start"    ).clicked += () => StartCoroutine(SwitchState(State.Game     ));
-        controllerMainMenu.ui.Q<Button>("Unlocks"  ).clicked += () => StartCoroutine(SwitchState(State.Unlocks  ));
-        controllerMainMenu.ui.Q<Button>("Learn"    ).clicked += () => StartCoroutine(SwitchState(State.Learn    ));
-        controllerMainMenu.ui.Q<Button>("Glossary" ).clicked += () => StartCoroutine(SwitchState(State.Glossary ));
-        controllerMainMenu.ui.Q<Button>("Changelog").clicked += () => StartCoroutine(SwitchState(State.Changelog));
-        controllerMainMenu.ui.Q<Button>("Settings" ).clicked += () => StartCoroutine(SwitchState(State.Settings ));
-        controllerMainMenu.ui.Q<Button>("Scores"   ).clicked += () => StartCoroutine(SwitchState(State.Scores   ));
-        controllerMainMenu.ui.Q<Button>("Credits"  ).clicked += () => StartCoroutine(SwitchState(State.Credits  ));
+        controllerMainMenu.ui.Q<Button>("Start"    ).clicked += () => SwitchState(State.CameraAnimation);
+        controllerMainMenu.ui.Q<Button>("Unlocks"  ).clicked += () => SwitchState(State.Unlocks        );
+        controllerMainMenu.ui.Q<Button>("Learn"    ).clicked += () => SwitchState(State.Learn          );
+        controllerMainMenu.ui.Q<Button>("Glossary" ).clicked += () => SwitchState(State.Glossary       );
+        controllerMainMenu.ui.Q<Button>("Changelog").clicked += () => SwitchState(State.Changelog      );
+        controllerMainMenu.ui.Q<Button>("Settings" ).clicked += () => SwitchState(State.Settings       );
+        controllerMainMenu.ui.Q<Button>("Scores"   ).clicked += () => SwitchState(State.Scores         );
+        controllerMainMenu.ui.Q<Button>("Credits"  ).clicked += () => SwitchState(State.Credits        );
         controllerMainMenu.ui.Q<Button>("Exit"     ).clicked += () => mainLogic.Quit();
         #endregion
 
@@ -69,9 +69,11 @@ public class StateSwitcher : MonoBehaviour
         #endregion
 
         #region InGameMenuUI
-        controllerInGameMenu.ui.Q<Button>("Continue").clicked += () => StartCoroutine(SwitchState(State.Game));
-        controllerInGameMenu.ui.Q<Button>("MainMenu").clicked += () => StartCoroutine(SwitchState(State.MainMenu));
+        controllerInGameMenu.ui.Q<Button>("Continue").clicked += () => SwitchState(State.Game);
+        controllerInGameMenu.ui.Q<Button>("MainMenu").clicked += () => SwitchState(State.MainMenu);
         #endregion
+
+        state.Subscribe(x => Debug.Log($"StateSwitch to {x}"));
     }
 
     public void SettingsSave() {
@@ -104,7 +106,9 @@ public class StateSwitcher : MonoBehaviour
         StateToController(to).FadeOut();
     }
 
-    public IEnumerator SwitchState(State to) {
+    public void SwitchState(State to) => StartCoroutine(_SwitchState(to));
+
+    IEnumerator _SwitchState(State to) {
         switch (state.Value) {
             case State.Unlocks:
             case State.Learn:
@@ -134,10 +138,10 @@ public class StateSwitcher : MonoBehaviour
             }
             case State.MainMenu: {
                 switch (to) {
-                    case State.Game: {
+                    case State.CameraAnimation: {
                         TargetFadeOut(State.MainMenu);
-                        state.Value = to;
                         mainLogic.Finished.Value = false;
+                        state.Value = to;
                         yield break;
                     }
                     case State.Settings: {
@@ -163,8 +167,6 @@ public class StateSwitcher : MonoBehaviour
                     case State.Game: {
                         TargetFadeOut(State.InGameMenu);
                         state.Value = to;
-                        if (mainLogic.ShipScript.CameraTarget == null)
-                            mainLogic.Paused.Value = false;
                         yield break;
                     }
                     case State.Upgrades: {
@@ -212,6 +214,17 @@ public class StateSwitcher : MonoBehaviour
                 switch (to) {
                     case State.MainMenu: {
                         TargetFadeIn(State.MainMenu);
+                        yield break;
+                    }
+                    default:
+                        throw new NotSupportedException();
+                }
+            }
+            case State.CameraAnimation: {
+                switch (to) {
+                    case State.Game: {
+                        Debug.Log("Game!");
+                        state.Value = to;
                         yield break;
                     }
                     default:

@@ -1,23 +1,32 @@
-using System.Collections;
-using R3;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Assertions;
+using R3;
 
 public class MainLogic : MonoBehaviour
 {
+    public static MainLogic mainLogic {get; private set;}
+
     public ReactiveProperty<bool> Paused = new(true);
     public ReactiveProperty<bool> Finished = new(true);
-    StateSwitcher stateSwitcher;
-    public Ship ShipScript {get; private set;}
+    public StateSwitcher stateSwitcher {get; private set;}
+
+    #region InspectorProperties
+    [SerializeField]
+    GameObject _ShipExample;
+    GameObject ShipExample => _ShipExample;
+    #endregion
 
     [SerializeField]
-    GameObject ShipExample;
+    GameObject _MainCamera;
+    public GameObject MainCamera => _MainCamera;
+
+
+    public GameObject Ship {get; private set;} = null;
 
     CompositeDisposable GameDisposable = new();
 
     void Start()
     {
+        mainLogic = this;
         stateSwitcher = GetComponent<StateSwitcher>();
         foreach (Transform child in GameObject.Find("UI").transform) {
             child.gameObject.SetActive(true);
@@ -44,50 +53,32 @@ public class MainLogic : MonoBehaviour
             .Where((bool value) => value==true)
             .Subscribe(_ => FinishGame())
             .AddTo(GameDisposable);
-        Finished
-            .Subscribe(x => Debug.Log($"Finished: {x}"))
-            .AddTo(GameDisposable);
-        Paused
-            .Subscribe(x => Debug.Log($"Paused: {x}"))
-            .AddTo(GameDisposable);
-        stateSwitcher.state
-            .Subscribe(x => Debug.Log($"State: {x}"))
-            .AddTo(GameDisposable);
     }
 
     void OnRuntimeLoad() {
         stateSwitcher.PostInit();
-        stateSwitcher.StartCoroutine(stateSwitcher.SwitchState(State.MainMenu));
+        stateSwitcher.SwitchState(State.MainMenu);
     }
 
     public void StartGame() {
-        Assert.IsTrue(Paused.Value);
-        GameObject generatedShip = Instantiate(ShipExample);
-        generatedShip.SetActive(true);
-        generatedShip.name = "Ship";
-        ShipScript = generatedShip.GetComponent<Ship>();
-        ShipScript.enabled = true;
-        ShipScript.StartGame();
+        Ship = Instantiate(ShipExample);
+        Ship.name = "Ship";
+        Ship.SetActive(true);
+        MiscellaneousFunctions.IntroAnimation();
+        Ship.GetComponent<Rigidbody>().AddRelativeForce(0f, 0f, 300f);
     }
 
     public void PauseGame() {
-        Assert.IsFalse(Finished.Value);
-        ShipScript.PauseGame();
         Time.timeScale = 0f;
     }
 
     public void ResumeGame() {
-        Assert.IsFalse(Finished.Value);
-        ShipScript.ResumeGame();
         Time.timeScale = 1f;
     }
 
     public void FinishGame() {
-        Assert.IsTrue(Paused.Value);
-        if (!Paused.Value)
-            Paused.Value = true;
-        ShipScript.FinishGame();
-        Destroy(ShipScript.gameObject);
+        Destroy(Ship);
+        Ship = null;
     }
 
     void OnDestroy() => Quit();
@@ -99,20 +90,27 @@ public class MainLogic : MonoBehaviour
             case State.MainMenu: {
                 return;
             }
+            case State.CameraAnimation: {
+                if (Input.GetKeyDown(KeyCode.Escape)) {
+                    stateSwitcher.SwitchState(State.InGameMenu);
+                    return;
+                }
+                return;
+            }
             case State.Game: {
                 if (Input.GetKeyDown(KeyCode.Escape)) {
-                    stateSwitcher.StartCoroutine(stateSwitcher.SwitchState(State.InGameMenu));
+                    stateSwitcher.SwitchState(State.InGameMenu);
                     return;
                 }
                 else if (Input.GetKeyDown(KeyCode.Space)) {
-                    stateSwitcher.StartCoroutine(stateSwitcher.SwitchState(State.Upgrades));
+                    stateSwitcher.SwitchState(State.Upgrades);
                     return;
                 }
                 return;
             }
             case State.InGameMenu: {
                 if (Input.GetKeyDown(KeyCode.Escape)) {
-                    stateSwitcher.StartCoroutine(stateSwitcher.SwitchState(State.Game));
+                    stateSwitcher.SwitchState(State.Game);
                     return;
                 }
                 return;
@@ -125,7 +123,7 @@ public class MainLogic : MonoBehaviour
             case State.Scores:
             case State.Credits: {
                 if (Input.GetKeyDown(KeyCode.Escape)) {
-                    StartCoroutine(stateSwitcher.SwitchState(State.MainMenu));
+                    stateSwitcher.SwitchState(State.MainMenu);
                     return;
                 }
                 return;

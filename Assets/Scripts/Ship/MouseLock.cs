@@ -7,7 +7,7 @@ public class MouseLock : MonoBehaviour
         get; private set;
     } = new(Vector2.zero);
 
-    SerialDisposable disposable = new();
+    readonly SerialDisposable disposable = new();
 
     void OnEnable() {
         Cursor.lockState = CursorLockMode.Locked;
@@ -16,8 +16,7 @@ public class MouseLock : MonoBehaviour
             .Subscribe(_ => MouseDelta.Value=new Vector2(
                 Input.GetAxis("Mouse X")*Settings.InvertMouseHorizontal(),
                 Input.GetAxis("Mouse Y")*Settings.InvertMouseVertical()
-            ))
-            ;
+            ));
     }
 
     void OnDisable() {
