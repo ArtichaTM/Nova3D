@@ -122,7 +122,7 @@ public class StateSwitcher : MonoBehaviour
                         yield break;
                     }
                     default:
-                        throw new NotSupportedException("Can't switch from from " + state + " submenu to any state besides MainMenu");
+                        throw new NotSupportedException();
                 }
             }
             case State.Settings: {
