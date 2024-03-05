@@ -13,11 +13,11 @@ public class MainLogic : MonoBehaviour
     [SerializeField]
     GameObject _ShipExample;
     GameObject ShipExample => _ShipExample;
-    #endregion
 
     [SerializeField]
     GameObject _MainCamera;
     public GameObject MainCamera => _MainCamera;
+    #endregion
 
 
     public GameObject Ship {get; private set;} = null;
@@ -64,7 +64,7 @@ public class MainLogic : MonoBehaviour
         Ship = Instantiate(ShipExample);
         Ship.name = "Ship";
         Ship.SetActive(true);
-        MiscellaneousFunctions.IntroAnimation();
+        // MiscellaneousFunctions.IntroAnimation();
         Ship.GetComponent<Rigidbody>().AddRelativeForce(0f, 0f, 300f);
     }
 

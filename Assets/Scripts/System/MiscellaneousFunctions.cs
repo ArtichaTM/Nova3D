@@ -37,6 +37,7 @@ public class MiscellaneousFunctions : MonoBehaviour
                         instant_disposable2.Dispose();
                     });
                 instant_disposable.Dispose();
-            });
+            })
+        ;
     }
 }

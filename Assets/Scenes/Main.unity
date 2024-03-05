@@ -427,7 +427,7 @@ Transform:
   m_GameObject: {fileID: 111884361}
   serializedVersion: 2
   m_LocalRotation: {x: 0.08715578, y: 0, z: 0, w: 0.9961947}
-  m_LocalPosition: {x: 0, y: 9.77, z: -11.22}
+  m_LocalPosition: {x: 0, y: 13.23, z: -12.34}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1065,6 +1065,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _ShipExample: {fileID: 34277784}
   _MainCamera: {fileID: 72843562}
+  _DefaultCameraPosition: {fileID: 947589688}
 --- !u!114 &1375457584
 MonoBehaviour:
   m_ObjectHideFlags: 0
