@@ -126,7 +126,7 @@ public class StateSwitcher : MonoBehaviour
                         yield break;
                     }
                     default:
-                        throw new NotSupportedException();
+                        throw new NotSupportedException($"Unsupported switch {state.Value}->{to}");
                 }
             }
             case State.Settings: {
@@ -137,7 +137,7 @@ public class StateSwitcher : MonoBehaviour
                         yield break;
                     }
                     default:
-                        throw new NotSupportedException();
+                        throw new NotSupportedException($"Unsupported switch {state.Value}->{to}");
                 }
             }
             case State.MainMenu: {
@@ -163,7 +163,7 @@ public class StateSwitcher : MonoBehaviour
                         yield break;
                     }
                     default:
-                        throw new NotSupportedException();
+                        throw new NotSupportedException($"Unsupported switch {state.Value}->{to}");
                 }
             }
             case State.InGameMenu: {
@@ -186,7 +186,7 @@ public class StateSwitcher : MonoBehaviour
                         yield break;
                     }
                     default:
-                        throw new NotSupportedException();
+                        throw new NotSupportedException($"Unsupported switch {state.Value}->{to}");
                 }
             }
             case State.Game: {
@@ -202,7 +202,7 @@ public class StateSwitcher : MonoBehaviour
                         yield break;
                     }
                     default:
-                        throw new NotSupportedException();
+                        throw new NotSupportedException($"Unsupported switch {state.Value}->{to}");
                 }
             }
             case State.Upgrades: {
@@ -214,7 +214,7 @@ public class StateSwitcher : MonoBehaviour
                         yield break;
                     }
                     default:
-                        throw new NotSupportedException();
+                        throw new NotSupportedException($"Unsupported switch {state.Value}->{to}");
                 }
             }
             case State.Start: {
@@ -224,7 +224,7 @@ public class StateSwitcher : MonoBehaviour
                         yield break;
                     }
                     default:
-                        throw new NotSupportedException();
+                        throw new NotSupportedException($"Unsupported switch {state.Value}->{to}");
                 }
             }
             case State.CameraAnimation: {
@@ -241,11 +241,11 @@ public class StateSwitcher : MonoBehaviour
                         yield break;
                     }
                     default:
-                        throw new NotSupportedException();
+                        throw new NotSupportedException($"Unsupported switch {state.Value}->{to}");
                 }
             }
             default:
-                throw new NotSupportedException();
+                throw new NotSupportedException($"Unsupported State {state.Value}");
         }
     }
 }
