@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Settings : MonoBehaviour
 {
-    public static ReactiveProperty<float> transitionsSpeed = new(0.7f);
+    public static ReactiveProperty<float> transitionsSpeed = new(0.3f);
     public static ReactiveProperty<bool> invertedMouseVertical = new(true);
     public static ReactiveProperty<bool> invertedMouseHorizontal = new(false);
     public static ReactiveProperty<float> GameStartCameraArriveSpeed = new(1f);
