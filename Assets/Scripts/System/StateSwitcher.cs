@@ -26,7 +26,7 @@ public class StateSwitcher : MonoBehaviour
     UI_Controller controllerInGameMenu;
 
     public bool Animating {
-        get => lastAnimation.IsAnimating;
+        get => lastAnimation.IsAnimating.Value;
     }
 
     void Start()

@@ -1,17 +1,15 @@
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
+using R3;
 using UnityEngine;
-using UnityEngine.Assertions;
 using UnityEngine.UIElements;
 
 public class UI_Controller : MonoBehaviour
 {
     public VisualElement ui;
     IEnumerator currentAnimation;
-    public bool IsAnimating {
+    public ReactiveProperty<bool> IsAnimating {
         get; private set;
-    } = false;
+    } = new(false);
 
     void Start()
     {
@@ -26,7 +24,7 @@ public class UI_Controller : MonoBehaviour
     }
 
     void Update() {
-        if (IsAnimating) {
+        if (IsAnimating.Value) {
             currentAnimation.MoveNext();
         }
     }
@@ -50,7 +48,7 @@ public class UI_Controller : MonoBehaviour
             if (ui.style.opacity.value <= 0f) {
                 ui.style.opacity = new StyleFloat(0f);
                 ui.visible = false;
-                IsAnimating = false;
+                IsAnimating.Value = false;
                 enabled = false;
                 break;
             }
@@ -67,7 +65,7 @@ public class UI_Controller : MonoBehaviour
 
             if (ui.style.opacity.value >= 1f) {
                 ui.style.opacity = new StyleFloat(1f);
-                IsAnimating = false;
+                IsAnimating.Value = false;
                 break;
             }
             yield return null;
@@ -77,12 +75,12 @@ public class UI_Controller : MonoBehaviour
     public void FadeOut(float time = -1) {
         if (time == -1) time = Settings.transitionsSpeed.Value;
         currentAnimation = _fadeOut(time);
-        IsAnimating = true;
+        IsAnimating.Value = true;
     }
 
     public void FadeIn(float time = -1) {
         if (time == -1) time = Settings.transitionsSpeed.Value;
         currentAnimation = _fadeIn(time);
-        IsAnimating = true;
+        IsAnimating.Value = true;
     }
 }
