@@ -10,7 +10,7 @@ public class MiscellaneousFunctions : MonoBehaviour
         Transform CameraTarget = ship.transform.GetChild(0);
         Assert.AreEqual(CameraTarget.name, "CameraTarget");
         Transform MainCamera = MainLogic.mainLogic.MainCamera.transform;
-        StateSwitcher switcher = MainLogic.mainLogic.stateSwitcher;
+        StateSwitcher switcher = MainLogic.mainLogic.StateSwitcher;
         switcher.SwitchState(State.CameraAnimation);
 
         SerialDisposable instant_disposable = new();
@@ -33,7 +33,7 @@ public class MiscellaneousFunctions : MonoBehaviour
                         speed += Time.deltaTime;
                     }, _ => {}, _ => {
                         MainCamera.parent = CameraTarget;
-                        MainLogic.mainLogic.stateSwitcher.SwitchState(State.Game);
+                        MainLogic.mainLogic.StateSwitcher.SwitchState(State.Game);
                         instant_disposable2.Dispose();
                     });
                 instant_disposable.Dispose();
