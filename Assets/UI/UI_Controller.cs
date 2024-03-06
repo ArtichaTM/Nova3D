@@ -53,7 +53,6 @@ public class UI_Controller : MonoBehaviour
         currentAnimationDisposable.Disposable = Observable
             .EveryUpdate()
             .Subscribe(_ => {
-                Debug.Log($"Looping FadeIn on {gameObject.name}");
                 ui.style.opacity = new StyleFloat(ui.style.opacity.value + Time.unscaledDeltaTime/time);
 
                 if (ui.style.opacity.value > 1f) {
@@ -64,6 +63,5 @@ public class UI_Controller : MonoBehaviour
                 }
             });
         IsAnimating.Value = true;
-        Debug.Log($"Called FadeIn on {gameObject.name}");
     }
 }

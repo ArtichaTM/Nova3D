@@ -72,8 +72,6 @@ public class StateSwitcher : MonoBehaviour
         controllerInGameMenu.ui.Q<Button>("Continue").clicked += () => SwitchState(State.Game);
         controllerInGameMenu.ui.Q<Button>("MainMenu").clicked += () => SwitchState(State.MainMenu);
         #endregion
-
-        state.Subscribe(x => Debug.Log($"StateSwitch to {x}"));
     }
 
     public void SettingsSave() {
