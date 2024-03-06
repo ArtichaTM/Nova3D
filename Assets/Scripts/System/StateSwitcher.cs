@@ -122,7 +122,7 @@ public class StateSwitcher : MonoBehaviour
             case State.Credits: {
                 switch (to) {
                     case State.MainMenu: {
-                        SwitchMenu(State.MainMenu);
+                        SwitchMenu(to);
                         yield break;
                     }
                     default:
@@ -133,7 +133,7 @@ public class StateSwitcher : MonoBehaviour
                 switch (to) {
                     case State.MainMenu: {
                         SettingsSave();
-                        SwitchMenu(State.MainMenu);
+                        SwitchMenu(to);
                         yield break;
                     }
                     default:
@@ -143,7 +143,7 @@ public class StateSwitcher : MonoBehaviour
             case State.MainMenu: {
                 switch (to) {
                     case State.CameraAnimation: {
-                        TargetFadeOut(State.MainMenu);
+                        TargetFadeOut(state.Value);
                         MainLogic.instance.Finished.Value = false;
                         state.Value = to;
                         yield break;
@@ -169,7 +169,7 @@ public class StateSwitcher : MonoBehaviour
             case State.InGameMenu: {
                 switch (to) {
                     case State.Game: {
-                        TargetFadeOut(State.InGameMenu);
+                        TargetFadeOut(state.Value);
                         if (!MiscellaneousFunctions.instance.IsIntroAnimating.Value) {
                             MainLogic.instance.Paused.Value = false;
                         }
@@ -177,11 +177,11 @@ public class StateSwitcher : MonoBehaviour
                         yield break;
                     }
                     case State.Upgrades: {
-                        SwitchMenu(State.Upgrades);
+                        SwitchMenu(to);
                         yield break;
                     }
                     case State.MainMenu: {
-                        SwitchMenu(State.MainMenu);
+                        SwitchMenu(to);
                         MainLogic.instance.Finished.Value = true;
                         yield break;
                     }
@@ -192,12 +192,12 @@ public class StateSwitcher : MonoBehaviour
             case State.Game: {
                 switch (to) {
                     case State.InGameMenu: {
-                        TargetFadeIn(State.InGameMenu);
+                        TargetFadeIn(to);
                         MainLogic.instance.Paused.Value = true;
                         yield break;
                     }
                     case State.Upgrades: {
-                        SwitchMenu(State.Upgrades);
+                        SwitchMenu(to);
                         MainLogic.instance.Paused.Value = true;
                         yield break;
                     }
@@ -208,7 +208,7 @@ public class StateSwitcher : MonoBehaviour
             case State.Upgrades: {
                 switch (to) {
                     case State.Game: {
-                        TargetFadeOut(State.Upgrades);
+                        TargetFadeOut(state.Value);
                         MainLogic.instance.Paused.Value = false;
                         state.Value = to;
                         yield break;
@@ -220,7 +220,7 @@ public class StateSwitcher : MonoBehaviour
             case State.Start: {
                 switch (to) {
                     case State.MainMenu: {
-                        TargetFadeIn(State.MainMenu);
+                        TargetFadeIn(to);
                         yield break;
                     }
                     default:
