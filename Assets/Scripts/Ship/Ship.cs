@@ -4,7 +4,7 @@ using R3;
 public class Ship : MonoBehaviour
 {
     readonly CompositeDisposable Disposables = new();
-    readonly CompositeDisposable PauseDisposables = new();
+    CompositeDisposable PauseDisposables = new();
 
     void Start()
     {
@@ -26,6 +26,7 @@ public class Ship : MonoBehaviour
     {
         Debug.Log("Ship pause");
         PauseDisposables.Dispose();
+        PauseDisposables = new();
     }
 
     void ResumeGame()

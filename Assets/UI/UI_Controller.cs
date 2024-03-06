@@ -6,7 +6,6 @@ using UnityEngine.UIElements;
 public class UI_Controller : MonoBehaviour
 {
     public VisualElement ui;
-    IEnumerator currentAnimation;
     SerialDisposable currentAnimationDisposable = new();
     public ReactiveProperty<bool> IsAnimating {
         get; private set;
@@ -37,6 +36,7 @@ public class UI_Controller : MonoBehaviour
                     ui.visible = false;
                     IsAnimating.Value = false;
                     currentAnimationDisposable.Dispose();
+                    currentAnimationDisposable = new();
                 }
             });
         IsAnimating.Value = true;
@@ -57,6 +57,7 @@ public class UI_Controller : MonoBehaviour
                     ui.style.opacity = new StyleFloat(1f);
                     IsAnimating.Value = false;
                     currentAnimationDisposable.Dispose();
+                    currentAnimationDisposable = new();
                 }
             });
         IsAnimating.Value = true;
