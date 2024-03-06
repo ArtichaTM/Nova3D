@@ -22,6 +22,10 @@ public class UI_Controller : MonoBehaviour
 
     public void FadeOut(float time = -1) {
         if (time == -1) time = Settings.transitionsSpeed.Value;
+        if (currentAnimationDisposable.Disposable != null) {
+            currentAnimationDisposable.Dispose();
+            currentAnimationDisposable = new();
+        }
         currentAnimationDisposable.Disposable = Observable
             .EveryUpdate()
             .Subscribe(_ => {
@@ -41,8 +45,11 @@ public class UI_Controller : MonoBehaviour
 
     public void FadeIn(float time = -1) {
         if (time == -1) time = Settings.transitionsSpeed.Value;
+        if (currentAnimationDisposable.Disposable != null) {
+            currentAnimationDisposable.Dispose();
+            currentAnimationDisposable = new();
+        }
         ui.visible = true;
-        Debug.Log($"Called FadeIn on {gameObject.name}");
         currentAnimationDisposable.Disposable = Observable
             .EveryUpdate()
             .Subscribe(_ => {
@@ -57,5 +64,6 @@ public class UI_Controller : MonoBehaviour
                 }
             });
         IsAnimating.Value = true;
+        Debug.Log($"Called FadeIn on {gameObject.name}");
     }
 }
