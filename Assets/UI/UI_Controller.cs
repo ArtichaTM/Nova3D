@@ -23,15 +23,12 @@ public class UI_Controller : MonoBehaviour
 
     public void FadeOut(float time = -1) {
         if (time == -1) time = Settings.transitionsSpeed.Value;
-        Debug.Log($"FadeOut requested. Disposables: {currentAnimationDisposable.Disposable}");
         currentAnimationDisposable.Disposable = Observable
             .EveryUpdate()
             .Subscribe(_ => {
-                Debug.Log($"FadeOut on {gameObject.name}");
                 ui.style.opacity = new StyleFloat(ui.style.opacity.value - Time.deltaTime/time);
 
                 if (ui.style.opacity.value < 0f) {
-                    Debug.Log("Stopped fadeout");
                     ui.style.opacity = new StyleFloat(0f);
                     ui.visible = false;
                     IsAnimating.Value = false;
@@ -45,15 +42,12 @@ public class UI_Controller : MonoBehaviour
     public void FadeIn(float time = -1) {
         if (time == -1) time = Settings.transitionsSpeed.Value;
         ui.visible = true;
-        Debug.Log($"FadeIn requested. Disposables: {currentAnimationDisposable.Disposable}");
         currentAnimationDisposable.Disposable = Observable
             .EveryUpdate()
             .Subscribe(_ => {
-                Debug.Log($"FadeIn on {gameObject.name}");
                 ui.style.opacity = new StyleFloat(ui.style.opacity.value + Time.deltaTime/time);
 
                 if (ui.style.opacity.value > 1f) {
-                    Debug.Log("Stopped fadein");
                     ui.style.opacity = new StyleFloat(1f);
                     IsAnimating.Value = false;
                     currentAnimationDisposable.Dispose();

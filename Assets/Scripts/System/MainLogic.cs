@@ -3,11 +3,10 @@ using R3;
 
 public class MainLogic : MonoBehaviour
 {
-    public static MainLogic mainLogic {get; private set;}
+    public static MainLogic instance {get; private set;}
 
     public ReactiveProperty<bool> Paused = new(true);
     public ReactiveProperty<bool> Finished = new(true);
-    public StateSwitcher StateSwitcher {get; private set;}
 
     #region InspectorProperties
     [SerializeField]
@@ -26,8 +25,7 @@ public class MainLogic : MonoBehaviour
 
     void Start()
     {
-        mainLogic = this;
-        StateSwitcher = GetComponent<StateSwitcher>();
+        instance = this;
         foreach (Transform child in GameObject.Find("UI").transform) {
             child.gameObject.SetActive(true);
         }
@@ -56,15 +54,14 @@ public class MainLogic : MonoBehaviour
     }
 
     void OnRuntimeLoad() {
-        StateSwitcher.PostInit();
-        StateSwitcher.SwitchState(State.MainMenu);
+        StateSwitcher.instance.PostInit();
+        StateSwitcher.instance.SwitchState(State.MainMenu);
     }
 
     public void StartGame() {
         Ship = Instantiate(ShipExample);
         Ship.name = "Ship";
         Ship.SetActive(true);
-        // MiscellaneousFunctions.IntroAnimation();
         Ship.GetComponent<Rigidbody>().AddRelativeForce(0f, 0f, 300f);
     }
 
@@ -85,32 +82,32 @@ public class MainLogic : MonoBehaviour
 
     void Update()
     {
-        switch (StateSwitcher.state.Value)
+        switch (StateSwitcher.instance.state.Value)
         {
             case State.MainMenu: {
                 return;
             }
             case State.CameraAnimation: {
                 if (Input.GetKeyDown(KeyCode.Escape)) {
-                    StateSwitcher.SwitchState(State.InGameMenu);
+                    StateSwitcher.instance.SwitchState(State.InGameMenu);
                     return;
                 }
                 return;
             }
             case State.Game: {
                 if (Input.GetKeyDown(KeyCode.Escape)) {
-                    StateSwitcher.SwitchState(State.InGameMenu);
+                    StateSwitcher.instance.SwitchState(State.InGameMenu);
                     return;
                 }
                 else if (Input.GetKeyDown(KeyCode.Space)) {
-                    StateSwitcher.SwitchState(State.Upgrades);
+                    StateSwitcher.instance.SwitchState(State.Upgrades);
                     return;
                 }
                 return;
             }
             case State.InGameMenu: {
                 if (Input.GetKeyDown(KeyCode.Escape)) {
-                    StateSwitcher.SwitchState(State.Game);
+                    StateSwitcher.instance.SwitchState(State.Game);
                     return;
                 }
                 return;
@@ -123,7 +120,7 @@ public class MainLogic : MonoBehaviour
             case State.Scores:
             case State.Credits: {
                 if (Input.GetKeyDown(KeyCode.Escape)) {
-                    StateSwitcher.SwitchState(State.MainMenu);
+                    StateSwitcher.instance.SwitchState(State.MainMenu);
                     return;
                 }
                 return;

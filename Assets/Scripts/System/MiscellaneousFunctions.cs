@@ -5,13 +5,19 @@ using System;
 
 public class MiscellaneousFunctions : MonoBehaviour
 {
-    public static void IntroAnimation() {
-        GameObject ship = MainLogic.mainLogic.Ship;
+    public static MiscellaneousFunctions instance {get; private set;}
+
+    public ReactiveProperty<bool> IsIntroAnimating {get; private set;} = new(false);
+
+    void Start() { instance = this; }
+
+    public void IntroAnimation() {
+        GameObject ship = MainLogic.instance.Ship;
         Transform CameraTarget = ship.transform.GetChild(0);
         Assert.AreEqual(CameraTarget.name, "CameraTarget");
-        Transform MainCamera = MainLogic.mainLogic.MainCamera.transform;
-        StateSwitcher switcher = MainLogic.mainLogic.StateSwitcher;
-        switcher.SwitchState(State.CameraAnimation);
+        Transform MainCamera = MainLogic.instance.MainCamera.transform;
+        StateSwitcher.instance.SwitchState(State.CameraAnimation);
+        IsIntroAnimating.Value = true;
 
         SerialDisposable instant_disposable = new();
         float speed = 0f;
@@ -32,8 +38,22 @@ public class MiscellaneousFunctions : MonoBehaviour
                         );
                         speed += Time.deltaTime;
                     }, _ => {}, _ => {
+                        // Based on current state, pausing or continue-ing game
+                        switch (StateSwitcher.instance.state.Value) {
+                            case State.CameraAnimation: {
+                                MainLogic.instance.Paused.Value = false;
+                                break;
+                            }
+                            case State.Upgrades:
+                            case State.InGameMenu: {
+                                break;
+                            }
+                            default:
+                                throw new NotSupportedException();
+                        }
                         MainCamera.parent = CameraTarget;
-                        MainLogic.mainLogic.StateSwitcher.SwitchState(State.Game);
+                        StateSwitcher.instance.SwitchState(State.Game);
+                        IsIntroAnimating.Value = false;
                         instant_disposable2.Dispose();
                     });
                 instant_disposable.Dispose();

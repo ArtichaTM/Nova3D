@@ -8,15 +8,15 @@ public class Ship : MonoBehaviour
 
     void Start()
     {
-        MainLogic.mainLogic.Paused
+        MainLogic.instance.Paused
             .Where(x => x == true)
             .Subscribe(_ => PauseGame())
             .AddTo(Disposables);
-        MainLogic.mainLogic.Paused
+        MainLogic.instance.Paused
             .Where(x => x == false)
             .Subscribe(_ => ResumeGame())
             .AddTo(Disposables);
-        MainLogic.mainLogic.Finished
+        MainLogic.instance.Finished
             .Where (x => x == true)
             .Subscribe(_ => FinishGame())
             .AddTo(Disposables);
@@ -24,17 +24,14 @@ public class Ship : MonoBehaviour
 
     void PauseGame()
     {
-        Debug.Log("Ship pause");
         PauseDisposables.Dispose();
         PauseDisposables = new();
     }
 
     void ResumeGame()
     {
-        Debug.Log("Ship resume");
     }
 
     void FinishGame() {
-        Debug.Log("Ship finish");
     }
 }

@@ -13,6 +13,8 @@ public enum State {
 
 public class StateSwitcher : MonoBehaviour
 {
+    public static StateSwitcher instance;
+
     public ReactiveProperty<State> state {
         get; private set;
     } = new(State.Start);
@@ -30,6 +32,7 @@ public class StateSwitcher : MonoBehaviour
 
     void Start()
     {
+        instance = this;
         controllerMainMenu = GameObject.Find("UI_MainMenu").GetComponent<UI_Controller>();
         Assert.IsNotNull(controllerMainMenu);
         controllerSettings = GameObject.Find("UI_Settings").GetComponent<UI_Controller>();
@@ -56,7 +59,7 @@ public class StateSwitcher : MonoBehaviour
         controllerMainMenu.ui.Q<Button>("Settings" ).clicked += () => SwitchState(State.Settings       );
         controllerMainMenu.ui.Q<Button>("Scores"   ).clicked += () => SwitchState(State.Scores         );
         controllerMainMenu.ui.Q<Button>("Credits"  ).clicked += () => SwitchState(State.Credits        );
-        controllerMainMenu.ui.Q<Button>("Exit"     ).clicked += () => MainLogic.mainLogic.Quit();
+        controllerMainMenu.ui.Q<Button>("Exit"     ).clicked += () => MainLogic.instance.Quit();
         #endregion
 
         #region SettingsUI
@@ -141,7 +144,7 @@ public class StateSwitcher : MonoBehaviour
                 switch (to) {
                     case State.CameraAnimation: {
                         TargetFadeOut(State.MainMenu);
-                        MainLogic.mainLogic.Finished.Value = false;
+                        MainLogic.instance.Finished.Value = false;
                         state.Value = to;
                         yield break;
                     }
@@ -167,6 +170,9 @@ public class StateSwitcher : MonoBehaviour
                 switch (to) {
                     case State.Game: {
                         TargetFadeOut(State.InGameMenu);
+                        if (!MiscellaneousFunctions.instance.IsIntroAnimating.Value) {
+                            MainLogic.instance.Paused.Value = false;
+                        }
                         state.Value = to;
                         yield break;
                     }
@@ -176,7 +182,7 @@ public class StateSwitcher : MonoBehaviour
                     }
                     case State.MainMenu: {
                         SwitchMenu(State.MainMenu);
-                        MainLogic.mainLogic.Finished.Value = true;
+                        MainLogic.instance.Finished.Value = true;
                         yield break;
                     }
                     default:
@@ -187,12 +193,12 @@ public class StateSwitcher : MonoBehaviour
                 switch (to) {
                     case State.InGameMenu: {
                         TargetFadeIn(State.InGameMenu);
-                        MainLogic.mainLogic.Paused.Value = true;
+                        MainLogic.instance.Paused.Value = true;
                         yield break;
                     }
                     case State.Upgrades: {
                         SwitchMenu(State.Upgrades);
-                        MainLogic.mainLogic.Paused.Value = true;
+                        MainLogic.instance.Paused.Value = true;
                         yield break;
                     }
                     default:
@@ -203,8 +209,8 @@ public class StateSwitcher : MonoBehaviour
                 switch (to) {
                     case State.Game: {
                         TargetFadeOut(State.Upgrades);
+                        MainLogic.instance.Paused.Value = false;
                         state.Value = to;
-                        MainLogic.mainLogic.Paused.Value = false;
                         yield break;
                     }
                     default:
@@ -224,8 +230,14 @@ public class StateSwitcher : MonoBehaviour
             case State.CameraAnimation: {
                 switch (to) {
                     case State.Game: {
-                        Debug.Log("Game!");
                         state.Value = to;
+                        yield break;
+                    }
+                    case State.InGameMenu: {
+                        TargetFadeIn(to);
+                        if (!MiscellaneousFunctions.instance.IsIntroAnimating.Value) {
+                            MainLogic.instance.Paused.Value = false;
+                        }
                         yield break;
                     }
                     default:
