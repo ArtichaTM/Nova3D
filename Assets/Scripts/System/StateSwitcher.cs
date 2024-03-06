@@ -181,8 +181,8 @@ public class StateSwitcher : MonoBehaviour
                         yield break;
                     }
                     case State.MainMenu: {
-                        SwitchMenu(to);
                         MainLogic.instance.Finished.Value = true;
+                        SwitchMenu(to);
                         yield break;
                     }
                     default:

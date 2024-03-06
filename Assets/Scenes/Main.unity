@@ -1065,6 +1065,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _ShipExample: {fileID: 34277784}
   _MainCamera: {fileID: 72843562}
+  _DefaultCamera: {fileID: 947589688}
 --- !u!114 &1375457584
 MonoBehaviour:
   m_ObjectHideFlags: 0

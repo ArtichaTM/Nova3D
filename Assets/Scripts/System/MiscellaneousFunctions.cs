@@ -42,17 +42,19 @@ public class MiscellaneousFunctions : MonoBehaviour
                         switch (StateSwitcher.instance.state.Value) {
                             case State.CameraAnimation: {
                                 MainLogic.instance.Paused.Value = false;
+                                StateSwitcher.instance.SwitchState(State.Game);
                                 break;
                             }
                             case State.Upgrades:
                             case State.InGameMenu: {
+                                MainLogic.instance.Paused.Value = false;
+                                MainLogic.instance.Paused.Value = true;
                                 break;
                             }
                             default:
                                 throw new NotSupportedException();
                         }
                         MainCamera.parent = CameraTarget;
-                        StateSwitcher.instance.SwitchState(State.Game);
                         IsIntroAnimating.Value = false;
                         instant_disposable2.Dispose();
                     });

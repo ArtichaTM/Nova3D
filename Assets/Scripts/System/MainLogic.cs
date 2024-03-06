@@ -1,5 +1,6 @@
 using UnityEngine;
 using R3;
+using UnityEngine.Assertions;
 
 public class MainLogic : MonoBehaviour
 {
@@ -16,6 +17,10 @@ public class MainLogic : MonoBehaviour
     [SerializeField]
     GameObject _MainCamera;
     public GameObject MainCamera => _MainCamera;
+
+    [SerializeField]
+    GameObject _DefaultCamera;
+    public GameObject DefaultCamera => _DefaultCamera;
     #endregion
 
 
@@ -25,6 +30,9 @@ public class MainLogic : MonoBehaviour
 
     void Start()
     {
+        Assert.IsNotNull(_ShipExample, "_ShipExample can't be null. Check script in inspector");
+        Assert.IsNotNull(_MainCamera, "_MainCamera example can't be null. Check script in inspector");
+        Assert.IsNotNull(_DefaultCamera, "_DefaultCamera can't be null. Check script in inspector");
         instance = this;
         foreach (Transform child in GameObject.Find("UI").transform) {
             child.gameObject.SetActive(true);
@@ -62,20 +70,27 @@ public class MainLogic : MonoBehaviour
         Ship = Instantiate(ShipExample);
         Ship.name = "Ship";
         Ship.SetActive(true);
+        MiscellaneousFunctions.instance.IntroAnimation();
         Ship.GetComponent<Rigidbody>().AddRelativeForce(0f, 0f, 300f);
     }
 
     public void PauseGame() {
         Time.timeScale = 0f;
+        Debug.Log("Pause");
     }
 
     public void ResumeGame() {
         Time.timeScale = 1f;
+        Debug.Log("Resume");
     }
 
     public void FinishGame() {
         Destroy(Ship);
         Ship = null;
+        MainCamera.transform.SetPositionAndRotation(
+            DefaultCamera.transform.position,
+            DefaultCamera.transform.rotation
+        );
     }
 
     void OnDestroy() => Quit();

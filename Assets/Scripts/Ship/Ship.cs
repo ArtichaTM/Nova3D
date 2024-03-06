@@ -1,5 +1,6 @@
 using UnityEngine;
 using R3;
+using R3.Triggers;
 
 public class Ship : MonoBehaviour
 {
@@ -33,5 +34,11 @@ public class Ship : MonoBehaviour
     }
 
     void FinishGame() {
+        Disposables.Dispose();
+        if (!MiscellaneousFunctions.instance.IsIntroAnimating.Value) {
+            transform.GetChild(0).GetChild(0).parent = null;
+        }
     }
+
+    void OnDestroy() => FinishGame();
 }
