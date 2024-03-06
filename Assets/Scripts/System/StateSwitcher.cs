@@ -19,7 +19,6 @@ public class StateSwitcher : MonoBehaviour
     public UI_Controller lastAnimation {
         get; private set;
     }
-    MainLogic mainLogic;
 
     UI_Controller controllerMainMenu;
     UI_Controller controllerSettings;
@@ -37,8 +36,6 @@ public class StateSwitcher : MonoBehaviour
         Assert.IsNotNull(controllerSettings);
         controllerInGameMenu = GameObject.Find("UI_InGameMenu").GetComponent<UI_Controller>();
         Assert.IsNotNull(controllerInGameMenu);
-        mainLogic = GameObject.Find("SystemScripts").GetComponent<MainLogic>();
-        Assert.IsNotNull(mainLogic);
     }
 
     private UI_Controller StateToController(State state) => state switch {
@@ -59,7 +56,7 @@ public class StateSwitcher : MonoBehaviour
         controllerMainMenu.ui.Q<Button>("Settings" ).clicked += () => SwitchState(State.Settings       );
         controllerMainMenu.ui.Q<Button>("Scores"   ).clicked += () => SwitchState(State.Scores         );
         controllerMainMenu.ui.Q<Button>("Credits"  ).clicked += () => SwitchState(State.Credits        );
-        controllerMainMenu.ui.Q<Button>("Exit"     ).clicked += () => mainLogic.Quit();
+        controllerMainMenu.ui.Q<Button>("Exit"     ).clicked += () => MainLogic.mainLogic.Quit();
         #endregion
 
         #region SettingsUI
@@ -144,7 +141,7 @@ public class StateSwitcher : MonoBehaviour
                 switch (to) {
                     case State.CameraAnimation: {
                         TargetFadeOut(State.MainMenu);
-                        mainLogic.Finished.Value = false;
+                        MainLogic.mainLogic.Finished.Value = false;
                         state.Value = to;
                         yield break;
                     }
@@ -179,7 +176,7 @@ public class StateSwitcher : MonoBehaviour
                     }
                     case State.MainMenu: {
                         SwitchMenu(State.MainMenu);
-                        mainLogic.Finished.Value = true;
+                        MainLogic.mainLogic.Finished.Value = true;
                         yield break;
                     }
                     default:
@@ -190,12 +187,12 @@ public class StateSwitcher : MonoBehaviour
                 switch (to) {
                     case State.InGameMenu: {
                         TargetFadeIn(State.InGameMenu);
-                        mainLogic.Paused.Value = true;
+                        MainLogic.mainLogic.Paused.Value = true;
                         yield break;
                     }
                     case State.Upgrades: {
                         SwitchMenu(State.Upgrades);
-                        mainLogic.Paused.Value = true;
+                        MainLogic.mainLogic.Paused.Value = true;
                         yield break;
                     }
                     default:
@@ -207,7 +204,7 @@ public class StateSwitcher : MonoBehaviour
                     case State.Game: {
                         TargetFadeOut(State.Upgrades);
                         state.Value = to;
-                        mainLogic.Paused.Value = false;
+                        MainLogic.mainLogic.Paused.Value = false;
                         yield break;
                     }
                     default:
