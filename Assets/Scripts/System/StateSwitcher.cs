@@ -131,11 +131,12 @@ public class StateSwitcher : MonoBehaviour
                 switch (to) {
                     case State.MainMenu: {
                         SwitchMenu(to);
-                        yield break;
+                        break;
                     }
                     default:
                         throw new NotSupportedException($"Unsupported switch {state.Value}->{to}");
                 }
+                break;
             }
             case State.Settings: {
                 if (StateToController(state.Value).IsAnimating.Value) yield break;
@@ -143,11 +144,12 @@ public class StateSwitcher : MonoBehaviour
                     case State.MainMenu: {
                         SettingsSave();
                         SwitchMenu(to);
-                        yield break;
+                        break;
                     }
                     default:
                         throw new NotSupportedException($"Unsupported switch {state.Value}->{to}");
                 }
+                break;
             }
             case State.MainMenu: {
                 if (StateToController(state.Value).IsAnimating.Value) yield break;
@@ -156,12 +158,12 @@ public class StateSwitcher : MonoBehaviour
                         TargetFadeOut(state.Value);
                         MainLogic.instance.Finished.Value = false;
                         state.Value = to;
-                        yield break;
+                        break;
                     }
                     case State.Settings: {
                         // TODO: Update settings
                         SwitchMenu(to);
-                        yield break;
+                        break;
                     }
                     case State.Unlocks:
                     case State.Learn: 
@@ -170,11 +172,12 @@ public class StateSwitcher : MonoBehaviour
                     case State.Scores: 
                     case State.Credits: {
                         SwitchMenu(to);
-                        yield break;
+                        break;
                     }
                     default:
                         throw new NotSupportedException($"Unsupported switch {state.Value}->{to}");
                 }
+                break;
             }
             case State.InGameMenu: {
                 if (StateToController(state.Value).IsAnimating.Value) yield break;
@@ -185,40 +188,42 @@ public class StateSwitcher : MonoBehaviour
                             MainLogic.instance.Paused.Value = false;
                         }
                         state.Value = to;
-                        yield break;
+                        break;
                     }
                     case State.Upgrades: {
                         SwitchMenu(to);
-                        yield break;
+                        break;
                     }
                     case State.MainMenu: {
                         MainLogic.instance.Finished.Value = true;
                         SwitchMenu(to);
-                        yield break;
+                        break;
                     }
                     case State.CameraAnimation: {
                         TargetFadeOut(state.Value);
-                        yield break;
+                        break;
                     }
                     default:
                         throw new NotSupportedException($"Unsupported switch {state.Value}->{to}");
                 }
+                break;
             }
             case State.Game: {
                 switch (to) {
                     case State.InGameMenu: {
                         TargetFadeIn(to);
                         MainLogic.instance.Paused.Value = true;
-                        yield break;
+                        break;
                     }
                     case State.Upgrades: {
                         SwitchMenu(to);
                         MainLogic.instance.Paused.Value = true;
-                        yield break;
+                        break;
                     }
                     default:
                         throw new NotSupportedException($"Unsupported switch {state.Value}->{to}");
                 }
+                break;
             }
             case State.Upgrades: {
                 if (StateToController(state.Value).IsAnimating.Value) yield break;
@@ -227,41 +232,45 @@ public class StateSwitcher : MonoBehaviour
                         TargetFadeOut(state.Value);
                         MainLogic.instance.Paused.Value = false;
                         state.Value = to;
-                        yield break;
+                        break;
                     }
                     default:
                         throw new NotSupportedException($"Unsupported switch {state.Value}->{to}");
                 }
+                break;
             }
             case State.Start: {
                 switch (to) {
                     case State.MainMenu: {
                         TargetFadeIn(to);
-                        yield break;
+                        break;
                     }
                     default:
                         throw new NotSupportedException($"Unsupported switch {state.Value}->{to}");
                 }
+                break;
             }
             case State.CameraAnimation: {
                 switch (to) {
                     case State.Game: {
                         state.Value = to;
-                        yield break;
+                        break;
                     }
                     case State.InGameMenu: {
                         TargetFadeIn(to);
                         if (!MiscellaneousFunctions.instance.IsIntroAnimating.Value) {
                             MainLogic.instance.Paused.Value = false;
                         }
-                        yield break;
+                        break;
                     }
                     default:
                         throw new NotSupportedException($"Unsupported switch {state.Value}->{to}");
                 }
+                break;
             }
             default:
                 throw new NotSupportedException($"Unsupported State {state.Value}");
         }
+        Updates.SwitchUpdate(to);
     }
 }
