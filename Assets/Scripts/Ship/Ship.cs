@@ -36,9 +36,7 @@ public class Ship : MonoBehaviour
     void FinishGame() {
         Disposables.Dispose();
         if (!MiscellaneousFunctions.instance.IsIntroAnimating.Value) {
-            Assert.AreNotEqual(transform.childCount, 0);
-            Assert.AreNotEqual(transform.GetChild(0).childCount, 0);
-            // transform.GetChild(0).GetChild(0).parent = null;
+            MainLogic.instance.MainCamera.transform.parent = null;
         }
     }
 
