@@ -69,7 +69,12 @@ public class StateSwitcher : MonoBehaviour
         #endregion
 
         #region InGameMenuUI
-        controllerInGameMenu.ui.Q<Button>("Continue").clicked += () => SwitchState(State.Game);
+        controllerInGameMenu.ui.Q<Button>("Continue").clicked += () => {
+            if (MiscellaneousFunctions.instance.IsIntroAnimating.Value)
+                SwitchState(State.CameraAnimation);
+            else
+                SwitchState(State.Game);
+        };
         controllerInGameMenu.ui.Q<Button>("MainMenu").clicked += () => SwitchState(State.MainMenu);
         #endregion
     }
@@ -181,6 +186,10 @@ public class StateSwitcher : MonoBehaviour
                     case State.MainMenu: {
                         MainLogic.instance.Finished.Value = true;
                         SwitchMenu(to);
+                        yield break;
+                    }
+                    case State.CameraAnimation: {
+                        TargetFadeOut(state.Value);
                         yield break;
                     }
                     default:

@@ -120,6 +120,9 @@ public class MainLogic : MonoBehaviour
             }
             case State.InGameMenu: {
                 if (Input.GetKeyDown(KeyCode.Escape)) {
+                    if (MiscellaneousFunctions.instance.IsIntroAnimating.Value)
+                        StateSwitcher.instance.SwitchState(State.CameraAnimation);
+                    else
                     StateSwitcher.instance.SwitchState(State.Game);
                     return;
                 }
