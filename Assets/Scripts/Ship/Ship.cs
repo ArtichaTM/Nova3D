@@ -4,11 +4,13 @@ using UnityEngine.Assertions;
 
 public class Ship : MonoBehaviour
 {
+    MouseLock mouseLock;
     readonly CompositeDisposable Disposables = new();
     CompositeDisposable PauseDisposables = new();
 
     void Start()
     {
+        mouseLock = GetComponent<MouseLock>();
         MainLogic.instance.Paused
             .Where(x => x == true)
             .Subscribe(_ => PauseGame())
@@ -25,12 +27,14 @@ public class Ship : MonoBehaviour
 
     void PauseGame()
     {
+        mouseLock.enabled = false;
         PauseDisposables.Dispose();
         PauseDisposables = new();
     }
 
     void ResumeGame()
     {
+        mouseLock.enabled = true;
     }
 
     void FinishGame() {

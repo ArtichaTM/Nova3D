@@ -59,6 +59,9 @@ public class MainLogic : MonoBehaviour
             .Where((bool value) => value==true)
             .Subscribe(_ => FinishGame())
             .AddTo(GameDisposable);
+        Paused
+            .Subscribe(x => Debug.Log($"Paused: {x}"))
+            .AddTo(GameDisposable);
     }
 
     void OnRuntimeLoad() {
@@ -72,6 +75,7 @@ public class MainLogic : MonoBehaviour
         Ship.SetActive(true);
         MiscellaneousFunctions.instance.IntroAnimation();
         Ship.GetComponent<Rigidbody>().AddRelativeForce(0f, 0f, 300f);
+        Time.timeScale = 1f;
     }
 
     public void PauseGame() {
