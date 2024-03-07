@@ -3,7 +3,6 @@ using R3;
 using R3.Triggers;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class BoundaryTeleporter : MonoBehaviour
 {
@@ -61,7 +60,6 @@ public class BoundaryTeleporter : MonoBehaviour
             else
                 ribo.MovePosition(new(0f, 0f, -extents.z));
         }
-        Debug.Log($"target bounds: {boundary.bounds}, Vector: {fromCenter}");
     }
 
     void OnDestroy() {

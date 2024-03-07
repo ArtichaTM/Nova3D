@@ -116,7 +116,6 @@ public class StateSwitcher : MonoBehaviour
     public void SwitchState(State to) => StartCoroutine(SwitchStateAsync(to));
 
     public IEnumerator SwitchStateAsync(State to) {
-        Debug.Log($"Switching {state.Value}->{to}");
         if (state.Value == to) {
             Debug.Log($"Trying to repeat switch {to}");
             yield break;
