@@ -16,7 +16,6 @@ public class MiscellaneousFunctions : MonoBehaviour
         Transform CameraTarget = ship.transform.GetChild(0);
         Assert.AreEqual(CameraTarget.name, "CameraTarget");
         Transform MainCamera = MainLogic.instance.MainCamera.transform;
-        StateSwitcher.instance.SwitchState(State.CameraAnimation);
         IsIntroAnimating.Value = true;
 
         SerialDisposable instant_disposable = new();
