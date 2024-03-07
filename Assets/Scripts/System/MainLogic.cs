@@ -141,7 +141,7 @@ public class MainLogic : MonoBehaviour
         Ship.name = "Ship";
         Ship.SetActive(true);
         MiscellaneousFunctions.instance.IntroAnimation();
-        Ship.GetComponent<Rigidbody>().AddRelativeForce(0f, 0f, 300f);
+        Ship.GetComponent<Rigidbody>().AddRelativeForce(0f, 0f, Settings.spawnSpeed);
         Time.timeScale = 1f;
     }
 

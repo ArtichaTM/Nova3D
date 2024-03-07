@@ -21,7 +21,7 @@ public class BoundaryTeleporter : MonoBehaviour
     {
         ribo = GetComponent<Rigidbody>();
 
-        GameObject colliderObject = new GameObject("TeleportTrigger");
+        GameObject colliderObject = new GameObject(Settings.teleporterName);
         colliderObject.transform.SetPositionAndRotation(transform.position + ribo.centerOfMass, transform.rotation);
         colliderObject.transform.parent = transform;
         colliderObject.tag = "BoundaryColliders";

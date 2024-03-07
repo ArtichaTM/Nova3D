@@ -22,12 +22,16 @@ public class MiscellaneousFunctions : MonoBehaviour
         float speed = 0f;
         instant_disposable.Disposable = Observable
             .NextFrame()
-            .Delay(TimeSpan.FromSeconds(2))
+            .Delay(TimeSpan.FromSeconds(Settings.CameraAnimationDelay))
             .Subscribe(_ => {
                 SerialDisposable instant_disposable2 = new();
                 instant_disposable2.Disposable = Observable
                     .EveryUpdate()
-                    .TakeWhile(_ => Vector3.Distance(CameraTarget.position, MainCamera.position) > 2)
+                    .TakeWhile(_ => 
+                        Vector3.Distance(CameraTarget.position, MainCamera.position)
+                        >
+                        Settings.CameraAnimationDistanceMinimum
+                    )
                     .Subscribe(_ => {
                         MainCamera.Translate(
                             Settings.GameStartCameraArriveSpeed.Value
