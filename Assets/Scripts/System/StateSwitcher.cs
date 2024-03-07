@@ -116,6 +116,10 @@ public class StateSwitcher : MonoBehaviour
     public void SwitchState(State to) => StartCoroutine(SwitchStateAsync(to));
 
     public IEnumerator SwitchStateAsync(State to) {
+        if (state.Value == to) {
+            Debug.Log($"Trying to repeat switch {to}");
+            yield break;
+        }
         switch (state.Value) {
             case State.Unlocks:
             case State.Learn:
@@ -123,6 +127,7 @@ public class StateSwitcher : MonoBehaviour
             case State.Changelog:
             case State.Scores:
             case State.Credits: {
+                if (StateToController(state.Value).IsAnimating.Value) yield break;
                 switch (to) {
                     case State.MainMenu: {
                         SwitchMenu(to);
@@ -133,6 +138,7 @@ public class StateSwitcher : MonoBehaviour
                 }
             }
             case State.Settings: {
+                if (StateToController(state.Value).IsAnimating.Value) yield break;
                 switch (to) {
                     case State.MainMenu: {
                         SettingsSave();
@@ -144,6 +150,7 @@ public class StateSwitcher : MonoBehaviour
                 }
             }
             case State.MainMenu: {
+                if (StateToController(state.Value).IsAnimating.Value) yield break;
                 switch (to) {
                     case State.CameraAnimation: {
                         TargetFadeOut(state.Value);
@@ -170,6 +177,7 @@ public class StateSwitcher : MonoBehaviour
                 }
             }
             case State.InGameMenu: {
+                if (StateToController(state.Value).IsAnimating.Value) yield break;
                 switch (to) {
                     case State.Game: {
                         TargetFadeOut(state.Value);
@@ -213,6 +221,7 @@ public class StateSwitcher : MonoBehaviour
                 }
             }
             case State.Upgrades: {
+                if (StateToController(state.Value).IsAnimating.Value) yield break;
                 switch (to) {
                     case State.Game: {
                         TargetFadeOut(state.Value);
