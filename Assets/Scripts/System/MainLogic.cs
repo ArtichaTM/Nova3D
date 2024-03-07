@@ -123,7 +123,7 @@ public class MainLogic : MonoBehaviour
                     if (MiscellaneousFunctions.instance.IsIntroAnimating.Value)
                         StateSwitcher.instance.SwitchState(State.CameraAnimation);
                     else
-                    StateSwitcher.instance.SwitchState(State.Game);
+                        StateSwitcher.instance.SwitchState(State.Game);
                     return;
                 }
                 return;

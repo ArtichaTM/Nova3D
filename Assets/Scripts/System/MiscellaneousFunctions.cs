@@ -52,7 +52,7 @@ public class MiscellaneousFunctions : MonoBehaviour
                                 break;
                             }
                             default:
-                                throw new NotSupportedException();
+                                throw new NotSupportedException($"How {StateSwitcher.instance.state.Value}?");
                         }
                         MainCamera.parent = CameraTarget;
                         IsIntroAnimating.Value = false;
