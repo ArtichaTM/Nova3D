@@ -16,9 +16,9 @@ public class Ship : MonoBehaviour
 
     #region Variables
     public ReactiveProperty<float> HorizontalSpeed {get; private set;} = new(100f);
-    ReactiveProperty<float> AppliedHorizontalSpeed = new();
+    readonly ReactiveProperty<float> AppliedHorizontalSpeed = new();
     public ReactiveProperty<float> RotationSpeed {get; private set;} = new(100f);
-    ReactiveProperty<float> AppliedRotationSpeed = new();
+    readonly ReactiveProperty<float> AppliedRotationSpeed = new();
     #endregion
 
     void Start()
