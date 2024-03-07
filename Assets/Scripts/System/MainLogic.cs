@@ -59,9 +59,6 @@ public class MainLogic : MonoBehaviour
             .Where((bool value) => value==true)
             .Subscribe(_ => FinishGame())
             .AddTo(GameDisposable);
-        Paused
-            .Subscribe(x => Debug.Log($"Paused: {x}"))
-            .AddTo(GameDisposable);
     }
 
     void OnRuntimeLoad() {
