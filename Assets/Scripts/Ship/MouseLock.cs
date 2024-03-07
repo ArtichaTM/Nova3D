@@ -7,7 +7,7 @@ public class MouseLock : MonoBehaviour
         get; private set;
     } = new(Vector2.zero);
 
-    readonly SerialDisposable disposable = new();
+    SerialDisposable disposable = new();
 
     void OnEnable() {
         Cursor.lockState = CursorLockMode.Locked;
@@ -22,5 +22,6 @@ public class MouseLock : MonoBehaviour
     void OnDisable() {
         Cursor.lockState = CursorLockMode.None;
         disposable.Dispose();
+        disposable = new();
     }
 }
