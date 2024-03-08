@@ -60,7 +60,8 @@ public class MiscellaneousFunctions : MonoBehaviour
                         MainCamera.parent = CameraTarget;
                         IsIntroAnimating.Value = false;
                         instant_disposable2.Dispose();
-                    });
+                    })
+                    ;
                 instant_disposable.Dispose();
             })
         ;

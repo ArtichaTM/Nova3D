@@ -68,7 +68,8 @@ static class Updates {
 
         disposable.Disposable = Observable
             .EveryUpdate()
-            .Subscribe(_ => updateFunction());
+            .Subscribe(_ => updateFunction())
+            ;
     }
 }
 
@@ -119,21 +120,25 @@ public class MainLogic : MonoBehaviour
         Paused
             .Where((bool value) => value==false)
             .Subscribe(_ => ResumeGame())
-            .AddTo(GameDisposable);
+            .AddTo(GameDisposable)
+            ;
         Paused
             .Skip(1)
             .Where((bool value) => value==true)
             .Subscribe(_ => PauseGame())
-            .AddTo(GameDisposable);
+            .AddTo(GameDisposable)
+            ;
         Finished
             .Where((bool value) => value==false)
             .Subscribe(_ => StartGame())
-            .AddTo(GameDisposable);
+            .AddTo(GameDisposable)
+            ;
         Finished
             .Skip(1) // Finished default value is true => Subscribe instantly calls
             .Where((bool value) => value==true)
             .Subscribe(_ => FinishGame())
-            .AddTo(GameDisposable);
+            .AddTo(GameDisposable)
+            ;
     }
 
     void OnRuntimeLoad() {

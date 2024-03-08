@@ -39,7 +39,8 @@ public class UI_Controller : MonoBehaviour
                     currentAnimationDisposable = new();
                     this.enabled = false;
                 }
-            });
+            })
+            ;
         IsAnimating.Value = true;
     }
 
@@ -61,7 +62,8 @@ public class UI_Controller : MonoBehaviour
                     currentAnimationDisposable.Dispose();
                     currentAnimationDisposable = new();
                 }
-            });
+            })
+            ;
         IsAnimating.Value = true;
     }
 }

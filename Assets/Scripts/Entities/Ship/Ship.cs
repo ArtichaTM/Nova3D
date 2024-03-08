@@ -29,21 +29,26 @@ public class Ship : MonoBehaviour
         MainLogic.instance.Paused
             .Where(x => x == true)
             .Subscribe(_ => PauseGame())
-            .AddTo(Disposables);
+            .AddTo(Disposables)
+            ;
         MainLogic.instance.Paused
             .Where(x => x == false)
             .Subscribe(_ => ResumeGame())
-            .AddTo(Disposables);
+            .AddTo(Disposables)
+            ;
         MainLogic.instance.Finished
             .Where (x => x == true)
             .Subscribe(_ => FinishGame())
-            .AddTo(Disposables);
+            .AddTo(Disposables)
+            ;
         HorizontalSpeed
             .Subscribe(_ => RecalculateHorizontalSpeed())
-            .AddTo(Disposables);
+            .AddTo(Disposables)
+            ;
         RotationSpeed
             .Subscribe(_ => RecalculateRotationSpeed())
-            .AddTo(Disposables);
+            .AddTo(Disposables)
+            ;
     }
     void RecalculateHorizontalSpeed() {
         AppliedHorizontalSpeed.Value = HorizontalSpeed.Value * Time.fixedDeltaTime;
@@ -72,11 +77,13 @@ public class Ship : MonoBehaviour
                     0f
                 );
             })
-            .AddTo(PauseDisposables);
+            .AddTo(PauseDisposables)
+            ;
         Observable
             .EveryUpdate(UnityFrameProvider.FixedUpdate)
             .Subscribe(_ => ObservableFixedUpdate())
-            .AddTo(PauseDisposables);
+            .AddTo(PauseDisposables)
+            ;
     }
 
     void PauseGame() {
