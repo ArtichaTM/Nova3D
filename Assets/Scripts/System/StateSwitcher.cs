@@ -101,16 +101,24 @@ public class StateSwitcher : MonoBehaviour
         lastAnimation.FadeIn();
     }
 
-    private void TargetFadeIn(State to) {
-        lastAnimation = StateToController(to);
+    void TargetFadeIn(UI_Controller to) {
+        lastAnimation = to;
         lastAnimation.enabled = true;
-        StateToController(to).FadeIn();
+        lastAnimation.FadeIn();
+    }
+
+    void TargetFadeIn(State to) {
+        TargetFadeIn(StateToController(to));
         state.Value = to;
     }
 
-    private void TargetFadeOut(State to) {
-        lastAnimation = StateToController(to);
-        StateToController(to).FadeOut();
+    void TargetFadeOut(State to) {
+        TargetFadeOut(StateToController(to));
+    }
+
+    void TargetFadeOut(UI_Controller to) {
+        lastAnimation = to;
+        lastAnimation.FadeOut();
     }
 
     public void SwitchState(State to) => StartCoroutine(SwitchStateAsync(to));
