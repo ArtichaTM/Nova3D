@@ -8,9 +8,10 @@ public class MouseLock : MonoBehaviour
     } = new(Vector2.zero);
 
     SerialDisposable PauseDisposable = new();
-    CompositeDisposable Disposables;
+    CompositeDisposable Disposables = new();
 
     void Start() {
+        Disposables.Dispose();
         Disposables = new();
         MainLogic.instance.Paused
             .Subscribe(x => enabled = !x)
