@@ -75,3 +75,6 @@ crashlytics-build.properties
 .plastic
 NuGet
 Packages
+
+# Models
+/[Aa]ssets/[Mm]odels/*
