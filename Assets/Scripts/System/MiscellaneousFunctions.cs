@@ -40,7 +40,7 @@ public class MiscellaneousFunctions : MonoBehaviour
                             *(CameraTarget.position - MainCamera.position)
                         );
                         speed += Time.deltaTime;
-                    }, _ => {}, _ => {
+                    }, _ => instant_disposable2.Dispose(), _ => {
                         // Based on current state, pausing or continue-ing game
                         switch (StateSwitcher.instance.state.Value) {
                             case State.CameraAnimation: {
