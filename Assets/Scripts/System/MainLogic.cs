@@ -100,9 +100,14 @@ public class MainLogic : MonoBehaviour
 
     void Start()
     {
+        #region Assertions
         Assert.IsNotNull(_ShipExample, "_ShipExample can't be null. Check script in inspector");
         Assert.IsNotNull(_MainCamera, "_MainCamera example can't be null. Check script in inspector");
         Assert.IsNotNull(_DefaultCamera, "_DefaultCamera can't be null. Check script in inspector");
+        Assert.AreEqual(GameObject.Find("UI").transform.GetChild(0).gameObject.name, "GameUI");
+        Assert.AreEqual(GameObject.Find("UI").transform.GetChild(1).gameObject.name, "Menus");
+        #endregion
+
         instance = this;
         foreach (Transform child in GameObject.Find("UI/Menus").transform) {
             child.gameObject.SetActive(true);
@@ -137,8 +142,7 @@ public class MainLogic : MonoBehaviour
     }
 
     public void StartGame() {
-
-        GameObject.Find("GameUI").SetActive(true);
+        GameObject.Find("System/UI").transform.GetChild(0).gameObject.SetActive(true);
 
         #region Ship init
         Ship = Instantiate(ShipExample);
