@@ -11,10 +11,10 @@ public class ShipParameters : MonoBehaviour
     #endregion
 
     #region VariableVariables
-    readonly public ReactiveProperty<float> MaxHealth = new(100f);
-    readonly public ReactiveProperty<float> MaxShields = new(100f);
     readonly public ReactiveProperty<float> Health = new(100f);
-    readonly public ReactiveProperty<float> Shields = new(100f);
+    readonly public ReactiveProperty<float> MaxHealth = new(100f);
+    readonly public ReactiveProperty<float> Shield = new(100f);
+    readonly public ReactiveProperty<float> MaxShield = new(100f);
     #endregion
 
     void Start()

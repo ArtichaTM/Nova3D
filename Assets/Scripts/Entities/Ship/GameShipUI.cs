@@ -81,6 +81,12 @@ public class GameShipUI : MonoBehaviour
         Parameters.MaxHealth
             .Subscribe(x => Health.SetMaxHealth(x))
             .AddTo(Disposables);
+        Parameters.Shield
+            .Subscribe(x => Shield.SetShield(x))
+            .AddTo(Disposables);
+        Parameters.MaxShield
+            .Subscribe(x => Shield.SetMaxShield(x))
+            .AddTo(Disposables);
     }
 
     void OnDisable() {
