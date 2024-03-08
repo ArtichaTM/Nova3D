@@ -104,7 +104,7 @@ public class MainLogic : MonoBehaviour
         Assert.IsNotNull(_MainCamera, "_MainCamera example can't be null. Check script in inspector");
         Assert.IsNotNull(_DefaultCamera, "_DefaultCamera can't be null. Check script in inspector");
         instance = this;
-        foreach (Transform child in GameObject.Find("UI").transform) {
+        foreach (Transform child in GameObject.Find("UI/Menus").transform) {
             child.gameObject.SetActive(true);
         }
         ObservableSystem.DefaultTimeProvider = UnityTimeProvider.Update;
