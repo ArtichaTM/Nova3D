@@ -10,7 +10,7 @@ public class Ship : MonoBehaviour
     #endregion
 
     #region Disposables
-    readonly CompositeDisposable Disposables = new();
+    CompositeDisposable Disposables;
     CompositeDisposable PauseDisposables = new();
     #endregion
 
@@ -23,6 +23,7 @@ public class Ship : MonoBehaviour
 
     void Start()
     {
+        Disposables = new();
         mouseLock = GetComponent<MouseLock>();
         ribi = GetComponent<Rigidbody>();
         MainLogic.instance.Paused
@@ -44,13 +45,6 @@ public class Ship : MonoBehaviour
             .Subscribe(_ => RecalculateRotationSpeed())
             .AddTo(Disposables);
     }
-
-    void PauseGame() {
-        mouseLock.enabled = false;
-        PauseDisposables.Dispose();
-        PauseDisposables = new();
-    }
-
     void RecalculateHorizontalSpeed() {
         AppliedHorizontalSpeed.Value = HorizontalSpeed.Value * Time.fixedDeltaTime;
     }
@@ -70,7 +64,6 @@ public class Ship : MonoBehaviour
 
     void ResumeGame()
     {
-        mouseLock.enabled = true;
         mouseLock.MouseDelta
             .Subscribe((Vector2 delta) => {
                 ribi.AddRelativeTorque(
@@ -84,6 +77,11 @@ public class Ship : MonoBehaviour
             .EveryUpdate(UnityFrameProvider.FixedUpdate)
             .Subscribe(_ => ObservableFixedUpdate())
             .AddTo(PauseDisposables);
+    }
+
+    void PauseGame() {
+        PauseDisposables.Dispose();
+        PauseDisposables = new();
     }
 
     void FinishGame() {
