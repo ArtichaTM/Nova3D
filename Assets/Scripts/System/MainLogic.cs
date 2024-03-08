@@ -142,6 +142,7 @@ public class MainLogic : MonoBehaviour
     }
 
     public void StartGame() {
+        Assert.AreEqual(GameObject.Find("System/UI").transform.GetChild(0).name, "GameUI");
         GameObject.Find("System/UI").transform.GetChild(0).gameObject.SetActive(true);
 
         #region Ship init
