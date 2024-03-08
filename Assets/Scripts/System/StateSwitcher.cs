@@ -32,13 +32,19 @@ public class StateSwitcher : MonoBehaviour
 
     void Start()
     {
+        #region Assertions
+        Assert.IsNotNull(GameObject.Find("UI/Menus/UI_MainMenu"));
+        Assert.IsNotNull(GameObject.Find("UI/Menus/UI_Settings"));
+        Assert.IsNotNull(GameObject.Find("UI/Menus/UI_InGameMenu"));
+        Assert.IsNotNull(GameObject.Find("UI/Menus/UI_MainMenu").GetComponent<UI_Controller>());
+        Assert.IsNotNull(GameObject.Find("UI/Menus/UI_Settings").GetComponent<UI_Controller>());
+        Assert.IsNotNull(GameObject.Find("UI/Menus/UI_InGameMenu").GetComponent<UI_Controller>());
+        #endregion
+
         instance = this;
         controllerMainMenu = GameObject.Find("UI/Menus/UI_MainMenu").GetComponent<UI_Controller>();
-        Assert.IsNotNull(controllerMainMenu);
         controllerSettings = GameObject.Find("UI/Menus/UI_Settings").GetComponent<UI_Controller>();
-        Assert.IsNotNull(controllerSettings);
         controllerInGameMenu = GameObject.Find("UI/Menus/UI_InGameMenu").GetComponent<UI_Controller>();
-        Assert.IsNotNull(controllerInGameMenu);
     }
 
     private UI_Controller StateToController(State state) => state switch {
