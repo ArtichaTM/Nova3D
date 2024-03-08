@@ -137,11 +137,17 @@ public class MainLogic : MonoBehaviour
     }
 
     public void StartGame() {
+
+        GameObject.Find("GameUI").SetActive(true);
+
+        #region Ship init
         Ship = Instantiate(ShipExample);
         Ship.name = "Ship";
         Ship.SetActive(true);
         MiscellaneousFunctions.instance.IntroAnimation();
         Ship.GetComponent<Rigidbody>().AddRelativeForce(0f, 0f, Settings.spawnSpeed);
+        #endregion
+
         Time.timeScale = 1f;
     }
 
@@ -160,6 +166,8 @@ public class MainLogic : MonoBehaviour
             DefaultCamera.transform.position,
             DefaultCamera.transform.rotation
         );
+
+        GameObject.Find("GameUI").SetActive(false);
     }
 
     void OnDestroy() => Quit();
