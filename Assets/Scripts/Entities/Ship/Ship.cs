@@ -84,9 +84,6 @@ public class Ship : MonoBehaviour
 
     void FinishGame() {
         Disposables.Dispose();
-        if (!MiscellaneousFunctions.Instance.IsIntroAnimating.Value) {
-            MainLogic.Instance.MainCamera.transform.parent = null;
-        }
     }
 
     void OnDestroy() => FinishGame();

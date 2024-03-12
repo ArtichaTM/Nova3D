@@ -170,12 +170,13 @@ public class MainLogic : MonoBehaviour
     }
 
     public void FinishGame() {
-        Destroy(Ship);
-        Ship = null;
+        MainCamera.transform.parent = null;
         MainCamera.transform.SetPositionAndRotation(
             DefaultCamera.transform.position,
             DefaultCamera.transform.rotation
         );
+        Destroy(Ship);
+        Ship = null;
 
         GameObject.Find("System/UI/GameUI").SetActive(false);
     }
