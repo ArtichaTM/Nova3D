@@ -11,7 +11,6 @@ public class MouseLock : MonoBehaviour
     CompositeDisposable Disposables = new();
 
     void Awake() {
-        Debug.Log("MouseLock Awake");
         Disposables.Dispose();
         Disposables = new();
         MainLogic.instance.Paused
@@ -28,7 +27,6 @@ public class MouseLock : MonoBehaviour
     }
 
     void ResumeGame() {
-        Debug.Log("MouseLock ResumeGame");
         Cursor.lockState = CursorLockMode.Locked;
         PauseDisposables.Disposable = Observable
             .EveryUpdate()
@@ -40,7 +38,6 @@ public class MouseLock : MonoBehaviour
     }
 
     void PauseGame() {
-        Debug.Log("MouseLock PauseGame");
         Cursor.lockState = CursorLockMode.None;
         PauseDisposables.Dispose();
         PauseDisposables = new();
