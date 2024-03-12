@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using R3;
 
@@ -54,9 +55,27 @@ public class ShipParameters : MonoBehaviour
     public float ShipDurabilityMax => MaxShield.Value+MaxHealth.Value;
     #endregion
 
+    #region Extra
+    public Transform[] ParticlesThrust;
+    #endregion
+
+    List<Transform> GetAllThrusts(Transform target)
+    {
+        List<Transform> output = new();
+        foreach (Transform child in target.transform) {
+            if (child.name == "ThrustTarget")
+                output.Add(child);
+            output.AddRange(GetAllThrusts(child));
+        }
+        return output;
+    }
+
+    List<Transform> GetAllThrusts() => GetAllThrusts(transform);
+
     void Start()
     {
         Shield.Value = MaxShield.Value/2;
         Health.Value = MaxHealth.Value/2;
+        ParticlesThrust = GetAllThrusts().ToArray();
     }
 }

@@ -73,6 +73,7 @@
     <Compile Include="Assets\Scripts\System\MainLogic.cs" />
     <Compile Include="Assets\Scripts\System\Settings.cs" />
     <Compile Include="Assets\Scripts\Entities\Ship\Ship.cs" />
+    <Compile Include="Assets\Scripts\System\AllParticles.cs" />
     <Compile Include="Assets\Scripts\Entities\Ship\MouseLock.cs" />
   </ItemGroup>
   <ItemGroup>
