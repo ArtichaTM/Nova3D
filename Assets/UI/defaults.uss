@@ -1,10 +1,11 @@
 .text {
     color: rgb(255, 255, 255);
     -unity-text-outline-color: rgba(0, 255, 223, 0);
-    -unity-text-outline-width: 1px;
+    -unity-text-outline-width: 0;
     text-shadow: 5px 0 500px rgb(0, 250, 255);
     letter-spacing: 1px;
     white-space: nowrap;
+    -unity-font: url('project://database/Assets/UnityDefaultRuntimeTheme.tss?fileID=2230732570650464555&guid=2839b1fb25482e5499ed51de90b51dd5&type=3#NotInter-Regular');
 }
 
 .slider {
@@ -28,7 +29,7 @@
 }
 
 .button-hover:hover {
-    -unity-text-outline-width: 1px;
+    -unity-text-outline-width: 0;
     -unity-text-outline-color: rgba(0, 222, 255, 0);
     color: rgb(150, 255, 255);
     -unity-text-align: upper-left;
