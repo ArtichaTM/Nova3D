@@ -1,5 +1,4 @@
 using R3;
-using R3.Triggers;
 using UnityEngine;
 
 public class MouseLock : MonoBehaviour
@@ -16,7 +15,7 @@ public class MouseLock : MonoBehaviour
         Disposables.Dispose();
         Disposables = new();
         MainLogic.instance.Paused
-            // .Skip(1)
+            .Skip(1)
             .Where(x => x == true)
             .Subscribe(_ => PauseGame())
             .AddTo(Disposables)
