@@ -77,8 +77,8 @@ public class MainLogic : MonoBehaviour
 {
     public static MainLogic Instance {get; private set;}
 
-    public ReactiveProperty<bool> Paused = new(true);
-    public ReactiveProperty<bool> Finished = new(true);
+    readonly public ReactiveProperty<bool> Paused = new(true);
+    readonly public ReactiveProperty<bool> Finished = new(true);
 
     #region InspectorProperties
     [SerializeField]
