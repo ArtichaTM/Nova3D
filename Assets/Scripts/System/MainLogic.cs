@@ -97,7 +97,7 @@ public class MainLogic : MonoBehaviour
 
     public GameObject Ship {get; private set;} = null;
 
-    CompositeDisposable GameDisposable = new();
+    readonly CompositeDisposable GameDisposable = new();
 
     void Start()
     {
