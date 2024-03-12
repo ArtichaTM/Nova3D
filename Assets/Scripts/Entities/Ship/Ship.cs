@@ -50,13 +50,15 @@ public class Ship : MonoBehaviour
             .AddTo(Disposables)
             ;
     }
-    void RecalculateHorizontalSpeed() {
-        AppliedHorizontalSpeed.Value = HorizontalSpeed.Value * Time.fixedDeltaTime;
-    }
+    void RecalculateHorizontalSpeed() => AppliedHorizontalSpeed.Value =
+        HorizontalSpeed.Value
+        *Time.fixedDeltaTime
+        ;
 
-    void RecalculateRotationSpeed() {
-        AppliedRotationSpeed.Value = RotationSpeed.Value * Time.fixedDeltaTime;
-    }
+    void RecalculateRotationSpeed() => AppliedRotationSpeed.Value =
+        RotationSpeed.Value
+        *Time.fixedDeltaTime
+        ;
 
     void ObservableFixedUpdate() {
         if (Input.GetKey(KeyCode.W)) {
@@ -64,6 +66,12 @@ public class Ship : MonoBehaviour
         }
         else if (Input.GetKey(KeyCode.S)) {
             ribi.AddRelativeForce(0f, 0f, -AppliedHorizontalSpeed.Value);
+        }
+        if (Input.GetKey(KeyCode.A)) {
+            ribi.AddRelativeTorque(0f, 0f, AppliedRotationSpeed.Value/100);
+        }
+        else if (Input.GetKey(KeyCode.D)) {
+            ribi.AddRelativeTorque(0f, 0f, -AppliedRotationSpeed.Value/100);
         }
     }
 
