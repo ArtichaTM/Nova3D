@@ -1,8 +1,8 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using R3;
 using UnityEngine.Assertions;
-
 
 static class Updates {
     static SerialDisposable disposable = new();
@@ -94,6 +94,9 @@ public class MainLogic : MonoBehaviour
     public GameObject DefaultCamera => _DefaultCamera;
     #endregion
 
+    #region Permanent Variables
+    readonly Dictionary<string, ParticleController> AllParticles = new();
+    #endregion
 
     public GameObject Ship {get; private set;} = null;
 
@@ -107,11 +110,15 @@ public class MainLogic : MonoBehaviour
         Assert.IsNotNull(_DefaultCamera, "_DefaultCamera can't be null. Check script in inspector");
         Assert.AreEqual(GameObject.Find("UI").transform.GetChild(0).gameObject.name, "GameUI");
         Assert.AreEqual(GameObject.Find("UI").transform.GetChild(1).gameObject.name, "Menus");
+        Assert.IsNotNull(GameObject.Find("System/Particles"));
         #endregion
 
         Instance = this;
         foreach (Transform child in GameObject.Find("UI/Menus").transform) {
             child.gameObject.SetActive(true);
+        }
+        foreach (Transform child in GameObject.Find("System/Particles").transform) {
+            AllParticles.Add(child.name, child.GetComponent<ParticleController>());
         }
         ObservableSystem.DefaultTimeProvider = UnityTimeProvider.Update;
         ObservableSystem.DefaultFrameProvider = UnityFrameProvider.Update;
@@ -185,6 +192,13 @@ public class MainLogic : MonoBehaviour
         GameObject.Find("System/UI/GameUI").SetActive(false);
     }
 
+    public ParticleController AddParticleSystem(string name, Transform target) {
+        GameObject particleSystem = Instantiate(AllParticles[name].gameObject, target.position, target.rotation);
+        particleSystem.transform.parent = target;
+        particleSystem.SetActive(true);
+        return particleSystem.GetComponent<ParticleController>();
+    }
+
     void OnDestroy() => Quit();
 
     public void Quit() {
@@ -193,4 +207,16 @@ public class MainLogic : MonoBehaviour
         Finished.Value = true;
         Application.Quit();
     }
+
+    #region Functions
+    static public List<Transform> FindChildrenByName(Transform target, string name) {
+        List<Transform> output = new();
+        foreach (Transform child in target) {
+            if (child.name == name)
+                output.Add(child);
+            output.AddRange(FindChildrenByName(child, name));
+        }
+        return output;
+    }
+    #endregion
 }

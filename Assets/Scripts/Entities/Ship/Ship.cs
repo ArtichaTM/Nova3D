@@ -30,6 +30,7 @@ public class Ship : MonoBehaviour
             ;
     }
     void ObservableFixedUpdate() {
+        parameters.ParticleThrusters.ForEach(controller => controller.Paused.Value = Input.GetKey(KeyCode.W));
         if 
             (Input.GetKey(KeyCode.W))
             ribi.AddRelativeForce(0f, 0f, parameters.SpeedForward.Value);

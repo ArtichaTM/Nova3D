@@ -65,6 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Entities\ShipParameters.cs" />
+    <Compile Include="Assets\Scripts\System\Particles\ParticleController.cs" />
     <Compile Include="Assets\Scripts\Entities\Ships\BoundaryTeleporter.cs" />
     <Compile Include="Assets\Scripts\System\StateSwitcher.cs" />
     <Compile Include="Assets\Scripts\System\MiscellaneousFunctions.cs" />
@@ -73,7 +74,7 @@
     <Compile Include="Assets\Scripts\System\MainLogic.cs" />
     <Compile Include="Assets\Scripts\System\Settings.cs" />
     <Compile Include="Assets\Scripts\Entities\Ship\Ship.cs" />
-    <Compile Include="Assets\Scripts\System\AllParticles.cs" />
+    <Compile Include="Assets\Scripts\System\Particles\ParticleComponent.cs" />
     <Compile Include="Assets\Scripts\Entities\Ship\MouseLock.cs" />
   </ItemGroup>
   <ItemGroup>
