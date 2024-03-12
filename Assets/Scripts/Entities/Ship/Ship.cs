@@ -36,11 +36,6 @@ public class Ship : MonoBehaviour
             .Subscribe(_ => ResumeGame())
             .AddTo(Disposables)
             ;
-        MainLogic.Instance.Finished
-            .Where (x => x == true)
-            .Subscribe(_ => FinishGame())
-            .AddTo(Disposables)
-            ;
         HorizontalSpeed
             .Subscribe(_ => RecalculateHorizontalSpeed())
             .AddTo(Disposables)
