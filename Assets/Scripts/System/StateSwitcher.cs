@@ -268,6 +268,7 @@ public class StateSwitcher : MonoBehaviour
             case State.CameraAnimation: {
                 switch (to) {
                     case State.Game: {
+                        MainLogic.instance.Paused.Value = false;
                         state.Value = to;
                         break;
                     }

@@ -44,7 +44,6 @@ public class MiscellaneousFunctions : MonoBehaviour
                         // Based on current state, pausing or continue-ing game
                         switch (StateSwitcher.instance.state.Value) {
                             case State.CameraAnimation: {
-                                MainLogic.instance.Paused.Value = false;
                                 StateSwitcher.instance.SwitchState(State.Game);
                                 break;
                             }
