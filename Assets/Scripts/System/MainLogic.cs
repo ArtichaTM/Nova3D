@@ -175,7 +175,11 @@ public class MainLogic : MonoBehaviour
             DefaultCamera.transform.position,
             DefaultCamera.transform.rotation
         );
-        Destroy(Ship);
+        #region UnFixable bug
+        Ship.SetActive(false);
+        Ship.name = "DeletedShip";
+        // Destroy(Ship); // TODO HOW TO FIX THIS???
+        #endregion
         Ship = null;
 
         GameObject.Find("System/UI/GameUI").SetActive(false);
