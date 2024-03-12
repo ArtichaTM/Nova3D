@@ -32,19 +32,19 @@ public struct Parameter {
 
 public class ShipParameters : MonoBehaviour
 {
-    #region ConstantVariables
+    #region ColdVariables
     readonly public ReactiveProperty<Parameter> SpeedForward = new(Parameter.Create(1f));
     readonly public ReactiveProperty<Parameter> SpeedBackwards = new(Parameter.Create(1f));
     readonly public ReactiveProperty<Parameter> SpeedRotationX = new(Parameter.Create(1f));
     readonly public ReactiveProperty<Parameter> SpeedRotationY = new(Parameter.Create(1f));
     readonly public ReactiveProperty<Parameter> ShipBasicAbilities = new(Parameter.Create(1f));
+    readonly public ReactiveProperty<Parameter> MaxHealth = new(Parameter.Create(100f));
+    readonly public ReactiveProperty<Parameter> MaxShield = new(Parameter.Create(100f));
     #endregion
 
-    #region VariableVariables
+    #region HotVariables
     readonly public ReactiveProperty<Parameter> Health = new(Parameter.Create());
-    readonly public ReactiveProperty<Parameter> MaxHealth = new(Parameter.Create(100f));
     readonly public ReactiveProperty<Parameter> Shield = new(Parameter.Create());
-    readonly public ReactiveProperty<Parameter> MaxShield = new(Parameter.Create(100f));
     #endregion
 
     #region Shortcuts
