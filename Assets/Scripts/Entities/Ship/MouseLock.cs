@@ -44,7 +44,6 @@ public class MouseLock : MonoBehaviour
     }
 
     void OnDestroy() {
-        Debug.Log("MouseLock OnDestroy");
         if (!PauseDisposables.IsDisposed) PauseDisposables.Dispose();
         Disposables.Dispose();
     }
