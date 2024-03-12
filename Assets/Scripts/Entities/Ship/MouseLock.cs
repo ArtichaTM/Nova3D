@@ -3,14 +3,15 @@ using UnityEngine;
 
 public class MouseLock : MonoBehaviour
 {
-    public ReactiveProperty<Vector2> MouseDelta {
-        get; private set;
-    } = new(Vector2.zero);
+    Rigidbody ribi;
+    Ship ship;
 
-    SerialDisposable PauseDisposables = new();
+    CompositeDisposable PauseDisposables = new();
     CompositeDisposable Disposables = new();
 
     void Awake() {
+        ribi = GetComponent<Rigidbody>();
+        ship = GetComponent<Ship>();
         Disposables.Dispose();
         Disposables = new();
         MainLogic.Instance.Paused
@@ -28,12 +29,14 @@ public class MouseLock : MonoBehaviour
 
     void ResumeGame() {
         Cursor.lockState = CursorLockMode.Locked;
-        PauseDisposables.Disposable = Observable
+        Observable
             .EveryUpdate()
-            .Subscribe(_ => MouseDelta.Value=new Vector2(
-                Input.GetAxis("Mouse X")*Settings.InvertMouseHorizontal(),
-                Input.GetAxis("Mouse Y")*Settings.InvertMouseVertical()
+            .Subscribe(_ => ribi.AddRelativeTorque(
+                Input.GetAxis("Mouse Y")*Settings.InvertMouseVertical() * ship.AppliedRotationSpeed.Value,
+                Input.GetAxis("Mouse X")*Settings.InvertMouseHorizontal() * ship.AppliedRotationSpeed.Value,
+                0f
             ))
+            .AddTo(PauseDisposables)
             ;
     }
 

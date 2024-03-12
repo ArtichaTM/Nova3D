@@ -301,18 +301,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 028fbca6d7288ec4abfa50a7492f4d1f, type: 3}
   m_PrefabInstance: {fileID: 2034582460}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &34277785
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 34277784}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5329a7e03dca9c488b7f12f141e0688, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!54 &34277788
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -412,6 +400,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3c92ddd2aeab5274489e5f09cf139d59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &34277795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 34277784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5329a7e03dca9c488b7f12f141e0688, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &72843562
@@ -2221,9 +2221,6 @@ PrefabInstance:
       addedObject: {fileID: 34277791}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 028fbca6d7288ec4abfa50a7492f4d1f, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 34277785}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 028fbca6d7288ec4abfa50a7492f4d1f, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 34277792}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 028fbca6d7288ec4abfa50a7492f4d1f, type: 3}
       insertIndex: -1
@@ -2231,6 +2228,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 028fbca6d7288ec4abfa50a7492f4d1f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 34277793}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 028fbca6d7288ec4abfa50a7492f4d1f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 34277795}
   m_SourcePrefab: {fileID: 100100000, guid: 028fbca6d7288ec4abfa50a7492f4d1f, type: 3}
 --- !u!1 &2041275282
 GameObject:

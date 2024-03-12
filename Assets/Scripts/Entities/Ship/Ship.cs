@@ -16,9 +16,9 @@ public class Ship : MonoBehaviour
 
     #region Variables
     public ReactiveProperty<float> HorizontalSpeed {get; private set;} = new(100f);
-    readonly ReactiveProperty<float> AppliedHorizontalSpeed = new();
+    public readonly ReactiveProperty<float> AppliedHorizontalSpeed = new();
     public ReactiveProperty<float> RotationSpeed {get; private set;} = new(100f);
-    readonly ReactiveProperty<float> AppliedRotationSpeed = new();
+    public readonly ReactiveProperty<float> AppliedRotationSpeed = new();
     #endregion
 
     void Start()
@@ -69,16 +69,6 @@ public class Ship : MonoBehaviour
 
     void ResumeGame()
     {
-        mouseLock.MouseDelta
-            .Subscribe((Vector2 delta) => {
-                ribi.AddRelativeTorque(
-                    delta.y * AppliedRotationSpeed.Value,
-                    delta.x * AppliedRotationSpeed.Value,
-                    0f
-                );
-            })
-            .AddTo(PauseDisposables)
-            ;
         Observable
             .EveryUpdate(UnityFrameProvider.FixedUpdate)
             .Subscribe(_ => ObservableFixedUpdate())
