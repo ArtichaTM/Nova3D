@@ -17,15 +17,17 @@ public struct Parameter {
     public static Parameter Create(float startValue) => Create(startValue, 1f);
     public static Parameter Create() => Create(0f, 1f);
 
-    public static Parameter operator +(Parameter a, float b) => new(a.additions+b, a.multipliers  );
-    public static Parameter operator -(Parameter a, float b) => new(a.additions-b, a.multipliers  );
-    public static Parameter operator *(Parameter a, float b) => new(a.additions  , a.multipliers*b);
-    public static Parameter operator /(Parameter a, float b) => new(a.additions  , a.multipliers/b);
+    #region operators
+    public static Parameter operator +(Parameter a, float     b) => new(a.additions+b, a.multipliers  );
+    public static Parameter operator -(Parameter a, float     b) => new(a.additions-b, a.multipliers  );
+    public static Parameter operator *(Parameter a, float     b) => new(a.additions  , a.multipliers*b);
+    public static Parameter operator /(Parameter a, float     b) => new(a.additions  , a.multipliers/b);
     public static Parameter operator +(Parameter a, Parameter b) => new(a.additions+b.additions, a.multipliers+b.multipliers);
     public static Parameter operator -(Parameter a, Parameter b) => new(a.additions-b.additions, a.multipliers-b.multipliers);
     public static Parameter operator *(Parameter a, Parameter b) => new(a.additions*b.additions, a.multipliers*b.multipliers);
     public static Parameter operator /(Parameter a, Parameter b) => new(a.additions/b.additions, a.multipliers/b.multipliers);
     public static implicit operator float(Parameter parameter) => parameter.Value;
+    #endregion
 }
 
 public class ShipParameters : MonoBehaviour
