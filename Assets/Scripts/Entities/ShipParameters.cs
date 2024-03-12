@@ -4,7 +4,7 @@ using R3;
 public struct Parameter {
     private readonly float additions;
     private readonly float multipliers;
-    private float Value;
+    public readonly float Value;
 
     Parameter(float _additions, float _multipliers)
     {
@@ -33,10 +33,11 @@ public struct Parameter {
 public class ShipParameters : MonoBehaviour
 {
     #region ColdVariables
-    readonly public ReactiveProperty<Parameter> SpeedForward = new(Parameter.Create(1f));
-    readonly public ReactiveProperty<Parameter> SpeedBackwards = new(Parameter.Create(1f));
-    readonly public ReactiveProperty<Parameter> SpeedRotationX = new(Parameter.Create(1f));
-    readonly public ReactiveProperty<Parameter> SpeedRotationY = new(Parameter.Create(1f));
+    readonly public ReactiveProperty<Parameter> SpeedForward = new(Parameter.Create(10f));
+    readonly public ReactiveProperty<Parameter> SpeedBackwards = new(Parameter.Create(5f));
+    readonly public ReactiveProperty<Parameter> SpeedRotationRoll = new(Parameter.Create(.04f));
+    readonly public ReactiveProperty<Parameter> SpeedRotationYaw = new(Parameter.Create(1f));
+    readonly public ReactiveProperty<Parameter> SpeedRotationPitch = new(Parameter.Create(10f));
     readonly public ReactiveProperty<Parameter> ShipBasicAbilities = new(Parameter.Create(1f));
     readonly public ReactiveProperty<Parameter> MaxHealth = new(Parameter.Create(100f));
     readonly public ReactiveProperty<Parameter> MaxShield = new(Parameter.Create(100f));
@@ -48,8 +49,7 @@ public class ShipParameters : MonoBehaviour
     #endregion
 
     #region Shortcuts
-    public float SpeedMovement => (SpeedForward.Value+SpeedBackwards.Value)/2;
-    public float SpeedRotation => (SpeedRotationX.Value+SpeedRotationY.Value)/2;
+    public float MovementSpeed => (SpeedForward.Value+SpeedBackwards.Value)/2;
     public float ShipDurability => Shield.Value+Health.Value;
     public float ShipDurabilityMax => MaxShield.Value+MaxHealth.Value;
     #endregion

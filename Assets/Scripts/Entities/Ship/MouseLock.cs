@@ -4,14 +4,14 @@ using UnityEngine;
 public class MouseLock : MonoBehaviour
 {
     Rigidbody ribi;
-    Ship ship;
+    ShipParameters parameters;
 
     CompositeDisposable PauseDisposables = new();
     CompositeDisposable Disposables = new();
 
     void Awake() {
         ribi = GetComponent<Rigidbody>();
-        ship = GetComponent<Ship>();
+        parameters = GetComponent<ShipParameters>();
         Disposables.Dispose();
         Disposables = new();
         MainLogic.Instance.Paused
@@ -32,8 +32,8 @@ public class MouseLock : MonoBehaviour
         Observable
             .EveryUpdate()
             .Subscribe(_ => ribi.AddRelativeTorque(
-                Input.GetAxis("Mouse Y")*Settings.InvertMouseVertical() * ship.AppliedRotationSpeed.Value,
-                Input.GetAxis("Mouse X")*Settings.InvertMouseHorizontal() * ship.AppliedRotationSpeed.Value,
+                Input.GetAxis("Mouse Y")*Settings.InvertMouseVertical() * parameters.SpeedRotationPitch.Value,
+                Input.GetAxis("Mouse X")*Settings.InvertMouseHorizontal() * parameters.SpeedRotationYaw.Value,
                 0f
             ))
             .AddTo(PauseDisposables)

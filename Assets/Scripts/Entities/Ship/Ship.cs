@@ -1,11 +1,11 @@
 using UnityEngine;
 using R3;
-using UnityEngine.Assertions;
 
 public class Ship : MonoBehaviour
 {
     #region Components
     Rigidbody ribi;
+    ShipParameters parameters;
     #endregion
 
     #region Disposables
@@ -13,17 +13,11 @@ public class Ship : MonoBehaviour
     CompositeDisposable PauseDisposables = new();
     #endregion
 
-    #region Variables
-    public ReactiveProperty<float> HorizontalSpeed {get; private set;} = new(100f);
-    public readonly ReactiveProperty<float> AppliedHorizontalSpeed = new();
-    public ReactiveProperty<float> RotationSpeed {get; private set;} = new(100f);
-    public readonly ReactiveProperty<float> AppliedRotationSpeed = new();
-    #endregion
-
     void Start()
     {
         Disposables = new();
         ribi = GetComponent<Rigidbody>();
+        parameters = GetComponent<ShipParameters>();
         MainLogic.Instance.Paused
             .Where(x => x == true)
             .Subscribe(_ => PauseGame())
@@ -34,38 +28,20 @@ public class Ship : MonoBehaviour
             .Subscribe(_ => ResumeGame())
             .AddTo(Disposables)
             ;
-        HorizontalSpeed
-            .Subscribe(_ => RecalculateHorizontalSpeed())
-            .AddTo(Disposables)
-            ;
-        RotationSpeed
-            .Subscribe(_ => RecalculateRotationSpeed())
-            .AddTo(Disposables)
-            ;
     }
-    void RecalculateHorizontalSpeed() => AppliedHorizontalSpeed.Value =
-        HorizontalSpeed.Value
-        *Time.fixedDeltaTime
-        ;
-
-    void RecalculateRotationSpeed() => AppliedRotationSpeed.Value =
-        RotationSpeed.Value
-        *Time.fixedDeltaTime
-        ;
-
     void ObservableFixedUpdate() {
         if 
             (Input.GetKey(KeyCode.W))
-            ribi.AddRelativeForce(0f, 0f, AppliedHorizontalSpeed.Value);
+            ribi.AddRelativeForce(0f, 0f, parameters.SpeedForward.Value);
         else if
             (Input.GetKey(KeyCode.S))
-            ribi.AddRelativeForce(0f, 0f, -AppliedHorizontalSpeed.Value);
+            ribi.AddRelativeForce(0f, 0f, -parameters.SpeedBackwards.Value);
         if
             (Input.GetKey(KeyCode.A))
-            ribi.AddRelativeTorque(0f, 0f, AppliedRotationSpeed.Value/100);
+            ribi.AddRelativeTorque(0f, 0f, parameters.SpeedRotationRoll.Value);
         else if
             (Input.GetKey(KeyCode.D))
-            ribi.AddRelativeTorque(0f, 0f, -AppliedRotationSpeed.Value/100);
+            ribi.AddRelativeTorque(0f, 0f, -parameters.SpeedRotationRoll.Value);
     }
 
     void ResumeGame()
