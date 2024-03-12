@@ -1,4 +1,5 @@
 using R3;
+using R3.Triggers;
 using UnityEngine;
 
 public class MouseLock : MonoBehaviour
@@ -7,21 +8,30 @@ public class MouseLock : MonoBehaviour
         get; private set;
     } = new(Vector2.zero);
 
-    SerialDisposable PauseDisposable = new();
+    SerialDisposable PauseDisposables = new();
     CompositeDisposable Disposables = new();
 
-    void Start() {
+    void Awake() {
+        Debug.Log("MouseLock Awake");
         Disposables.Dispose();
         Disposables = new();
         MainLogic.instance.Paused
-            .Subscribe(x => enabled = !x)
+            // .Skip(1)
+            .Where(x => x == true)
+            .Subscribe(_ => PauseGame())
+            .AddTo(Disposables)
+            ;
+        MainLogic.instance.Paused
+            .Where(x => x == false)
+            .Subscribe(_ => ResumeGame())
             .AddTo(Disposables)
             ;
     }
 
-    void OnEnable() {
+    void ResumeGame() {
+        Debug.Log("MouseLock ResumeGame");
         Cursor.lockState = CursorLockMode.Locked;
-        PauseDisposable.Disposable = Observable
+        PauseDisposables.Disposable = Observable
             .EveryUpdate()
             .Subscribe(_ => MouseDelta.Value=new Vector2(
                 Input.GetAxis("Mouse X")*Settings.InvertMouseHorizontal(),
@@ -30,13 +40,16 @@ public class MouseLock : MonoBehaviour
             ;
     }
 
-    void OnDisable() {
+    void PauseGame() {
+        Debug.Log("MouseLock PauseGame");
         Cursor.lockState = CursorLockMode.None;
-        PauseDisposable.Dispose();
-        PauseDisposable = new();
+        PauseDisposables.Dispose();
+        PauseDisposables = new();
     }
 
     void OnDestroy() {
+        Debug.Log("MouseLock OnDestroy");
+        if (!PauseDisposables.IsDisposed) PauseDisposables.Dispose();
         Disposables.Dispose();
     }
 }
