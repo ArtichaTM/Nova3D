@@ -61,18 +61,18 @@ public class Ship : MonoBehaviour
         ;
 
     void ObservableFixedUpdate() {
-        if (Input.GetKey(KeyCode.W)) {
+        if 
+            (Input.GetKey(KeyCode.W))
             ribi.AddRelativeForce(0f, 0f, AppliedHorizontalSpeed.Value);
-        }
-        else if (Input.GetKey(KeyCode.S)) {
+        else if
+            (Input.GetKey(KeyCode.S))
             ribi.AddRelativeForce(0f, 0f, -AppliedHorizontalSpeed.Value);
-        }
-        if (Input.GetKey(KeyCode.A)) {
+        if
+            (Input.GetKey(KeyCode.A))
             ribi.AddRelativeTorque(0f, 0f, AppliedRotationSpeed.Value/100);
-        }
-        else if (Input.GetKey(KeyCode.D)) {
+        else if
+            (Input.GetKey(KeyCode.D))
             ribi.AddRelativeTorque(0f, 0f, -AppliedRotationSpeed.Value/100);
-        }
     }
 
     void ResumeGame()
