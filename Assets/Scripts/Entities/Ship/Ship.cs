@@ -5,7 +5,6 @@ using UnityEngine.Assertions;
 public class Ship : MonoBehaviour
 {
     #region Components
-    MouseLock mouseLock;
     Rigidbody ribi;
     #endregion
 
@@ -24,7 +23,6 @@ public class Ship : MonoBehaviour
     void Start()
     {
         Disposables = new();
-        mouseLock = GetComponent<MouseLock>();
         ribi = GetComponent<Rigidbody>();
         MainLogic.Instance.Paused
             .Where(x => x == true)
