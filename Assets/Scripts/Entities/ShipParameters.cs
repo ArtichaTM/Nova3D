@@ -45,6 +45,13 @@ public class ShipParameters : MonoBehaviour
     readonly public ReactiveProperty<Parameter> MaxShield = new(Parameter.Create(100f));
     #endregion
 
+    #region Shortcuts
+    public float SpeedMovement => (SpeedForward.Value+SpeedBackwards.Value)/2;
+    public float SpeedRotation => (SpeedRotationX.Value+SpeedRotationY.Value)/2;
+    public float ShipDurability => Shield.Value+Health.Value;
+    public float ShipDurabilityMax => MaxShield.Value+MaxHealth.Value;
+    #endregion
+
     void Start()
     {
         Shield.Value = MaxShield.Value/2;
