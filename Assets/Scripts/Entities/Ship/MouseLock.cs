@@ -13,13 +13,13 @@ public class MouseLock : MonoBehaviour
     void Awake() {
         Disposables.Dispose();
         Disposables = new();
-        MainLogic.instance.Paused
+        MainLogic.Instance.Paused
             .Skip(1)
             .Where(x => x == true)
             .Subscribe(_ => PauseGame())
             .AddTo(Disposables)
             ;
-        MainLogic.instance.Paused
+        MainLogic.Instance.Paused
             .Where(x => x == false)
             .Subscribe(_ => ResumeGame())
             .AddTo(Disposables)

@@ -5,17 +5,17 @@ using System;
 
 public class MiscellaneousFunctions : MonoBehaviour
 {
-    public static MiscellaneousFunctions instance {get; private set;}
+    public static MiscellaneousFunctions Instance {get; private set;}
 
     public ReactiveProperty<bool> IsIntroAnimating {get; private set;} = new(false);
 
-    void Start() { instance = this; }
+    void Start() { Instance = this; }
 
     public void IntroAnimation() {
-        GameObject ship = MainLogic.instance.Ship;
+        GameObject ship = MainLogic.Instance.Ship;
         Transform CameraTarget = ship.transform.GetChild(0);
         Assert.AreEqual(CameraTarget.name, "CameraTarget");
-        Transform MainCamera = MainLogic.instance.MainCamera.transform;
+        Transform MainCamera = MainLogic.Instance.MainCamera.transform;
         IsIntroAnimating.Value = true;
 
         SerialDisposable instant_disposable = new();
@@ -42,19 +42,19 @@ public class MiscellaneousFunctions : MonoBehaviour
                         speed += Time.deltaTime;
                     }, _ => instant_disposable2.Dispose(), _ => {
                         // Based on current state, pausing or continue-ing game
-                        switch (StateSwitcher.instance.state.Value) {
+                        switch (StateSwitcher.Instance.State.Value) {
                             case State.CameraAnimation: {
-                                StateSwitcher.instance.SwitchState(State.Game);
+                                StateSwitcher.Instance.SwitchState(State.Game);
                                 break;
                             }
                             case State.Upgrades:
                             case State.InGameMenu: {
-                                MainLogic.instance.Paused.Value = false;
-                                MainLogic.instance.Paused.Value = true;
+                                MainLogic.Instance.Paused.Value = false;
+                                MainLogic.Instance.Paused.Value = true;
                                 break;
                             }
                             default:
-                                throw new NotSupportedException($"How {StateSwitcher.instance.state.Value}?");
+                                throw new NotSupportedException($"How {StateSwitcher.Instance.State.Value}?");
                         }
                         MainCamera.parent = CameraTarget;
                         IsIntroAnimating.Value = false;

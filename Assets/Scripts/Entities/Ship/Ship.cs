@@ -26,17 +26,17 @@ public class Ship : MonoBehaviour
         Disposables = new();
         mouseLock = GetComponent<MouseLock>();
         ribi = GetComponent<Rigidbody>();
-        MainLogic.instance.Paused
+        MainLogic.Instance.Paused
             .Where(x => x == true)
             .Subscribe(_ => PauseGame())
             .AddTo(Disposables)
             ;
-        MainLogic.instance.Paused
+        MainLogic.Instance.Paused
             .Where(x => x == false)
             .Subscribe(_ => ResumeGame())
             .AddTo(Disposables)
             ;
-        MainLogic.instance.Finished
+        MainLogic.Instance.Finished
             .Where (x => x == true)
             .Subscribe(_ => FinishGame())
             .AddTo(Disposables)
@@ -93,8 +93,8 @@ public class Ship : MonoBehaviour
 
     void FinishGame() {
         Disposables.Dispose();
-        if (!MiscellaneousFunctions.instance.IsIntroAnimating.Value) {
-            MainLogic.instance.MainCamera.transform.parent = null;
+        if (!MiscellaneousFunctions.Instance.IsIntroAnimating.Value) {
+            MainLogic.Instance.MainCamera.transform.parent = null;
         }
     }
 

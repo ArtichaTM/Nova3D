@@ -9,11 +9,11 @@ static class Updates {
 
     static void Game() {
         if (Input.GetKeyDown(KeyCode.Escape)) {
-            StateSwitcher.instance.SwitchState(State.InGameMenu);
+            StateSwitcher.Instance.SwitchState(State.InGameMenu);
             return;
         }
         else if (Input.GetKeyDown(KeyCode.Space)) {
-            StateSwitcher.instance.SwitchState(State.Upgrades);
+            StateSwitcher.Instance.SwitchState(State.Upgrades);
             return;
         }
         return;
@@ -21,10 +21,10 @@ static class Updates {
 
     static void InGameMenu() {
         if (Input.GetKeyDown(KeyCode.Escape)) {
-            if (MiscellaneousFunctions.instance.IsIntroAnimating.Value)
-                StateSwitcher.instance.SwitchState(State.CameraAnimation);
+            if (MiscellaneousFunctions.Instance.IsIntroAnimating.Value)
+                StateSwitcher.Instance.SwitchState(State.CameraAnimation);
             else
-                StateSwitcher.instance.SwitchState(State.Game);
+                StateSwitcher.Instance.SwitchState(State.Game);
             return;
         }
         return;
@@ -32,14 +32,14 @@ static class Updates {
 
     static void MainMenuSubmenu() {
         if (Input.GetKeyDown(KeyCode.Escape)) {
-            StateSwitcher.instance.SwitchState(State.MainMenu);
+            StateSwitcher.Instance.SwitchState(State.MainMenu);
             return;
         }
     }
 
     static void CameraAnimation() {
         if (Input.GetKeyDown(KeyCode.Escape)) {
-            StateSwitcher.instance.SwitchState(State.InGameMenu);
+            StateSwitcher.Instance.SwitchState(State.InGameMenu);
             return;
         }
     }
@@ -75,7 +75,7 @@ static class Updates {
 
 public class MainLogic : MonoBehaviour
 {
-    public static MainLogic instance {get; private set;}
+    public static MainLogic Instance {get; private set;}
 
     public ReactiveProperty<bool> Paused = new(true);
     public ReactiveProperty<bool> Finished = new(true);
@@ -109,7 +109,7 @@ public class MainLogic : MonoBehaviour
         Assert.AreEqual(GameObject.Find("UI").transform.GetChild(1).gameObject.name, "Menus");
         #endregion
 
-        instance = this;
+        Instance = this;
         foreach (Transform child in GameObject.Find("UI/Menus").transform) {
             child.gameObject.SetActive(true);
         }
@@ -142,19 +142,19 @@ public class MainLogic : MonoBehaviour
     }
 
     void OnRuntimeLoad() {
-        StateSwitcher.instance.PostInit();
-        StateSwitcher.instance.SwitchState(State.MainMenu);
+        StateSwitcher.Instance.PostInit();
+        StateSwitcher.Instance.SwitchState(State.MainMenu);
     }
 
     public void StartGame() {
         Assert.AreEqual(GameObject.Find("System/UI").transform.GetChild(0).name, "GameUI");
-        GameObject.Find("System/UI").transform.GetChild(0).gameObject.SetActive(true);
+        GameObject.Find("System/UI/GameUI").SetActive(true);
 
         #region Ship init
         Ship = Instantiate(ShipExample);
         Ship.name = "Ship";
         Ship.SetActive(true);
-        MiscellaneousFunctions.instance.IntroAnimation();
+        MiscellaneousFunctions.Instance.IntroAnimation();
         Ship.GetComponent<Rigidbody>().AddRelativeForce(0f, 0f, Settings.spawnSpeed);
         #endregion
 
@@ -177,7 +177,7 @@ public class MainLogic : MonoBehaviour
             DefaultCamera.transform.rotation
         );
 
-        GameObject.Find("GameUI").SetActive(false);
+        GameObject.Find("System/UI/GameUI").SetActive(false);
     }
 
     void OnDestroy() => Quit();
