@@ -34,6 +34,7 @@ internal struct ShieldUI {
         Background.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, shield);
 }
 
+[RequireComponent(typeof(ShipParameters))]
 public class GameShipUI : MonoBehaviour
 {
     #region Components

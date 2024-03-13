@@ -1,6 +1,8 @@
 using R3;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(ShipParameters))]
 public class MouseLock : MonoBehaviour
 {
     Rigidbody ribi;

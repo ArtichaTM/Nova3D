@@ -73,6 +73,7 @@ static class Updates {
     }
 }
 
+[RequireComponent(typeof(StateSwitcher))]
 public class MainLogic : MonoBehaviour
 {
     public static MainLogic Instance {get; private set;}
@@ -186,10 +187,7 @@ public class MainLogic : MonoBehaviour
         Ship.SetActive(false);
         Ship.name = "DeletedShip";
         Destroy(Ship.GetComponent<MouseLock>());
-        Destroy(Ship.GetComponent<GameShipUI>());
-        Destroy(Ship.GetComponent<ShipParameters>());
         Destroy(Ship.GetComponent<BoundaryTeleporter>());
-        // Destroy(Ship.GetComponent<Ship>());
         // Destroy(Ship); // TODO HOW TO FIX THIS???
         #endregion
         Ship = null;

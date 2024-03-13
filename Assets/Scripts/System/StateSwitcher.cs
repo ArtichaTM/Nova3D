@@ -11,6 +11,7 @@ public enum State {
     Unlocks, Learn, Glossary, Changelog, Settings, Scores, Credits, Start
 }
 
+[RequireComponent(typeof(MainLogic))]
 public class StateSwitcher : MonoBehaviour
 {
     public static StateSwitcher Instance;

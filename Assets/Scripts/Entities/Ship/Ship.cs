@@ -1,6 +1,8 @@
 using UnityEngine;
 using R3;
 
+[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(ShipParameters))]
 public class Ship : MonoBehaviour
 {
     #region Components
