@@ -30,9 +30,9 @@ public class MiscellaneousFunctions : MonoBehaviour
             .Delay(TimeSpan.FromSeconds(Settings.CameraAnimationDelay))
             .Subscribe(_ => {
                 if (
-                    StateSwitcher.Instance.State.Value != State.CameraAnimation
+                    StateSwitcher.Instance.CurrentState.Value != State.CameraAnimation
                     &&
-                    StateSwitcher.Instance.State.Value != State.InGameMenu
+                    StateSwitcher.Instance.CurrentState.Value != State.InGameMenu
                 ) return;
                 AnimationDisposable = new();
                 AnimationDisposable.Disposable = Observable
@@ -52,7 +52,7 @@ public class MiscellaneousFunctions : MonoBehaviour
                         speed += Time.deltaTime;
                     }, _ => AnimationDisposable.Dispose(), _ => {
                         // Based on current state, pausing or continue-ing game
-                        switch (StateSwitcher.Instance.State.Value) {
+                        switch (StateSwitcher.Instance.CurrentState.Value) {
                             case State.CameraAnimation: {
                                 StateSwitcher.Instance.SwitchState(State.Game);
                                 break;
@@ -64,7 +64,7 @@ public class MiscellaneousFunctions : MonoBehaviour
                                 break;
                             }
                             default:
-                                throw new NotSupportedException($"How {StateSwitcher.Instance.State.Value}?");
+                                throw new NotSupportedException($"How {StateSwitcher.Instance.CurrentState.Value}?");
                         }
                         MainCamera.parent = CameraTarget;
                         IsIntroAnimating.Value = false;

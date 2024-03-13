@@ -16,9 +16,9 @@ public class StateSwitcher : MonoBehaviour
 {
     public static StateSwitcher Instance;
 
-    public ReactiveProperty<State> State {
+    public ReactiveProperty<State> CurrentState {
         get; private set;
-    } = new(global::State.Start);
+    } = new(State.Start);
     public UI_Controller LastAnimation {
         get; private set;
     }
@@ -49,21 +49,21 @@ public class StateSwitcher : MonoBehaviour
     }
 
     private UI_Controller StateToController(State state) => state switch {
-        global::State.MainMenu => controllerMainMenu,
-        global::State.Settings => controllerSettings,
-        global::State.InGameMenu => controllerInGameMenu,
+        State.MainMenu => controllerMainMenu,
+        State.Settings => controllerSettings,
+        State.InGameMenu => controllerInGameMenu,
         _ => throw new ArgumentException("There's no UI_Controller for " + state),
     };
 
     public void PostInit()
     {
         #region MenuUI
-        controllerMainMenu.ui.Q<Button>("Start"    ).clicked += () => SwitchState(global::State.CameraAnimation);
+        controllerMainMenu.ui.Q<Button>("Start"    ).clicked += () => SwitchState(State.CameraAnimation);
         // controllerMainMenu.ui.Q<Button>("Unlocks"  ).clicked += () => SwitchState(State.Unlocks        );
         // controllerMainMenu.ui.Q<Button>("Learn"    ).clicked += () => SwitchState(State.Learn          );
         // controllerMainMenu.ui.Q<Button>("Glossary" ).clicked += () => SwitchState(State.Glossary       );
         // controllerMainMenu.ui.Q<Button>("Changelog").clicked += () => SwitchState(State.Changelog      );
-        controllerMainMenu.ui.Q<Button>("Settings" ).clicked += () => SwitchState(global::State.Settings       );
+        controllerMainMenu.ui.Q<Button>("Settings" ).clicked += () => SwitchState(State.Settings       );
         // controllerMainMenu.ui.Q<Button>("Scores"   ).clicked += () => SwitchState(State.Scores         );
         // controllerMainMenu.ui.Q<Button>("Credits"  ).clicked += () => SwitchState(State.Credits        );
         controllerMainMenu.ui.Q<Button>("Exit"     ).clicked += () => MainLogic.Instance.Quit();
@@ -78,11 +78,11 @@ public class StateSwitcher : MonoBehaviour
         #region InGameMenuUI
         controllerInGameMenu.ui.Q<Button>("Continue").clicked += () => {
             if (MiscellaneousFunctions.Instance.IsIntroAnimating.Value)
-                SwitchState(global::State.CameraAnimation);
+                SwitchState(State.CameraAnimation);
             else
-                SwitchState(global::State.Game);
+                SwitchState(State.Game);
         };
-        controllerInGameMenu.ui.Q<Button>("MainMenu").clicked += () => SwitchState(global::State.MainMenu);
+        controllerInGameMenu.ui.Q<Button>("MainMenu").clicked += () => SwitchState(State.MainMenu);
         #endregion
     }
 
@@ -97,12 +97,12 @@ public class StateSwitcher : MonoBehaviour
     }
 
     public IEnumerator SwitchMenuAsync(State to) {
-        LastAnimation = StateToController(State.Value);
+        LastAnimation = StateToController(CurrentState.Value);
         LastAnimation.FadeOut();
         yield return new WaitUntil(() => !Animating);
         LastAnimation.enabled = false;
 
-        State.Value = to;
+        CurrentState.Value = to;
         LastAnimation = StateToController(to);
         LastAnimation.enabled = true;
         LastAnimation.FadeIn();
@@ -116,7 +116,7 @@ public class StateSwitcher : MonoBehaviour
 
     void TargetFadeIn(State to) {
         TargetFadeIn(StateToController(to));
-        State.Value = to;
+        CurrentState.Value = to;
     }
 
     void TargetFadeOut(State to) {
@@ -131,151 +131,151 @@ public class StateSwitcher : MonoBehaviour
     public void SwitchState(State to) => StartCoroutine(SwitchStateAsync(to));
 
     public IEnumerator SwitchStateAsync(State to) {
-        if (State.Value == to) {
+        if (CurrentState.Value == to) {
             Debug.Log($"Trying to repeat switch {to}");
             yield break;
         }
-        switch (State.Value) {
-            case global::State.Unlocks:
-            case global::State.Learn:
-            case global::State.Glossary:
-            case global::State.Changelog:
-            case global::State.Scores:
-            case global::State.Credits: {
-                if (StateToController(State.Value).IsAnimating.Value) yield break;
+        switch (CurrentState.Value) {
+            case State.Unlocks:
+            case State.Learn:
+            case State.Glossary:
+            case State.Changelog:
+            case State.Scores:
+            case State.Credits: {
+                if (StateToController(CurrentState.Value).IsAnimating.Value) yield break;
                 switch (to) {
-                    case global::State.MainMenu: {
+                    case State.MainMenu: {
                                 SwitchMenu(to);
                         break;
                     }
                     default:
-                        throw new NotSupportedException($"Unsupported switch {State.Value}->{to}");
+                        throw new NotSupportedException($"Unsupported switch {CurrentState.Value}->{to}");
                 }
                 break;
             }
-            case global::State.Settings: {
-                if (StateToController(State.Value).IsAnimating.Value) yield break;
+            case State.Settings: {
+                if (StateToController(CurrentState.Value).IsAnimating.Value) yield break;
                 switch (to) {
-                    case global::State.MainMenu: {
+                    case State.MainMenu: {
                                 SettingsSave();
                                 SwitchMenu(to);
                         break;
                     }
                     default:
-                        throw new NotSupportedException($"Unsupported switch {State.Value}->{to}");
+                        throw new NotSupportedException($"Unsupported switch {CurrentState.Value}->{to}");
                 }
                 break;
             }
-            case global::State.MainMenu: {
-                if (StateToController(State.Value).IsAnimating.Value) yield break;
+            case State.MainMenu: {
+                if (StateToController(CurrentState.Value).IsAnimating.Value) yield break;
                 switch (to) {
-                    case global::State.CameraAnimation: {
-                                TargetFadeOut(State.Value);
+                    case State.CameraAnimation: {
+                                TargetFadeOut(CurrentState.Value);
                                 MainLogic.Instance.Finished.Value = false;
-                                State.Value = to;
+                                CurrentState.Value = to;
                         break;
                     }
-                    case global::State.Settings: {
+                    case State.Settings: {
                                 // TODO: Update settings
                                 SwitchMenu(to);
                         break;
                     }
-                    case global::State.Unlocks:
-                    case global::State.Learn: 
-                    case global::State.Glossary: 
-                    case global::State.Changelog: 
-                    case global::State.Scores: 
-                    case global::State.Credits: {
+                    case State.Unlocks:
+                    case State.Learn: 
+                    case State.Glossary: 
+                    case State.Changelog: 
+                    case State.Scores: 
+                    case State.Credits: {
                                 SwitchMenu(to);
                         break;
                     }
                     default:
-                        throw new NotSupportedException($"Unsupported switch {State.Value}->{to}");
+                        throw new NotSupportedException($"Unsupported switch {CurrentState.Value}->{to}");
                 }
                 break;
             }
-            case global::State.InGameMenu: {
-                if (StateToController(State.Value).IsAnimating.Value) yield break;
+            case State.InGameMenu: {
+                if (StateToController(CurrentState.Value).IsAnimating.Value) yield break;
                 switch (to) {
-                    case global::State.Game: {
-                                TargetFadeOut(State.Value);
+                    case State.Game: {
+                                TargetFadeOut(CurrentState.Value);
                         if (!MiscellaneousFunctions.Instance.IsIntroAnimating.Value) {
                                     MainLogic.Instance.Paused.Value = false;
                         }
-                                State.Value = to;
+                                CurrentState.Value = to;
                         break;
                     }
-                    case global::State.Upgrades: {
+                    case State.Upgrades: {
                                 SwitchMenu(to);
                         break;
                     }
-                    case global::State.MainMenu: {
+                    case State.MainMenu: {
                                 MainLogic.Instance.Finished.Value = true;
                                 MiscellaneousFunctions.Instance.AnimationDisposable.Dispose();
 
                                 SwitchMenu(to);
                         break;
                     }
-                    case global::State.CameraAnimation: {
-                                TargetFadeOut(State.Value);
-                                State.Value = to;
+                    case State.CameraAnimation: {
+                                TargetFadeOut(CurrentState.Value);
+                                CurrentState.Value = to;
                         break;
                     }
                     default:
-                        throw new NotSupportedException($"Unsupported switch {State.Value}->{to}");
+                        throw new NotSupportedException($"Unsupported switch {CurrentState.Value}->{to}");
                 }
                 break;
             }
-            case global::State.Game: {
+            case State.Game: {
                 switch (to) {
-                    case global::State.InGameMenu: {
+                    case State.InGameMenu: {
                                 TargetFadeIn(to);
                                 MainLogic.Instance.Paused.Value = true;
                         break;
                     }
-                    case global::State.Upgrades: {
+                    case State.Upgrades: {
                                 SwitchMenu(to);
                                 MainLogic.Instance.Paused.Value = true;
                         break;
                     }
                     default:
-                        throw new NotSupportedException($"Unsupported switch {State.Value}->{to}");
+                        throw new NotSupportedException($"Unsupported switch {CurrentState.Value}->{to}");
                 }
                 break;
             }
-            case global::State.Upgrades: {
-                if (StateToController(State.Value).IsAnimating.Value) yield break;
+            case State.Upgrades: {
+                if (StateToController(CurrentState.Value).IsAnimating.Value) yield break;
                 switch (to) {
-                    case global::State.Game: {
-                                TargetFadeOut(State.Value);
+                    case State.Game: {
+                                TargetFadeOut(CurrentState.Value);
                                 MainLogic.Instance.Paused.Value = false;
-                                State.Value = to;
+                                CurrentState.Value = to;
                         break;
                     }
                     default:
-                        throw new NotSupportedException($"Unsupported switch {State.Value}->{to}");
+                        throw new NotSupportedException($"Unsupported switch {CurrentState.Value}->{to}");
                 }
                 break;
             }
-            case global::State.Start: {
+            case State.Start: {
                 switch (to) {
-                    case global::State.MainMenu: {
+                    case State.MainMenu: {
                                 TargetFadeIn(to);
                         break;
                     }
                     default:
-                        throw new NotSupportedException($"Unsupported switch {State.Value}->{to}");
+                        throw new NotSupportedException($"Unsupported switch {CurrentState.Value}->{to}");
                 }
                 break;
             }
-            case global::State.CameraAnimation: {
+            case State.CameraAnimation: {
                 switch (to) {
-                    case global::State.Game: {
+                    case State.Game: {
                                 MainLogic.Instance.Paused.Value = false;
-                                State.Value = to;
+                                CurrentState.Value = to;
                         break;
                     }
-                    case global::State.InGameMenu: {
+                    case State.InGameMenu: {
                                 TargetFadeIn(to);
                         if (!MiscellaneousFunctions.Instance.IsIntroAnimating.Value) {
                                     MainLogic.Instance.Paused.Value = false;
@@ -283,12 +283,12 @@ public class StateSwitcher : MonoBehaviour
                         break;
                     }
                     default:
-                        throw new NotSupportedException($"Unsupported switch {State.Value}->{to}");
+                        throw new NotSupportedException($"Unsupported switch {CurrentState.Value}->{to}");
                 }
                 break;
             }
             default:
-                throw new NotSupportedException($"Unsupported State {State.Value}");
+                throw new NotSupportedException($"Unsupported State {CurrentState.Value}");
         }
         Updates.SwitchUpdate(to);
     }
