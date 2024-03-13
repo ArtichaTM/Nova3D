@@ -194,6 +194,7 @@ public class MainLogic : MonoBehaviour
 
     public ParticleController AddParticleSystem(string name, Transform target) {
         GameObject particleSystem = Instantiate(AllParticles[name].gameObject, target.position, target.rotation);
+        particleSystem.name = $"ParticleSystem_{name}";
         particleSystem.transform.parent = target;
         particleSystem.SetActive(true);
         return particleSystem.GetComponent<ParticleController>();

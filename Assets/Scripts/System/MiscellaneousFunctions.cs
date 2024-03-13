@@ -14,7 +14,7 @@ public class MiscellaneousFunctions : MonoBehaviour
     public void IntroAnimation() {
         GameObject ship = MainLogic.Instance.Ship;
         Transform CameraTarget = ship.transform.GetChild(0);
-        Assert.AreEqual(CameraTarget.name, "CameraTarget");
+        Assert.AreEqual(CameraTarget.name, "CameraTarget", "CameraTarget should be first child of ship");
         Transform MainCamera = MainLogic.Instance.MainCamera.transform;
         IsIntroAnimating.Value = true;
 

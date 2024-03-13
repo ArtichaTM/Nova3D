@@ -14,6 +14,8 @@ public class ParticleComponent : MonoBehaviour
     #region InspectorParameters
     [SerializeField] bool DisableEmissionsOnDisable;
     [SerializeField] bool StartEnabled;
+    [SerializeField] bool RotationCopy;
+    [SerializeField] bool ShapeRadiusCopy;
     #endregion
 
     void Start()
@@ -39,7 +41,13 @@ public class ParticleComponent : MonoBehaviour
             ParticleSystem.EmissionModule emissions = sys.emission;
             emissions.enabled = false;
         }
-
+        Transform target = transform.parent.parent;
+        if (RotationCopy)
+            transform.rotation = target.rotation;
+        if (ShapeRadiusCopy) {
+            ParticleSystem.ShapeModule shape = sys.shape;
+            shape.radius = target.localScale.x;
+        }
     }
 
     void OnDestroy() => Disposables.Dispose();
