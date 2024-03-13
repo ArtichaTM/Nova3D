@@ -185,6 +185,11 @@ public class MainLogic : MonoBehaviour
         #region UnFixable bug
         Ship.SetActive(false);
         Ship.name = "DeletedShip";
+        Destroy(Ship.GetComponent<MouseLock>());
+        Destroy(Ship.GetComponent<GameShipUI>());
+        Destroy(Ship.GetComponent<ShipParameters>());
+        Destroy(Ship.GetComponent<BoundaryTeleporter>());
+        // Destroy(Ship.GetComponent<Ship>());
         // Destroy(Ship); // TODO HOW TO FIX THIS???
         #endregion
         Ship = null;
