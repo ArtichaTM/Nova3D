@@ -8,24 +8,34 @@ public class MiscellaneousFunctions : MonoBehaviour
     public static MiscellaneousFunctions Instance {get; private set;}
 
     public ReactiveProperty<bool> IsIntroAnimating {get; private set;} = new(false);
+    public SerialDisposable AnimationDelayDisposable {get; private set;} = new();
+    public SerialDisposable AnimationDisposable {get; private set;} = new();
 
     void Start() { Instance = this; }
 
     public void IntroAnimation() {
+        if (!AnimationDelayDisposable.IsDisposed) AnimationDelayDisposable.Dispose();
+        if (!AnimationDisposable.IsDisposed) AnimationDisposable.Dispose();
+
         GameObject ship = MainLogic.Instance.Ship;
         Transform CameraTarget = ship.transform.GetChild(0);
         Assert.AreEqual(CameraTarget.name, "CameraTarget", "CameraTarget should be first child of ship");
         Transform MainCamera = MainLogic.Instance.MainCamera.transform;
         IsIntroAnimating.Value = true;
 
-        SerialDisposable instant_disposable = new();
+        AnimationDelayDisposable = new();
         float speed = 0f;
-        instant_disposable.Disposable = Observable
+        AnimationDelayDisposable.Disposable = Observable
             .NextFrame()
             .Delay(TimeSpan.FromSeconds(Settings.CameraAnimationDelay))
             .Subscribe(_ => {
-                SerialDisposable instant_disposable2 = new();
-                instant_disposable2.Disposable = Observable
+                if (
+                    StateSwitcher.Instance.State.Value != State.CameraAnimation
+                    &&
+                    StateSwitcher.Instance.State.Value != State.InGameMenu
+                ) return;
+                AnimationDisposable = new();
+                AnimationDisposable.Disposable = Observable
                     .EveryUpdate()
                     .TakeWhile(_ => 
                         Vector3.Distance(CameraTarget.position, MainCamera.position)
@@ -40,7 +50,7 @@ public class MiscellaneousFunctions : MonoBehaviour
                             *(CameraTarget.position - MainCamera.position)
                         );
                         speed += Time.deltaTime;
-                    }, _ => instant_disposable2.Dispose(), _ => {
+                    }, _ => AnimationDisposable.Dispose(), _ => {
                         // Based on current state, pausing or continue-ing game
                         switch (StateSwitcher.Instance.State.Value) {
                             case State.CameraAnimation: {
@@ -58,10 +68,10 @@ public class MiscellaneousFunctions : MonoBehaviour
                         }
                         MainCamera.parent = CameraTarget;
                         IsIntroAnimating.Value = false;
-                        instant_disposable2.Dispose();
+                        AnimationDisposable.Dispose();
                     })
                     ;
-                instant_disposable.Dispose();
+                AnimationDelayDisposable.Dispose();
             })
         ;
     }

@@ -211,6 +211,8 @@ public class StateSwitcher : MonoBehaviour
                     }
                     case global::State.MainMenu: {
                                 MainLogic.Instance.Finished.Value = true;
+                                MiscellaneousFunctions.Instance.AnimationDisposable.Dispose();
+
                                 SwitchMenu(to);
                         break;
                     }
