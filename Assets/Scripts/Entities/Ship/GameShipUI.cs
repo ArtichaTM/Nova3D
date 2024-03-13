@@ -2,7 +2,7 @@ using UnityEngine;
 using R3;
 using UnityEngine.Assertions;
 
-internal struct HealthUI {
+internal readonly struct HealthUI {
     public readonly RectTransform Background;
     public readonly RectTransform Fill;
 
@@ -18,7 +18,7 @@ internal struct HealthUI {
         Background.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, health);
 }
 
-internal struct ShieldUI {
+internal readonly struct ShieldUI {
     public readonly RectTransform Background;
     public readonly RectTransform Fill;
 
