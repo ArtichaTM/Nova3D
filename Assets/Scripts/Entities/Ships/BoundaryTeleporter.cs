@@ -33,7 +33,7 @@ public class BoundaryTeleporter : MonoBehaviour
 
         CenterCollider
             .OnTriggerExitAsObservable()
-            .Where(x => x.gameObject.name == "Boundary")
+            .Where(x => x.gameObject == MainLogic.Instance.Boundary)
             .Subscribe(InitiateTeleport)
             .AddTo(Disposables);
     }

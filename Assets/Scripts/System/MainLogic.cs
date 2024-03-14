@@ -93,6 +93,10 @@ public class MainLogic : MonoBehaviour
     [SerializeField]
     GameObject _DefaultCamera;
     public GameObject DefaultCamera => _DefaultCamera;
+
+    [SerializeField]
+    GameObject _Boundary;
+    public GameObject Boundary => _Boundary;
     #endregion
 
     #region Permanent Variables
@@ -109,9 +113,12 @@ public class MainLogic : MonoBehaviour
         Assert.IsNotNull(_ShipExample, "_ShipExample can't be null. Check script in inspector");
         Assert.IsNotNull(_MainCamera, "_MainCamera example can't be null. Check script in inspector");
         Assert.IsNotNull(_DefaultCamera, "_DefaultCamera can't be null. Check script in inspector");
+        Assert.IsNotNull(_Boundary, "_Boundary can't be null. Check script in inspector");
         Assert.AreEqual(GameObject.Find("UI").transform.GetChild(0).gameObject.name, "GameUI");
         Assert.AreEqual(GameObject.Find("UI").transform.GetChild(1).gameObject.name, "Menus");
         Assert.IsNotNull(GameObject.Find("System/Particles"));
+        Assert.IsNotNull(_MainCamera.GetComponent<Camera>());
+        Assert.IsNotNull(_Boundary.GetComponent<BoxCollider>());
         #endregion
 
         Instance = this;
