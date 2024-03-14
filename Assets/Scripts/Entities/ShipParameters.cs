@@ -47,7 +47,6 @@ public class ShipParameters : MonoBehaviour
     readonly public ReactiveProperty<Parameter> SpeedRotationRoll = new(Parameter.Create(.04f));
     readonly public ReactiveProperty<Parameter> SpeedRotationYaw = new(Parameter.Create(1f));
     readonly public ReactiveProperty<Parameter> SpeedRotationPitch = new(Parameter.Create(10f));
-    readonly public ReactiveProperty<Parameter> ShipBasicAbilities = new(Parameter.Create(1f));
     readonly public ReactiveProperty<Parameter> HealthMax = new(Parameter.Create(100f));
     readonly public ReactiveProperty<Parameter> ShieldMax = new(Parameter.Create(100f));
     readonly public ReactiveProperty<Parameter> FireCooldownMax = new(Parameter.Create(1f));
@@ -73,9 +72,9 @@ public class ShipParameters : MonoBehaviour
     public float MovementSpeed => (SpeedForward.Value + SpeedBackwards.Value) / 2;
     public float ShipDurability => Shield.Value + Health.Value;
     public float ShipDurabilityMax => ShieldMax.Value + HealthMax.Value;
+    #endregion
 
     public readonly List<ParticleController> ParticleThrusters = new();
-    #endregion
 
     List<Transform> GetAllThrusters() => MainLogic.FindChildrenByName(transform, "ThrustTarget");
 
