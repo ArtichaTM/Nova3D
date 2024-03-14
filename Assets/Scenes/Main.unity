@@ -2050,7 +2050,6 @@ GameObject:
   - component: {fileID: 1730654828}
   - component: {fileID: 1730654830}
   - component: {fileID: 1730654829}
-  - component: {fileID: 1730654831}
   m_Layer: 0
   m_Name: Sparks
   m_TagString: Untagged
@@ -6879,22 +6878,6 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
---- !u!114 &1730654831
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1730654827}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61986af8869138b44b6f191e32ab1a43, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DisableEmissionsOnDisable: 1
-  StartEnabled: 0
-  RotationCopy: 0
-  ShapeRadiusCopy: 1
 --- !u!1 &1864763305
 GameObject:
   m_ObjectHideFlags: 0
@@ -7010,6 +6993,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1880027487}
+  - component: {fileID: 1880027488}
   m_Layer: 0
   m_Name: ThrustTarget
   m_TagString: Untagged
@@ -7032,6 +7016,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1091381598}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!114 &1880027488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1880027486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d738540bb48fd544682299f671ce78d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targets:
+  - {fileID: 1730654830}
+  DisableEmissionsOnDisable: 1
+  StartEnabled: 0
+  RotationCopy: 0
+  ShapeRadiusCopy: 1
 --- !u!1 &1900959726
 GameObject:
   m_ObjectHideFlags: 0

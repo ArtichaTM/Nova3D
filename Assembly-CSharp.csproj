@@ -71,10 +71,10 @@
     <Compile Include="Assets\Scripts\Entities\Ships\ShipParameters.cs" />
     <Compile Include="Assets\Scripts\Entities\Ship\GameShipUI.cs" />
     <Compile Include="Assets\UI\UI_Controller.cs" />
+    <Compile Include="Assets\Scripts\System\Particles\ParticleTargetSettings.cs" />
     <Compile Include="Assets\Scripts\System\MainLogic.cs" />
     <Compile Include="Assets\Scripts\System\Settings.cs" />
     <Compile Include="Assets\Scripts\Entities\Ship\Ship.cs" />
-    <Compile Include="Assets\Scripts\System\Particles\ParticleComponent.cs" />
     <Compile Include="Assets\Scripts\Entities\Ship\MouseLock.cs" />
   </ItemGroup>
   <ItemGroup>
