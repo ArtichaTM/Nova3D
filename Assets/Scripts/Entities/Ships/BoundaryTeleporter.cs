@@ -48,13 +48,13 @@ public class BoundaryTeleporter : MonoBehaviour
             else
                 ribo.MovePosition(new(-extents.x, 0f, 0f));
         }
-        else if (Math.Abs(fromCenter.y) > extents.y) {
+        if (Math.Abs(fromCenter.y) > extents.y) {
             if (fromCenter.y < 0)
                 ribo.MovePosition(new(0f, extents.y, 0f));
             else
                 ribo.MovePosition(new(0f, -extents.y, 0f));
         }
-        else if (Math.Abs(fromCenter.z) > extents.z) {
+        if (Math.Abs(fromCenter.z) > extents.z) {
             if (fromCenter.z < 0)
                 ribo.MovePosition(new(0f, 0f, extents.z));
             else

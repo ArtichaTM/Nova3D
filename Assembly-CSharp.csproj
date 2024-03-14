@@ -69,6 +69,7 @@
     <Compile Include="Assets\Scripts\System\StateSwitcher.cs" />
     <Compile Include="Assets\Scripts\System\MiscellaneousFunctions.cs" />
     <Compile Include="Assets\Scripts\Entities\Ships\ShipParameters.cs" />
+    <Compile Include="Assets\Scripts\Entities\Ships\ProjectionsController.cs" />
     <Compile Include="Assets\Scripts\Entities\Ship\GameShipUI.cs" />
     <Compile Include="Assets\UI\UI_Controller.cs" />
     <Compile Include="Assets\Scripts\System\Particles\ParticleTargetSettings.cs" />
