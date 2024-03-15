@@ -175,7 +175,7 @@ public class ShipParameters : MonoBehaviour
     }
 
     void Finish() {
-        // Disposables.Dispose(); Another BUG
+        Disposables.Dispose();
         if (!HealthCooldownUpdateDisposable?.IsDisposed ?? false) HealthCooldownUpdateDisposable.Dispose();
         if (!ShieldCooldownUpdateDisposable?.IsDisposed ?? false) ShieldCooldownUpdateDisposable.Dispose();
         if (!HealthRegenerationUpdateDisposable?.IsDisposed ?? false) HealthRegenerationUpdateDisposable.Dispose();

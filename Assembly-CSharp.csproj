@@ -89,7 +89,6 @@
     <None Include="Assets\Packages\Microsoft.Bcl.TimeProvider.8.0.0\useSharedDesignerContext.txt" />
     <None Include="Assets\Packages\Microsoft.Bcl.TimeProvider.8.0.0\LICENSE.TXT" />
     <None Include="Assets\UI\Settings\VTA.uxml" />
-    <None Include="Assets\Packages\R3.1.1.2\lib\netstandard2.1\R3.dll" />
     <None Include="Assets\Packages\System.ComponentModel.Annotations.5.0.0\useSharedDesignerContext.txt" />
     <None Include="Assets\Packages\Microsoft.Bcl.AsyncInterfaces.6.0.0\THIRD-PARTY-NOTICES.TXT" />
     <None Include="Assets\Packages\Microsoft.Bcl.AsyncInterfaces.6.0.0\lib\netstandard2.1\Microsoft.Bcl.AsyncInterfaces.xml" />
@@ -98,11 +97,12 @@
     <None Include="Assets\Packages\System.ComponentModel.Annotations.5.0.0\THIRD-PARTY-NOTICES.TXT" />
     <None Include="Assets\Packages\System.ComponentModel.Annotations.5.0.0\version.txt" />
     <None Include="Assets\Packages\Microsoft.Bcl.AsyncInterfaces.6.0.0\useSharedDesignerContext.txt" />
-    <None Include="Assets\Packages\R3.1.1.2\lib\netstandard2.1\R3.xml" />
     <None Include="Assets\Packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.xml" />
     <None Include="Assets\Packages\Microsoft.Bcl.TimeProvider.8.0.0\lib\netstandard2.0\Microsoft.Bcl.TimeProvider.xml" />
     <None Include="Assets\UI\MainMenu\VTA.uxml" />
     <None Include="Assets\Packages\System.Threading.Channels.8.0.0\lib\netstandard2.1\System.Threading.Channels.xml" />
+    <None Include="Assets\Packages\R3.1.1.10\lib\netstandard2.1\R3.dll" />
+    <None Include="Assets\Packages\R3.1.1.10\lib\netstandard2.1\R3.xml" />
     <None Include="Assets\Packages\System.ComponentModel.Annotations.5.0.0\lib\netstandard2.1\System.ComponentModel.Annotations.dll" />
     <None Include="Assets\Packages\System.Threading.Channels.8.0.0\LICENSE.TXT" />
     <None Include="Assets\Packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll" />
@@ -457,7 +457,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="R3">
-      <HintPath>Assets\Packages\R3.1.1.2\lib\netstandard2.1\R3.dll</HintPath>
+      <HintPath>Assets\Packages\R3.1.1.10\lib\netstandard2.1\R3.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.VisualScripting.Antlr3.Runtime">

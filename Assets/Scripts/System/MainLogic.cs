@@ -190,13 +190,7 @@ public class MainLogic : MonoBehaviour
             DefaultCamera.transform.position,
             DefaultCamera.transform.rotation
         );
-        #region UnFixable bug
-        Ship.SetActive(false);
-        Ship.name = "DeletedShip";
-        Destroy(Ship.GetComponent<MouseLock>());
-        Destroy(Ship.GetComponent<BoundaryTeleporter>());
-        // Destroy(Ship); // TODO HOW TO FIX THIS???
-        #endregion
+        Destroy(Ship);
         Ship = null;
 
         GameObject.Find("System/UI/GameUI").SetActive(false);
