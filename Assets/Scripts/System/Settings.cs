@@ -9,6 +9,7 @@ public class Settings : MonoBehaviour
     public static ReactiveProperty<bool> invertedMouseVertical = new(true);
     public static ReactiveProperty<bool> invertedMouseHorizontal = new(false);
     public static ReactiveProperty<float> GameStartCameraArriveSpeed = new(1f);
+    public static ReactiveProperty<bool> EqualizeYawPitch = new(true);
 
     public static float InvertMouseVertical() => invertedMouseVertical.Value switch {
         true => -1,

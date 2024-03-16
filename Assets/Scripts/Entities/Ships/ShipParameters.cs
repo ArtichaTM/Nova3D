@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using R3;
+using UnityEngine.Assertions;
 
 public struct Parameter {
     private readonly float additions;
@@ -44,7 +45,7 @@ public class ShipParameters : MonoBehaviour
     #region ColdVariables
     readonly public ReactiveProperty<Parameter> SpeedForward = new(Parameter.Create(10f));
     readonly public ReactiveProperty<Parameter> SpeedBackwards = new(Parameter.Create(5f));
-    readonly public ReactiveProperty<Parameter> SpeedRotationRoll = new(Parameter.Create(.04f));
+    readonly public ReactiveProperty<Parameter> SpeedRotationRoll = new(Parameter.Create(1f));
     readonly public ReactiveProperty<Parameter> SpeedRotationYaw = new(Parameter.Create(1f));
     readonly public ReactiveProperty<Parameter> SpeedRotationPitch = new(Parameter.Create(10f));
     readonly public ReactiveProperty<Parameter> HealthMax = new(Parameter.Create(100f));
@@ -91,6 +92,15 @@ public class ShipParameters : MonoBehaviour
         }
 
         Disposables = new(3);
+
+        if (Settings.EqualizeYawPitch.Value) {
+            BoxCollider collider = GetComponent<BoxCollider>();
+            Assert.IsNotNull(collider);
+            Vector3 bounds = collider.bounds.size;
+            float proportion_YawPitch = bounds.x/bounds.y;
+            SpeedRotationYaw.Value *= proportion_YawPitch;
+            SpeedRotationPitch.Value /= proportion_YawPitch;
+        }
 
         MainLogic.Instance.Paused
             .Skip(1) // Skipping first call because Paused by default

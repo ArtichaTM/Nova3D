@@ -6,6 +6,7 @@
             <ui:Slider label="Transition speed" high-value="1.5" focusable="false" name="transitionSpeed" page-size="0" low-value="0.1" class="text slider" />
             <ui:Toggle label="Mouse invert vertical" name="mouseInvertVertical" class="text" />
             <ui:Toggle label="Mouse invert horizontal" name="mouseInvertHorizontal" class="text" />
+            <ui:Toggle label="EqualizeYawPitch" name="equalizeYawPitch" tooltip="Makes yaw and pitch speed equal" class="text" />
         </ui:VisualElement>
         <ui:VisualElement name="Elements2" class="elements" />
     </ui:VisualElement>
