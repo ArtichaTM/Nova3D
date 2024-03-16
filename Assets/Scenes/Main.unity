@@ -332,7 +332,11 @@ Camera:
   m_GameObject: {fileID: 72843562}
   m_Enabled: 1
   serializedVersion: 2
+<<<<<<< HEAD
+  m_ClearFlags: 1
+=======
   m_ClearFlags: 4
+>>>>>>> 240aa38967450d02d743773044445e9fa71e765c
   m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -1080,7 +1084,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10756, guid: 0000000000000000e000000000000000, type: 0}
+  - {fileID: -382652638819485698, guid: 028fbca6d7288ec4abfa50a7492f4d1f, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1545,6 +1549,8 @@ Transform:
   - {fileID: 51350724}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+<<<<<<< HEAD
+=======
 --- !u!1 &1257857580
 GameObject:
   m_ObjectHideFlags: 0
@@ -1586,6 +1592,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+>>>>>>> 240aa38967450d02d743773044445e9fa71e765c
 --- !u!1 &1303600684
 GameObject:
   m_ObjectHideFlags: 0
@@ -7678,7 +7685,6 @@ MeshFilter:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 1257857582}
   - {fileID: 1124740943}
   - {fileID: 72843565}
   - {fileID: 146332882}
