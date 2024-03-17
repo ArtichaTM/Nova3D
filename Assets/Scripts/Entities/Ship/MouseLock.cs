@@ -34,8 +34,8 @@ public class MouseLock : MonoBehaviour
         Observable
             .EveryUpdate()
             .Subscribe(_ => ribi.AddRelativeTorque(
-                Input.GetAxis("Mouse Y")*Settings.InvertMouseVertical() * parameters.SpeedRotationPitch.Value,
                 Input.GetAxis("Mouse X")*Settings.InvertMouseHorizontal() * parameters.SpeedRotationYaw.Value,
+                Input.GetAxis("Mouse Y")*Settings.InvertMouseVertical() * parameters.SpeedRotationPitch.Value,
                 0f
             ))
             .AddTo(PauseDisposables)

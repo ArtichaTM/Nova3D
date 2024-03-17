@@ -10,7 +10,8 @@ public class Projection : MonoBehaviour
     readonly public ReactiveProperty<Color> FresnelColor = new();
 
     List<MeshRenderer> renderers;
-
+    public Vector3 Offset = Vector3.zero;
+    public Transform ParentFollow = null;
     void Start()
     {
         renderers = new List<MeshRenderer>(GetComponentsInChildren<MeshRenderer>());
@@ -18,7 +19,7 @@ public class Projection : MonoBehaviour
             x => x.material = MainLogic.Instance.Assets.ProjectionAura
         );
 
-        Disposables = new(2);
+        Disposables = new(3);
         FresnelPower
             .Subscribe(power => renderers.ForEach(
                 render => render.material.SetFloat("FresnelPower", power)
@@ -32,5 +33,16 @@ public class Projection : MonoBehaviour
             ))
             .AddTo(ref Disposables)
             ;
+
+        Observable
+            .EveryUpdate(Settings.PreciseProjections.Value ? UnityFrameProvider.Update : UnityFrameProvider.FixedUpdate)
+            .Subscribe(_ => transform.SetPositionAndRotation(
+                ParentFollow.position + Offset,
+                ParentFollow.rotation
+            )   )
+            .AddTo(ref Disposables)
+            ;
     }
+
+    void OnDestroy() => Disposables.Dispose();
 }

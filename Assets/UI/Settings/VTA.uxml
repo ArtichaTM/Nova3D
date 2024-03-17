@@ -7,6 +7,7 @@
             <ui:Toggle label="Mouse invert vertical" name="mouseInvertVertical" class="text" />
             <ui:Toggle label="Mouse invert horizontal" name="mouseInvertHorizontal" class="text" />
             <ui:Toggle label="EqualizeYawPitch" name="equalizeYawPitch" tooltip="Makes yaw and pitch speed equal" class="text" />
+            <ui:Toggle label="Precise Projections" name="preciseProjections" tooltip="Makes all projections more precise. High performance impact" class="text" />
         </ui:VisualElement>
         <ui:VisualElement name="Elements2" class="elements" />
     </ui:VisualElement>

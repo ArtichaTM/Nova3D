@@ -74,6 +74,7 @@ public class StateSwitcher : MonoBehaviour
         controllerSettings.ui.Q<Toggle>("mouseInvertVertical").value = Settings.invertedMouseVertical.Value;
         controllerSettings.ui.Q<Toggle>("mouseInvertHorizontal").value = Settings.invertedMouseHorizontal.Value;
         controllerSettings.ui.Q<Toggle>("equalizeYawPitch").value = Settings.EqualizeYawPitch.Value;
+        controllerSettings.ui.Q<Toggle>("preciseProjections").value = Settings.PreciseProjections.Value;
         #endregion
 
         #region InGameMenuUI

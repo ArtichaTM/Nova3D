@@ -25,9 +25,8 @@ public class ProjectionController : MonoBehaviour
         if (Model == null)
             throw new UnityException($"Can't find \"Model\" gameobject in {name}");
 
-        ProjectionsParent = new GameObject("Projections").transform;
+        ProjectionsParent = new GameObject($"{name}_Projections").transform;
         ProjectionsParent.SetPositionAndRotation(transform.position, transform.rotation);
-        ProjectionsParent.SetParent(transform, true);
 
         Bounds bounds = Boundary.bounds;
         for (short sign_x = -1; sign_x < 2; sign_x += 1)
@@ -40,14 +39,19 @@ public class ProjectionController : MonoBehaviour
                     position_offset.x *= sign_x;
                     position_offset.y *= sign_y;
                     position_offset.z *= sign_z;
-                    Transform projection = Instantiate(
+
+                    Transform projectionTransform = Instantiate(
                         original: Model,
                         position: transform.position + position_offset,
                         rotation: transform.rotation,
                         parent  : ProjectionsParent
                     );
-                    projection.name = $"{sign_x} {sign_y} {sign_z}";
-                    Projections.Add(projection.gameObject.AddComponent<Projection>());
+                    projectionTransform.name = $"{sign_x} {sign_y} {sign_z}";
+
+                    Projection projection = projectionTransform.gameObject.AddComponent<Projection>();
+                    Projections.Add(projection);
+                    projection.Offset = position_offset;
+                    projection.ParentFollow = transform;
         }
 
         Disposables = new(2);
@@ -59,5 +63,12 @@ public class ProjectionController : MonoBehaviour
             .Subscribe(color => Projections.ForEach(projection => projection.FresnelColor.Value = color))
             .AddTo(ref Disposables)
             ;
+    }
+
+    void OnDestroy() {
+        if (Model != null) {
+            Disposables.Dispose();
+            Destroy(ProjectionsParent.gameObject);
+        }
     }
 }

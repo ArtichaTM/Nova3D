@@ -6,10 +6,11 @@ public class Settings : MonoBehaviour
 {
     #region VisibleParameters
     public static ReactiveProperty<float> transitionsSpeed = new(0.3f);
-    public static ReactiveProperty<bool> invertedMouseVertical = new(true);
+    public static ReactiveProperty<bool> invertedMouseVertical = new(false);
     public static ReactiveProperty<bool> invertedMouseHorizontal = new(false);
     public static ReactiveProperty<float> GameStartCameraArriveSpeed = new(1f);
     public static ReactiveProperty<bool> EqualizeYawPitch = new(true);
+    public static ReactiveProperty<bool> PreciseProjections = new(false);
 
     public static float InvertMouseVertical() => invertedMouseVertical.Value switch {
         true => -1,
