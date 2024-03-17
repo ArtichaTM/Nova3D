@@ -11,6 +11,11 @@ public class Settings : MonoBehaviour
     public static ReactiveProperty<float> GameStartCameraArriveSpeed = new(1f);
     public static ReactiveProperty<bool> EqualizeYawPitch = new(true);
     public static ReactiveProperty<bool> PreciseProjections = new(false);
+    public static ReactiveProperty<Color> BoundaryColor = new(Color.green);
+    public static ReactiveProperty<float> BoundaryAppearDistance = new(20f);
+    public static ReactiveProperty<float> BoundaryHoleFactor = new(20f);
+    public static ReactiveProperty<float> BoundaryMinimumOpacity = new(0f);
+    public static ReactiveProperty<float> BoundaryMaximumOpacity = new(1f);
 
     public static float InvertMouseVertical() => invertedMouseVertical.Value switch {
         true => -1,
@@ -29,7 +34,5 @@ public class Settings : MonoBehaviour
     public readonly static string teleporterName = "TeleportTrigger";
     public readonly static float CameraAnimationDelay = 2f;
     public readonly static float CameraAnimationDistanceMinimum = 2f;
-
-
     #endregion
 }

@@ -12,6 +12,10 @@
     min-width: 200px;
 }
 
+.slider > VisualElement {
+    max-width: 100px;
+}
+
 .button {
     margin-top: 1px;
     margin-right: auto;

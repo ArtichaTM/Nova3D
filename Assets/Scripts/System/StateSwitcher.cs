@@ -70,11 +70,16 @@ public class StateSwitcher : MonoBehaviour
         #endregion
 
         #region SettingsUI
-        controllerSettings.ui.Q<Slider>("transitionSpeed").value = Settings.transitionsSpeed.Value;
-        controllerSettings.ui.Q<Toggle>("mouseInvertVertical").value = Settings.invertedMouseVertical.Value;
-        controllerSettings.ui.Q<Toggle>("mouseInvertHorizontal").value = Settings.invertedMouseHorizontal.Value;
-        controllerSettings.ui.Q<Toggle>("equalizeYawPitch").value = Settings.EqualizeYawPitch.Value;
-        controllerSettings.ui.Q<Toggle>("preciseProjections").value = Settings.PreciseProjections.Value;
+        controllerSettings.ui.Q<Slider>("transitionSpeed"       ).value = Settings.transitionsSpeed.Value       ;
+        controllerSettings.ui.Q<Toggle>("mouseInvertVertical"   ).value = Settings.invertedMouseVertical.Value  ;
+        controllerSettings.ui.Q<Toggle>("mouseInvertHorizontal" ).value = Settings.invertedMouseHorizontal.Value;
+        controllerSettings.ui.Q<Toggle>("equalizeYawPitch"      ).value = Settings.EqualizeYawPitch.Value       ;
+        controllerSettings.ui.Q<Toggle>("preciseProjections"    ).value = Settings.PreciseProjections.Value     ;
+
+        controllerSettings.ui.Q<Slider>("boundaryAppearDistance").value = Settings.BoundaryAppearDistance.Value ;
+        controllerSettings.ui.Q<Slider>("boundaryHoleFactor"    ).value = Settings.BoundaryHoleFactor.Value     ;
+        controllerSettings.ui.Q<Slider>("boundaryMinimumOpacity").value = Settings.BoundaryMinimumOpacity.Value ;
+        controllerSettings.ui.Q<Slider>("boundaryMaximumOpacity").value = Settings.BoundaryMaximumOpacity.Value ;
         #endregion
 
         #region InGameMenuUI

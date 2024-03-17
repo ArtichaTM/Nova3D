@@ -3,12 +3,17 @@
     <Style src="project://database/Assets/UI/defaults.uss?fileID=7433441132597879392&amp;guid=0036fbc2f7bee4442bbc3e0591eed396&amp;type=3#defaults" />
     <ui:VisualElement name="root" class="root" style="min-width: 640px; min-height: 360px; max-width: 1920px; max-height: 1080px; margin-top: 5%; margin-right: 5%; margin-bottom: 5%; margin-left: 5%; flex-direction: row; flex-basis: 100%;">
         <ui:VisualElement name="Elements1" class="elements">
-            <ui:Slider label="Transition speed" high-value="1.5" focusable="false" name="transitionSpeed" page-size="0" low-value="0.1" class="text slider" />
+            <ui:Slider label="Transition speed" high-value="1.5" name="transitionSpeed" page-size="0" low-value="0.1" class="text slider" />
             <ui:Toggle label="Mouse invert vertical" name="mouseInvertVertical" class="text" />
             <ui:Toggle label="Mouse invert horizontal" name="mouseInvertHorizontal" class="text" />
             <ui:Toggle label="EqualizeYawPitch" name="equalizeYawPitch" tooltip="Makes yaw and pitch speed equal" class="text" />
             <ui:Toggle label="Precise Projections" name="preciseProjections" tooltip="Makes all projections more precise. High performance impact" class="text" />
         </ui:VisualElement>
-        <ui:VisualElement name="Elements2" class="elements" />
+        <ui:VisualElement name="Elements2" class="elements">
+            <ui:Slider label="Boundary Appear Distance" high-value="300" name="boundaryAppearDistance" page-size="0" low-value="1" class="text slider" />
+            <ui:Slider label="Boundary Hole Factor" high-value="1" name="boundaryHoleFactor" page-size="0" low-value="0" class="text slider" />
+            <ui:Slider label="Boundary Minimum Opacity" high-value="1" name="boundaryMinimumOpacity" page-size="0" low-value="0" show-input-field="false" class="text slider" />
+            <ui:Slider label="Boundary Maximum Opacity" high-value="1" name="boundaryMaximumOpacity" page-size="0" low-value="0" class="text slider" />
+        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
