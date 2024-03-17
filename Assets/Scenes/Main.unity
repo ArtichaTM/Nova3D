@@ -868,8 +868,12 @@ PrefabInstance:
       value: Boundary
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: d6b7ab33ae36a32439a30258e15b83cf, type: 3}
+      propertyPath: m_Layer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: d6b7ab33ae36a32439a30258e15b83cf, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 126
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -936,7 +940,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 414406948}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: Particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1226,7 +1230,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 634152524}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: ProjectionAura
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2006,7 +2010,7 @@ GameObject:
   - component: {fileID: 1512744864}
   - component: {fileID: 1512744866}
   - component: {fileID: 1512744865}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: Aura
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2436,7 +2440,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1701476901}
   - component: {fileID: 1701476902}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: Thruster
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2588,7 +2592,7 @@ GameObject:
   - component: {fileID: 1730654828}
   - component: {fileID: 1730654830}
   - component: {fileID: 1730654829}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: Sparks
   m_TagString: Untagged
   m_Icon: {fileID: 0}

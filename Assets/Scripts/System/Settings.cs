@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class Settings : MonoBehaviour
 {
-
     #region VisibleParameters
     public static SerializableReactiveProperty<float> transitionsSpeed = new(0.3f);
     public static SerializableReactiveProperty<bool> invertedMouseVertical = new(false);
@@ -16,7 +15,16 @@ public class Settings : MonoBehaviour
     public static SerializableReactiveProperty<float> BoundaryHoleFactor = new(20f);
     public static SerializableReactiveProperty<float> BoundaryMinimumOpacity = new(0f);
     public static SerializableReactiveProperty<float> BoundaryMaximumOpacity = new(1f);
+    #endregion
 
+    #region ReadonlyParameters
+    public readonly static float spawnSpeed = 300f;
+    public readonly static string teleporterName = "TeleportTrigger";
+    public readonly static float CameraAnimationDelay = 2f;
+    public readonly static float CameraAnimationDistanceMinimum = 2f;
+    #endregion
+
+    #region Shortcuts
     public static float InvertMouseVertical() => invertedMouseVertical.Value switch {
         true => -1,
         false => 1
@@ -25,14 +33,5 @@ public class Settings : MonoBehaviour
         true => -1,
         false => 1
     };
-
-    #endregion
-
-    #region ReadonlyParameters
-
-    public readonly static float spawnSpeed = 300f;
-    public readonly static string teleporterName = "TeleportTrigger";
-    public readonly static float CameraAnimationDelay = 2f;
-    public readonly static float CameraAnimationDistanceMinimum = 2f;
     #endregion
 }

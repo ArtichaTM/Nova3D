@@ -217,7 +217,7 @@ public class StateSwitcher : MonoBehaviour
                 if (StateToController(CurrentState.Value).IsAnimating.Value) yield break;
                 switch (to) {
                     case State.MainMenu: {
-                                SwitchMenu(to);
+                        SwitchMenu(to);
                         break;
                     }
                     default:
@@ -230,8 +230,8 @@ public class StateSwitcher : MonoBehaviour
                 UnRegisterForSettingsChanges();
                 switch (to) {
                     case State.MainMenu: {
-                                SettingsSave();
-                                SwitchMenu(to);
+                        SettingsSave();
+                        SwitchMenu(to);
                         break;
                     }
                     default:
@@ -243,15 +243,14 @@ public class StateSwitcher : MonoBehaviour
                 if (StateToController(CurrentState.Value).IsAnimating.Value) yield break;
                 switch (to) {
                     case State.CameraAnimation: {
-                                TargetFadeOut(CurrentState.Value);
-                                MainLogic.Instance.Finished.Value = false;
-                                CurrentState.Value = to;
+                        TargetFadeOut(CurrentState.Value);
+                        MainLogic.Instance.Finished.Value = false;
+                        CurrentState.Value = to;
                         break;
                     }
                     case State.Settings: {
-                                // TODO: Update settings
-                                RegisterForSettingsChanges();
-                                SwitchMenu(to);
+                        RegisterForSettingsChanges();
+                        SwitchMenu(to);
                         break;
                     }
                     case State.Unlocks:
@@ -260,7 +259,7 @@ public class StateSwitcher : MonoBehaviour
                     case State.Changelog: 
                     case State.Scores: 
                     case State.Credits: {
-                                SwitchMenu(to);
+                        SwitchMenu(to);
                         break;
                     }
                     default:
@@ -272,27 +271,26 @@ public class StateSwitcher : MonoBehaviour
                 if (StateToController(CurrentState.Value).IsAnimating.Value) yield break;
                 switch (to) {
                     case State.Game: {
-                                TargetFadeOut(CurrentState.Value);
+                        TargetFadeOut(CurrentState.Value);
                         if (!MiscellaneousFunctions.Instance.IsIntroAnimating.Value) {
-                                    MainLogic.Instance.Paused.Value = false;
+                            MainLogic.Instance.Paused.Value = false;
                         }
-                                CurrentState.Value = to;
+                            CurrentState.Value = to;
                         break;
                     }
                     case State.Upgrades: {
-                                SwitchMenu(to);
+                        SwitchMenu(to);
                         break;
                     }
                     case State.MainMenu: {
-                                MainLogic.Instance.Finished.Value = true;
-                                MiscellaneousFunctions.Instance.AnimationDisposable.Dispose();
-
-                                SwitchMenu(to);
+                        MainLogic.Instance.Finished.Value = true;
+                        MiscellaneousFunctions.Instance.AnimationDisposable.Dispose();
+                        SwitchMenu(to);
                         break;
                     }
                     case State.CameraAnimation: {
-                                TargetFadeOut(CurrentState.Value);
-                                CurrentState.Value = to;
+                        TargetFadeOut(CurrentState.Value);
+                        CurrentState.Value = to;
                         break;
                     }
                     default:
@@ -303,13 +301,13 @@ public class StateSwitcher : MonoBehaviour
             case State.Game: {
                 switch (to) {
                     case State.InGameMenu: {
-                                TargetFadeIn(to);
-                                MainLogic.Instance.Paused.Value = true;
+                        TargetFadeIn(to);
+                        MainLogic.Instance.Paused.Value = true;
                         break;
                     }
                     case State.Upgrades: {
-                                SwitchMenu(to);
-                                MainLogic.Instance.Paused.Value = true;
+                        SwitchMenu(to);
+                        MainLogic.Instance.Paused.Value = true;
                         break;
                     }
                     default:
@@ -321,9 +319,9 @@ public class StateSwitcher : MonoBehaviour
                 if (StateToController(CurrentState.Value).IsAnimating.Value) yield break;
                 switch (to) {
                     case State.Game: {
-                                TargetFadeOut(CurrentState.Value);
-                                MainLogic.Instance.Paused.Value = false;
-                                CurrentState.Value = to;
+                        TargetFadeOut(CurrentState.Value);
+                        MainLogic.Instance.Paused.Value = false;
+                        CurrentState.Value = to;
                         break;
                     }
                     default:
@@ -334,7 +332,7 @@ public class StateSwitcher : MonoBehaviour
             case State.Start: {
                 switch (to) {
                     case State.MainMenu: {
-                                TargetFadeIn(to);
+                        TargetFadeIn(to);
                         break;
                     }
                     default:
@@ -345,14 +343,14 @@ public class StateSwitcher : MonoBehaviour
             case State.CameraAnimation: {
                 switch (to) {
                     case State.Game: {
-                                MainLogic.Instance.Paused.Value = false;
-                                CurrentState.Value = to;
+                        MainLogic.Instance.Paused.Value = false;
+                        CurrentState.Value = to;
                         break;
                     }
                     case State.InGameMenu: {
-                                TargetFadeIn(to);
+                        TargetFadeIn(to);
                         if (!MiscellaneousFunctions.Instance.IsIntroAnimating.Value) {
-                                    MainLogic.Instance.Paused.Value = false;
+                            MainLogic.Instance.Paused.Value = false;
                         }
                         break;
                     }
