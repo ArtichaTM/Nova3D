@@ -12,4 +12,4 @@
   * Installable via NuGet Packet Manager    
 ## Models
 Main folder for models is [Assets/Models](Assets/Models/). For work needs:
-* Excalibur_Morgan.blend (Temporary ship model)
+* Ship.blend: Main ship model
