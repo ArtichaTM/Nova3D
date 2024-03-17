@@ -1,21 +1,21 @@
-using System;
 using R3;
 using UnityEngine;
 
 public class Settings : MonoBehaviour
 {
+
     #region VisibleParameters
-    public static ReactiveProperty<float> transitionsSpeed = new(0.3f);
-    public static ReactiveProperty<bool> invertedMouseVertical = new(false);
-    public static ReactiveProperty<bool> invertedMouseHorizontal = new(false);
-    public static ReactiveProperty<float> GameStartCameraArriveSpeed = new(1f);
-    public static ReactiveProperty<bool> EqualizeYawPitch = new(true);
-    public static ReactiveProperty<bool> PreciseProjections = new(false);
-    public static ReactiveProperty<Color> BoundaryColor = new(Color.green);
-    public static ReactiveProperty<float> BoundaryAppearDistance = new(20f);
-    public static ReactiveProperty<float> BoundaryHoleFactor = new(20f);
-    public static ReactiveProperty<float> BoundaryMinimumOpacity = new(0f);
-    public static ReactiveProperty<float> BoundaryMaximumOpacity = new(1f);
+    public static SerializableReactiveProperty<float> transitionsSpeed = new(0.3f);
+    public static SerializableReactiveProperty<bool> invertedMouseVertical = new(false);
+    public static SerializableReactiveProperty<bool> invertedMouseHorizontal = new(false);
+    public static SerializableReactiveProperty<float> GameStartCameraArriveSpeed = new(1f);
+    public static SerializableReactiveProperty<bool> EqualizeYawPitch = new(true);
+    public static SerializableReactiveProperty<bool> PreciseProjections = new(false);
+    public static SerializableReactiveProperty<Color> BoundaryColor = new(Color.green);
+    public static SerializableReactiveProperty<float> BoundaryAppearDistance = new(20f);
+    public static SerializableReactiveProperty<float> BoundaryHoleFactor = new(20f);
+    public static SerializableReactiveProperty<float> BoundaryMinimumOpacity = new(0f);
+    public static SerializableReactiveProperty<float> BoundaryMaximumOpacity = new(1f);
 
     public static float InvertMouseVertical() => invertedMouseVertical.Value switch {
         true => -1,

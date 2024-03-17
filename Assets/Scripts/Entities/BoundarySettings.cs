@@ -4,7 +4,7 @@ using R3;
 [RequireComponent(typeof(MeshRenderer))]
 public class BoundarySettings : MonoBehaviour
 {
-    DisposableBag Disposables = new(10);
+    DisposableBag Disposables = new(11);
 
     readonly public ReactiveProperty<Color> Color = new(UnityEngine.Color.green);
     readonly public ReactiveProperty<float> AppearDistance = new();
@@ -38,23 +38,23 @@ public class BoundarySettings : MonoBehaviour
             ;
 
         Color
-            .Subscribe(color => render.material.SetColor("Color", color))
+            .Subscribe(color => render.material.SetColor("_Color", color))
             .AddTo(ref Disposables)
             ;
         AppearDistance
-            .Subscribe(distance => render.material.SetFloat("AppearDistance", distance))
+            .Subscribe(distance => render.material.SetFloat("_AppearDistance", distance))
             .AddTo(ref Disposables)
             ;
         HoleFactor
-            .Subscribe(factor => render.material.SetFloat("HoleFactor", factor))
+            .Subscribe(factor => render.material.SetFloat("_HoleFactor", factor))
             .AddTo(ref Disposables)
             ;
         MinimumOpacity
-            .Subscribe(opacity => render.material.SetFloat("MinimumOpacity", opacity))
+            .Subscribe(opacity => render.material.SetFloat("_MinimumOpacity", opacity))
             .AddTo(ref Disposables)
             ;
         MaximumOpacity
-            .Subscribe(opacity => render.material.SetFloat("MaximumOpacity", opacity))
+            .Subscribe(opacity => render.material.SetFloat("_MaximumOpacity", opacity))
             .AddTo(ref Disposables)
             ;
     }

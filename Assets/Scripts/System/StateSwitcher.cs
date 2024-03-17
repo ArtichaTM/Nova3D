@@ -31,6 +31,8 @@ public class StateSwitcher : MonoBehaviour
         get => LastAnimation.IsAnimating.Value;
     }
 
+    DisposableBag SettingsObservables;
+
     void Start()
     {
         #region Assertions
@@ -57,6 +59,19 @@ public class StateSwitcher : MonoBehaviour
 
     public void PostInit()
     {
+        UI_Init();
+        #region InGameMenuUI
+        controllerInGameMenu.ui.Q<Button>("Continue").clicked += () => {
+            if (MiscellaneousFunctions.Instance.IsIntroAnimating.Value)
+                SwitchState(State.CameraAnimation);
+            else
+                SwitchState(State.Game);
+        };
+        controllerInGameMenu.ui.Q<Button>("MainMenu").clicked += () => SwitchState(State.MainMenu);
+        #endregion
+    }
+
+    void UI_Init() {
         #region MenuUI
         controllerMainMenu.ui.Q<Button>("Start"    ).clicked += () => SwitchState(State.CameraAnimation);
         // controllerMainMenu.ui.Q<Button>("Unlocks"  ).clicked += () => SwitchState(State.Unlocks        );
@@ -81,16 +96,66 @@ public class StateSwitcher : MonoBehaviour
         controllerSettings.ui.Q<Slider>("boundaryMinimumOpacity").value = Settings.BoundaryMinimumOpacity.Value ;
         controllerSettings.ui.Q<Slider>("boundaryMaximumOpacity").value = Settings.BoundaryMaximumOpacity.Value ;
         #endregion
+    }
 
-        #region InGameMenuUI
-        controllerInGameMenu.ui.Q<Button>("Continue").clicked += () => {
-            if (MiscellaneousFunctions.Instance.IsIntroAnimating.Value)
-                SwitchState(State.CameraAnimation);
-            else
-                SwitchState(State.Game);
-        };
-        controllerInGameMenu.ui.Q<Button>("MainMenu").clicked += () => SwitchState(State.MainMenu);
-        #endregion
+    void RegisterForSettingsChanges() {
+        SettingsObservables = new(9);
+        VisualElement el = controllerSettings.ui;
+        Observable
+            .EveryValueChanged(el.Q<Slider>("transitionSpeed"), x => x.value)
+            .Subscribe(value => Settings.transitionsSpeed.Value=value)
+            .AddTo(ref SettingsObservables)
+            ;
+        Observable
+            .EveryValueChanged(el.Q<Toggle>("mouseInvertVertical"), x => x.value)
+            .Subscribe(value => Settings.invertedMouseVertical.Value=value)
+            .AddTo(ref SettingsObservables)
+            ;
+        Observable
+            .EveryValueChanged(el.Q<Toggle>("mouseInvertHorizontal"), x => x.value)
+            .Subscribe(value => Settings.invertedMouseHorizontal.Value=value)
+            .AddTo(ref SettingsObservables)
+            ;
+        Observable
+            .EveryValueChanged(el.Q<Toggle>("equalizeYawPitch"), x => x.value)
+            .Subscribe(value => Settings.EqualizeYawPitch.Value=value)
+            .AddTo(ref SettingsObservables)
+            ;
+        Observable
+            .EveryValueChanged(el.Q<Toggle>("preciseProjections"), x => x.value)
+            .Subscribe(value => Settings.PreciseProjections.Value=value)
+            .AddTo(ref SettingsObservables)
+            ;
+        Observable
+            .EveryValueChanged(el.Q<Slider>("boundaryAppearDistance"), x => x.value)
+            .Subscribe(value => Settings.BoundaryAppearDistance.Value=value)
+            .AddTo(ref SettingsObservables)
+            ;
+        Observable
+            .EveryValueChanged(el.Q<Slider>("boundaryHoleFactor"), x => x.value)
+            .Subscribe(value => Settings.BoundaryHoleFactor.Value=value)
+            .AddTo(ref SettingsObservables)
+            ;
+        Observable
+            .EveryValueChanged(el.Q<Slider>("boundaryMinimumOpacity"), x => x.value)
+            .Subscribe(value => {
+                Settings.BoundaryMinimumOpacity.Value=value;
+                el.Q<Slider>("boundaryMaximumOpacity").lowValue = value;
+            })
+            .AddTo(ref SettingsObservables)
+            ;
+        Observable
+            .EveryValueChanged(el.Q<Slider>("boundaryMaximumOpacity"), x => x.value)
+            .Subscribe(value => {
+                Settings.BoundaryMaximumOpacity.Value=value;
+                el.Q<Slider>("boundaryMinimumOpacity").highValue = value;
+            })
+            .AddTo(ref SettingsObservables)
+            ;
+    }
+
+    void UnRegisterForSettingsChanges() {
+        SettingsObservables.Dispose();
     }
 
     public void SettingsSave() {
@@ -162,6 +227,7 @@ public class StateSwitcher : MonoBehaviour
             }
             case State.Settings: {
                 if (StateToController(CurrentState.Value).IsAnimating.Value) yield break;
+                UnRegisterForSettingsChanges();
                 switch (to) {
                     case State.MainMenu: {
                                 SettingsSave();
@@ -184,6 +250,7 @@ public class StateSwitcher : MonoBehaviour
                     }
                     case State.Settings: {
                                 // TODO: Update settings
+                                RegisterForSettingsChanges();
                                 SwitchMenu(to);
                         break;
                     }
