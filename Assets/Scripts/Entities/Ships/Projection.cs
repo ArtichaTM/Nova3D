@@ -4,7 +4,7 @@ using R3;
 
 public class Projection : MonoBehaviour
 {
-    DisposableBag Disposables;
+    DisposableBag Disposables = new(2);
 
     readonly public ReactiveProperty<float> FresnelPower = new(1f);
     readonly public ReactiveProperty<Color> FresnelColor = new();
@@ -19,7 +19,6 @@ public class Projection : MonoBehaviour
             x => x.material = MainLogic.Instance.Assets.ProjectionAura
         );
 
-        Disposables = new(3);
         FresnelPower
             .Subscribe(power => renderers.ForEach(
                 render => render.material.SetFloat("FresnelPower", power)
@@ -39,7 +38,7 @@ public class Projection : MonoBehaviour
             .Subscribe(_ => transform.SetPositionAndRotation(
                 ParentFollow.position + Offset,
                 ParentFollow.rotation
-            )   )
+            ), _ => {if (ParentFollow == null) return; }, null)
             .AddTo(ref Disposables)
             ;
     }
