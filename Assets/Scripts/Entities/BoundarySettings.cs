@@ -4,17 +4,39 @@ using R3;
 [RequireComponent(typeof(MeshRenderer))]
 public class BoundarySettings : MonoBehaviour
 {
-    DisposableBag Disposables = new(5);
+    DisposableBag Disposables = new(10);
 
-    public ReactiveProperty<Color> Color;
-    public ReactiveProperty<float> AppearDistance;
-    public ReactiveProperty<float> HoleFactor;
-    public ReactiveProperty<float> MinimumOpacity;
-    public ReactiveProperty<float> MaximumOpacity;
+    readonly public ReactiveProperty<Color> Color = new(UnityEngine.Color.green);
+    readonly public ReactiveProperty<float> AppearDistance = new();
+    readonly public ReactiveProperty<float> HoleFactor = new();
+    readonly public ReactiveProperty<float> MinimumOpacity = new();
+    readonly public ReactiveProperty<float> MaximumOpacity = new();
 
     void Start()
     {
         MeshRenderer render = GetComponent<MeshRenderer>();
+
+        Settings.BoundaryColor
+            .Subscribe(color => Color.Value = color)
+            .AddTo(ref Disposables)
+            ;
+        Settings.BoundaryAppearDistance
+            .Subscribe(distance => AppearDistance.Value = distance)
+            .AddTo(ref Disposables)
+            ;
+        Settings.BoundaryHoleFactor
+            .Subscribe(factor => HoleFactor.Value = factor)
+            .AddTo(ref Disposables)
+            ;
+        Settings.BoundaryMinimumOpacity
+            .Subscribe(opacity => MinimumOpacity.Value = opacity)
+            .AddTo(ref Disposables)
+            ;
+        Settings.BoundaryMaximumOpacity
+            .Subscribe(opacity => MaximumOpacity.Value = opacity)
+            .AddTo(ref Disposables)
+            ;
+
         Color
             .Subscribe(color => render.material.SetColor("Color", color))
             .AddTo(ref Disposables)
