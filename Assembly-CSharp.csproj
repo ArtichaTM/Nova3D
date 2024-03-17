@@ -65,13 +65,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Entities\Ships\ShipParameters.cs" />
+    <Compile Include="Assets\Scripts\Entities\Ships\Projection.cs" />
     <Compile Include="Assets\Scripts\System\Particles\ParticleTargetSettings.cs" />
     <Compile Include="Assets\Scripts\System\Settings.cs" />
     <Compile Include="Assets\Scripts\Entities\Ship\MouseLock.cs" />
+    <Compile Include="Assets\Scripts\Entities\Ships\ProjectionController.cs" />
     <Compile Include="Assets\Scripts\System\Particles\ParticleController.cs" />
     <Compile Include="Assets\Scripts\Entities\Ships\BoundaryTeleporter.cs" />
     <Compile Include="Assets\Scripts\System\StateSwitcher.cs" />
     <Compile Include="Assets\Scripts\System\MiscellaneousFunctions.cs" />
+    <Compile Include="Assets\Scripts\System\AssetsExplorer.cs" />
     <Compile Include="Assets\Scripts\Entities\Ship\GameShipUI.cs" />
     <Compile Include="Assets\UI\UI_Controller.cs" />
     <Compile Include="Assets\Scripts\System\MainLogic.cs" />

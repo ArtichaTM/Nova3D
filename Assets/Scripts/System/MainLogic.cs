@@ -99,6 +99,10 @@ public class MainLogic : MonoBehaviour
     public GameObject Boundary => _Boundary;
     #endregion
 
+    #region Shortcuts
+    public AssetsExplorer Assets => GetComponent<AssetsExplorer>();
+    #endregion
+
     #region Permanent Variables
     readonly Dictionary<string, ParticleController> AllParticles = new();
     #endregion
