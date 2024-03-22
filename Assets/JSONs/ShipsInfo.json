@@ -1,0 +1,13 @@
+{
+    "Ships": [
+        {
+            "Name": "Default",
+            "PrefabPath": "Assets/Models/Ships/Default.blend",
+            "NosePosition": [0, 0, 0.265],
+            "BoundaryCenter": [-0.005524397, 0.04728875, -0.228076],
+            "BoundarySize": [0.6132434, 2.713117, 1.901937],
+            "CameraPosition": [2.16, 0, -1.44],
+            "CameraRotation": [10, 0, 0]
+        }
+    ]
+}

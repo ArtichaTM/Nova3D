@@ -1,0 +1,11 @@
+{
+    "Weapons": [
+        {
+            "Name": "Default",
+            "PrefabPath": "Assets/Models/WeaponProjectiles/Default.blend",
+            "SpawnWithoutOffset": true,
+            "BoundaryCenter": [0, 0, 0],
+            "BoundarySize": [0, 0, 0]
+        }
+    ]
+}

@@ -12,4 +12,8 @@
   * Installable via NuGet Packet Manager    
 ## Models
 Main folder for models is [Assets/Models](Assets/Models/). For work needs:
-* Ship.blend: Main ship model
+* Ships: Main folder for all ships models
+  * Default.blend: Main ship model. Set at game start
+* WeaponProjectiles: Main folder for all projectiles that fired by ships
+  * Default.blend: Projectile model for Default ship model
+

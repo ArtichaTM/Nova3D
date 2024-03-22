@@ -64,9 +64,13 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.3.19f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Entities\Ships\ShipTypes\JsonInfo.cs" />
+    <Compile Include="Assets\Scripts\Entities\Ships\ShipTypes\Players.cs" />
+    <Compile Include="Assets\Scripts\Entities\Ships\WeaponTypes\Interfaces.cs" />
     <Compile Include="Assets\Scripts\Entities\Ships\ShipParameters.cs" />
     <Compile Include="Assets\Scripts\Entities\BoundarySettings.cs" />
     <Compile Include="Assets\Scripts\Entities\Ships\Projection.cs" />
+    <Compile Include="Assets\Scripts\Entities\Ships\WeaponTypes\JsonInfo.cs" />
     <Compile Include="Assets\Scripts\System\Particles\ParticleTargetSettings.cs" />
     <Compile Include="Assets\Scripts\System\Settings.cs" />
     <Compile Include="Assets\Scripts\Entities\Ship\MouseLock.cs" />
@@ -76,10 +80,13 @@
     <Compile Include="Assets\Scripts\System\StateSwitcher.cs" />
     <Compile Include="Assets\Scripts\System\MiscellaneousFunctions.cs" />
     <Compile Include="Assets\Scripts\System\AssetsExplorer.cs" />
+    <Compile Include="Assets\Scripts\Entities\Ships\ShipTypes\Interfaces.cs" />
     <Compile Include="Assets\Scripts\Entities\Ship\GameShipUI.cs" />
     <Compile Include="Assets\UI\UI_Controller.cs" />
     <Compile Include="Assets\Scripts\System\MainLogic.cs" />
+    <Compile Include="Assets\Scripts\JSONUtiliy.cs" />
     <Compile Include="Assets\Scripts\Entities\Ship\Ship.cs" />
+    <Compile Include="Assets\Scripts\Entities\Ships\WeaponTypes\Players.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\UI\defaults.uss" />
