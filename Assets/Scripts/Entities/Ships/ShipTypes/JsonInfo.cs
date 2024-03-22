@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 using static JSONUtility.Functions;
 
 namespace ShipTypes {
@@ -27,11 +28,19 @@ namespace ShipTypes {
             public Dictionary<string, ShipInfo> Ships;
 
             public ShipsList(PreShipsList preList) {
+                #region Assertions
+                Assert.AreNotEqual(preList.Ships.Count, 0, "Ships JSON can't have 0 ships");
+                #endregion
+
                 Ships = new(preList.Ships.Count);
                 ShipsList current = this;
                 preList.Ships.ForEach((PreShipInfo preInfo) => 
                     current.Ships.Add(preInfo.Name, new(ref preInfo))
                 );
+
+                #region Assertions
+                Assert.IsTrue(Ships.ContainsKey("Default"), "Ships should contain Default Ship");
+                #endregion
             }
         }
 
@@ -44,6 +53,16 @@ namespace ShipTypes {
             public Vector3 CameraRotation;
 
             public ShipInfo(ref PreShipInfo preInfo) {
+                #region Assertions
+                Assert.IsNotNull(preInfo.PrefabPath);
+                Assert.IsNotNull(preInfo.NosePosition);
+                Assert.IsNotNull(preInfo.BoundaryCenter);
+                Assert.IsNotNull(preInfo.BoundarySize);
+                Assert.IsNotNull(preInfo.CameraPosition);
+                Assert.IsNotNull(preInfo.CameraRotation);
+                Assert.IsTrue(preInfo.PrefabPath.StartsWith("Assets"));
+                #endregion
+
                 PrefabPath = preInfo.PrefabPath;
                 NosePosition = ListToVector(preInfo.NosePosition);
                 BoundaryCenter = ListToVector(preInfo.BoundaryCenter);
