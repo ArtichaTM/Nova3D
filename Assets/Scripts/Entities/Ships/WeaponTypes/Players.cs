@@ -1,26 +1,23 @@
 using System.Threading;
 using UnityEngine;
+using R3;
 
 namespace WeaponsTypes {
     namespace Players {
-        class Simple : IPlayerWeapon
+        class Simple : PlayerWeapon
         {
-            public Ship PlayerShip { get; set; }
-            public ShipParameters Parameters { get; set; }
-            public GameObject PrefabModel { get; set; }
-
-            static readonly string ModelPrefabPath = "Assets/Models/WeaponProjectiles/Simple.blend";
-
-            public void FireWeapon()
-            {
-                
-            }
+            DisposableBag Disposables;
+            public override void FireWeapon() {}
 
             public void Start()
             {
                 new Thread(() => {
-                    PrefabModel = Resources.Load<GameObject>(ModelPrefabPath);
+                    PrefabModel = Resources.Load<GameObject>(WeaponInfo.PrefabPath);
                 }).Start();
+            }
+
+            public void OnDestroy() {
+                Disposables.Dispose();
             }
         }
     }

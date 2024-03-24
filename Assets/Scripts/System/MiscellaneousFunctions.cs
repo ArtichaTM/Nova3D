@@ -18,8 +18,9 @@ public class MiscellaneousFunctions : MonoBehaviour
         if (!AnimationDisposable.IsDisposed) AnimationDisposable.Dispose();
 
         GameObject ship = MainLogic.Instance.Ship;
-        Transform CameraTarget = ship.transform.GetChild(0);
-        Assert.AreEqual(CameraTarget.name, "CameraTarget", "CameraTarget should be first child of ship");
+        Assert.AreEqual(ship.transform.GetChild(0).name, "Model");
+        Assert.AreEqual(ship.transform.GetChild(1).name, "CameraTarget");
+        Transform CameraTarget = ship.transform.GetChild(1);
         Transform MainCamera = MainLogic.Instance.MainCamera.transform;
         IsIntroAnimating.Value = true;
 

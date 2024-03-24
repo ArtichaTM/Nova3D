@@ -13,22 +13,19 @@ namespace WeaponsTypes {
     IPlayerWeapon classes should check if ship variable present
     */ 
 
-    public interface IWeaponType {
-        ShipParameters Parameters { get; set; }
-        GameObject PrefabModel { get; set;}
+    abstract public class WeaponType : MonoBehaviour {
+        protected ShipParameters Parameters { get; set; }
+        protected GameObject PrefabModel { get; set;}
+        protected JSONInfo.WeaponInfo WeaponInfo => MainLogic.Instance.Assets.WeaponsInfo.Weapons[GetType().Name];
 
-        static string PrefabModelPath;
-
-        abstract void Start();
-        abstract void FireWeapon();
-
-        void ReloadCompleted() {}
-        void WeaponChanged(IWeaponType to) {}
+        abstract public void FireWeapon();
+        public void ReloadCompleted() {}
+        public void WeaponChanged(WeaponType to) {}
     }
 
     namespace Players {
-        public interface IPlayerWeapon : IWeaponType {
-            Ship PlayerShip { get; set; }
+        abstract public class PlayerWeapon : WeaponType {
+            protected Ship PlayerShip { get; set; }
         }
     }
 }

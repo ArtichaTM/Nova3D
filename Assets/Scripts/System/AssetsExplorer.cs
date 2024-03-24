@@ -4,8 +4,8 @@ using UnityEngine.Assertions;
 public class AssetsExplorer : MonoBehaviour
 {
     public Material ProjectionAura;
-    public TextAsset ShipsInfoJSON;
-    public TextAsset WeaponsInfoJSON;
+    [SerializeField] TextAsset ShipsInfoJSON;
+    [SerializeField] TextAsset WeaponsInfoJSON;
 
     public ShipTypes.JSONInfo.ShipsList ShipsInfo;
     public WeaponsTypes.JSONInfo.WeaponsList WeaponsInfo;

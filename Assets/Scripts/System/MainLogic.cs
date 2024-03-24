@@ -83,10 +83,6 @@ public class MainLogic : MonoBehaviour
 
     #region InspectorProperties
     [SerializeField]
-    GameObject _ShipExample;
-    GameObject ShipExample => _ShipExample;
-
-    [SerializeField]
     GameObject _MainCamera;
     public GameObject MainCamera => _MainCamera;
 
@@ -97,6 +93,15 @@ public class MainLogic : MonoBehaviour
     [SerializeField]
     GameObject _Boundary;
     public GameObject Boundary => _Boundary;
+
+    [SerializeField]
+    Vector3 _PlayerShipPosition;
+    public Vector3 PlayerShipPosition => _PlayerShipPosition;
+
+    [SerializeField]
+    Vector3 _PlayerShipRotation;
+    public Vector3 PlayerShipRotation => _PlayerShipRotation;
+
     #endregion
 
     #region Shortcuts
@@ -108,13 +113,13 @@ public class MainLogic : MonoBehaviour
     #endregion
 
     public GameObject Ship {get; private set;} = null;
+    public ShipTypes.Players.PlayerShip PlayerShip { get; private set; } = null;
 
     readonly CompositeDisposable GameDisposable = new();
 
     void Start()
     {
         #region Assertions
-        Assert.IsNotNull(_ShipExample, "_ShipExample can't be null. Check script in inspector");
         Assert.IsNotNull(_MainCamera, "_MainCamera example can't be null. Check script in inspector");
         Assert.IsNotNull(_DefaultCamera, "_DefaultCamera can't be null. Check script in inspector");
         Assert.IsNotNull(_Boundary, "_Boundary can't be null. Check script in inspector");
@@ -170,9 +175,8 @@ public class MainLogic : MonoBehaviour
         GameObject.Find("System/UI/GameUI").SetActive(true);
 
         #region Ship init
-        Ship = Instantiate(ShipExample);
-        Ship.name = "Ship";
-        Ship.SetActive(true);
+        PlayerShip = new ShipTypes.Players.Default(PlayerShipPosition, Quaternion.Euler(PlayerShipRotation));
+        Ship = PlayerShip.MainObject.gameObject;
         MiscellaneousFunctions.Instance.IntroAnimation();
         Ship.GetComponent<Rigidbody>().AddRelativeForce(0f, 0f, Settings.spawnSpeed);
         #endregion

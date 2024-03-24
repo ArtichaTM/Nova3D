@@ -22,6 +22,8 @@ namespace ShipTypes {
             public VectorList3 BoundarySize;
             public VectorList3 CameraPosition;
             public VectorList3 CameraRotation;
+            public VectorList3 ModelOffsetPosition;
+            public VectorList3 ModelOffsetRotation;
         }
 
         public struct ShipsList {
@@ -50,7 +52,9 @@ namespace ShipTypes {
             public Vector3 BoundaryCenter;
             public Vector3 BoundarySize;
             public Vector3 CameraPosition;
-            public Vector3 CameraRotation;
+            public Quaternion CameraRotation;
+            public Vector3 ModelOffsetPosition;
+            public Quaternion ModelOffsetRotation;
 
             public ShipInfo(ref PreShipInfo preInfo) {
                 #region Assertions
@@ -60,7 +64,8 @@ namespace ShipTypes {
                 Assert.IsNotNull(preInfo.BoundarySize);
                 Assert.IsNotNull(preInfo.CameraPosition);
                 Assert.IsNotNull(preInfo.CameraRotation);
-                Assert.IsTrue(preInfo.PrefabPath.StartsWith("Assets"));
+                Assert.IsNotNull(preInfo.ModelOffsetPosition);
+                Assert.IsNotNull(preInfo.ModelOffsetRotation);
                 #endregion
 
                 PrefabPath = preInfo.PrefabPath;
@@ -68,7 +73,9 @@ namespace ShipTypes {
                 BoundaryCenter = ListToVector(preInfo.BoundaryCenter);
                 BoundarySize = ListToVector(preInfo.BoundarySize);
                 CameraPosition = ListToVector(preInfo.CameraPosition);
-                CameraRotation = ListToVector(preInfo.CameraRotation);
+                CameraRotation = Quaternion.Euler(ListToVector(preInfo.CameraRotation));
+                ModelOffsetPosition = ListToVector(preInfo.ModelOffsetPosition);
+                ModelOffsetRotation = Quaternion.Euler(ListToVector(preInfo.ModelOffsetRotation));
             }
         }
 
